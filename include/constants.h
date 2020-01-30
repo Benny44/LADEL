@@ -1,3 +1,6 @@
+#ifndef LADEL_CONSTANTS_H
+#define LADEL_CONSTANTS_H
+
 #define TRUE 1
 #define FALSE 0
 
@@ -10,3 +13,4 @@
 #define UPPER 1 /**< Use only upper part of matrix*/
 #define LOWER 2 /**< Use only lower part of matrix*/
 
+#endif /*LADEL_CONSTANTS_H*/

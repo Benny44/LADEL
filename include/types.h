@@ -1,3 +1,6 @@
+#ifndef LADEL_TYPES_H
+#define LADEL_TYPES_H
+
 #ifdef DFLOAT
     typedef float ladel_double;
 #else
@@ -21,7 +24,8 @@ typedef struct compressed_column_sparse_matrix
     ladel_double* x; /**< numerical values (size nzmax) */
 
     ladel_int values; /**< has numerical values */
-    ladel_int symmetry; /** < type of symmetry */    
+    ladel_int symmetry; /**< type of symmetry */    
 
 } ladel_sparse_matrix;
 
+#endif /*LADEL_TYPES_H*/
