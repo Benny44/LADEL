@@ -3,7 +3,8 @@ project(LADELtest VERSION 0.1.0)
 
 SET(TEST_SRC
     src/run_all_tests.c
-    src/test_scale)
+    src/test_scale.c
+    src/test_matvec.c)
 
 add_executable(run_all_tests
     ${TEST_SRC}
