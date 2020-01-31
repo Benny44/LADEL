@@ -22,3 +22,4 @@ cd $builddir
 cmake $curdir -DCMAKE_BUILD_TYPE=debug -DUNITTESTS=ON 
 make
 ctest -VV
+# valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose bin/run_all_tests

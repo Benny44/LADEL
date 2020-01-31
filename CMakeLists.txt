@@ -6,12 +6,17 @@ project(LADEL VERSION 0.1.0)
 ############################################################
 SET(LIB_DIR ${CMAKE_CURRENT_BINARY_DIR}/../lib)
 
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${LIB_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
 ############################################################
 ################### Compilation options ####################
 ############################################################
 option (UNITTESTS "Perform unit testing" ON)
 
-
+if (UNIX)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wconversion")
+endif (UNIX)
 ############################################################
 #################### Build the library #####################
 ############################################################
