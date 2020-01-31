@@ -7,7 +7,7 @@
 #define SUCCESS 1
 #define FAIL 0
 
-#define NONE 0
+#define NONE -1
 
 #define UNSYMMETRIC 0
 #define UPPER 1 /**< Use only upper part of matrix*/

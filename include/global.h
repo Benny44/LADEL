@@ -22,20 +22,20 @@ static void *ladel_calloc(ladel_int n, size_t size)
 static void *ladel_free(void* p) 
 {
     if (p) free(p);
-    return NONE;
+    return NULL;
 }
 
 static void *ladel_realloc(void *p, ladel_int n, size_t size, ladel_int *status)
 {
     void *p_new;
     p_new = realloc(p, LADEL_MAX(n, 1) * size);
-    *status = (p_new != NONE);
+    *status = (p_new != NULL);
     return ((*status) ? p_new : p);
 }
 
 static ladel_sparse_matrix *ladel_sparse_free(ladel_sparse_matrix *M)
 {
-    if (!M) return NONE;
+    if (!M) return NULL;
     ladel_free(M->p);
     ladel_free(M->i);
     ladel_free(M->x);
@@ -47,7 +47,7 @@ static ladel_sparse_matrix *ladel_sparse_alloc(ladel_int nrow, ladel_int ncol,
                                                 ladel_int values)
 {
     ladel_sparse_matrix *M = (ladel_sparse_matrix *) ladel_calloc(1, sizeof(ladel_sparse_matrix));
-    if (!M) return NONE;
+    if (!M) return NULL;
     M->nrow = nrow;
     M->ncol = ncol;
     M->nzmax = nzmax;
@@ -55,7 +55,7 @@ static ladel_sparse_matrix *ladel_sparse_alloc(ladel_int nrow, ladel_int ncol,
     M->symmetry = symmetry;
     M->p = (ladel_int *) ladel_malloc(ncol+1, sizeof(ladel_int));
     M->i = (ladel_int *) ladel_malloc(nzmax, sizeof(ladel_int));
-    M->x = values ? (ladel_double *) ladel_malloc(nzmax, sizeof(ladel_double)) : NONE;
+    M->x = values ? (ladel_double *) ladel_malloc(nzmax, sizeof(ladel_double)) : NULL;
     if (!M->p || !M->i || (values && !M->x)) M = ladel_sparse_free(M);
     return M;
 }
@@ -63,7 +63,7 @@ static ladel_sparse_matrix *ladel_sparse_alloc(ladel_int nrow, ladel_int ncol,
 static ladel_int ladel_sparse_realloc(ladel_sparse_matrix* M, ladel_int nzmax)
 {
     ladel_int status_i, status, status_x = SUCCESS;
-    if (!M) return NONE;
+    if (!M) return NULL;
     if (nzmax <= 0) nzmax = M->p[M->ncol];
     M->i = (ladel_int *) ladel_realloc(M->i, nzmax, sizeof(ladel_int), &status_i);
     if (M->values) M->x = (ladel_double *) ladel_realloc(M->x, nzmax, sizeof(ladel_double), &status_x);
