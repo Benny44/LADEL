@@ -52,16 +52,16 @@ MU_TEST(test_scale_columns)
     ladel_double col_scale[NCOL] = {-2, 0.5, 1.5, 5, 10};
     ladel_scale_columns(M, col_scale);
     mu_assert_double_eq(M->x[0], -2.4, TOL);
-    mu_assert_double_eq(M->x[0], -7.2, TOL);
-    mu_assert_double_eq(M->x[0], -1, TOL);
-    mu_assert_double_eq(M->x[0], -1.5, TOL);
-    mu_assert_double_eq(M->x[0], 5.1, TOL);
-    mu_assert_double_eq(M->x[0], 1.65, TOL);
-    mu_assert_double_eq(M->x[0], 2.25, TOL);
-    mu_assert_double_eq(M->x[0], 8, TOL);
-    mu_assert_double_eq(M->x[0], 8.5, TOL);
-    mu_assert_double_eq(M->x[0], 5, TOL);
-    mu_assert_double_eq(M->x[0], -5, TOL);
+    mu_assert_double_eq(M->x[1], -7.2, TOL);
+    mu_assert_double_eq(M->x[2], -1, TOL);
+    mu_assert_double_eq(M->x[3], -1.5, TOL);
+    mu_assert_double_eq(M->x[4], 5.1, TOL);
+    mu_assert_double_eq(M->x[5], 1.65, TOL);
+    mu_assert_double_eq(M->x[6], 2.25, TOL);
+    mu_assert_double_eq(M->x[7], 8, TOL);
+    mu_assert_double_eq(M->x[8], 8.5, TOL);
+    mu_assert_double_eq(M->x[9], 5, TOL);
+    mu_assert_double_eq(M->x[10], -5, TOL);
 }
 
 MU_TEST(test_scale_scalar)
