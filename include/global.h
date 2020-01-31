@@ -7,6 +7,7 @@
 
 #define LADEL_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define LADEL_MIN(a, b) ((a) > (b) ? (b) : (a))
+#define LADEL_ABS(a) ((a) < 0 ? -(a) : (a))
 
 static void *ladel_malloc(ladel_int n, size_t size) 
 {
@@ -59,7 +60,7 @@ static ladel_sparse_matrix *ladel_sparse_alloc(ladel_int nrow, ladel_int ncol,
     return M;
 }
 
-ladel_int ladel_sparse_realloc(ladel_sparse_matrix* M, ladel_int nzmax)
+static ladel_int ladel_sparse_realloc(ladel_sparse_matrix* M, ladel_int nzmax)
 {
     ladel_int status_i, status, status_x = SUCCESS;
     if (!M) return NONE;

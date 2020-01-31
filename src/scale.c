@@ -1,3 +1,4 @@
+#include "global.h"
 #include "types.h"
 #include "scale.h"
 
@@ -34,7 +35,16 @@ void ladel_scale_scalar(ladel_sparse_matrix* M, ladel_double s)
 
 void ladel_infinity_norm_columns(ladel_sparse_matrix *M, ladel_double *norms)
 {
-
+    ladel_int index, col;
+    
+    for (col = 0; col < M->ncol; col++)
+    {
+        norms[col] = 0;
+        for (index = M->p[col]; index < M->p[col+1]; index++)
+        {
+            norms[col] = LADEL_MAX(norms[col], LADEL_ABS(M->x[index]));
+        }
+    }
 }
 
 void ladel_infinity_norm_rows(ladel_sparse_matrix *M, ladel_double *norms)
