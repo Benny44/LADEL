@@ -56,8 +56,8 @@ MU_TEST(test_tpose_matvec)
     ladel_tpose_matvec(M, x, y, TRUE);
     mu_assert_double_eq(y[0], -6, TOL);
     mu_assert_double_eq(y[1], -297, TOL);
-    mu_assert_double_eq(y[2], -1.1, TOL);
-    mu_assert_double_eq(y[3], 168.8, TOL);
+    mu_assert_double_eq(y[2], -1.25, TOL);
+    mu_assert_double_eq(y[3], 166.8, TOL);
     mu_assert_double_eq(y[4], -49.5, TOL);
 
     ladel_double temp[NCOL];
