@@ -25,5 +25,9 @@ void ladel_scale_rows(ladel_sparse_matrix* M, ladel_double* S)
 
 void ladel_scale_scalar(ladel_sparse_matrix* M, ladel_double s)
 {
-
+    ladel_int index;
+    for (index = 0; index < M->nzmax; index++) 
+    {
+        M->x[index] *= s;
+    }
 }

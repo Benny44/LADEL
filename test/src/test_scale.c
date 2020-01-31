@@ -69,16 +69,16 @@ MU_TEST(test_scale_scalar)
     ladel_double s = 100;
     ladel_scale_scalar(M, s);
     mu_assert_double_eq(M->x[0], 120, TOL);
-    mu_assert_double_eq(M->x[0], 360, TOL);
-    mu_assert_double_eq(M->x[0], -200, TOL);
-    mu_assert_double_eq(M->x[0], -300, TOL);
-    mu_assert_double_eq(M->x[0], 340, TOL);
-    mu_assert_double_eq(M->x[0], 110, TOL);
-    mu_assert_double_eq(M->x[0], 150, TOL);
-    mu_assert_double_eq(M->x[0], 160, TOL);
-    mu_assert_double_eq(M->x[0], 170, TOL);
-    mu_assert_double_eq(M->x[0], 50, TOL);
-    mu_assert_double_eq(M->x[0], -50, TOL);
+    mu_assert_double_eq(M->x[1], 360, TOL);
+    mu_assert_double_eq(M->x[2], -200, TOL);
+    mu_assert_double_eq(M->x[3], -300, TOL);
+    mu_assert_double_eq(M->x[4], 340, TOL);
+    mu_assert_double_eq(M->x[5], 110, TOL);
+    mu_assert_double_eq(M->x[6], 150, TOL);
+    mu_assert_double_eq(M->x[7], 160, TOL);
+    mu_assert_double_eq(M->x[8], 170, TOL);
+    mu_assert_double_eq(M->x[9], 50, TOL);
+    mu_assert_double_eq(M->x[10], -50, TOL);
 }
 
 MU_TEST_SUITE(suite_scale) 
