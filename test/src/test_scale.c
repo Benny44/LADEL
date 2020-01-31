@@ -81,6 +81,27 @@ MU_TEST(test_scale_scalar)
     mu_assert_double_eq(M->x[10], -50, TOL);
 }
 
+MU_TEST(test_infinity_norm_rows)
+{
+    ladel_double norms[NROW];
+    ladel_infinity_norm_rows(M, norms);
+    mu_assert_double_eq(norms[0], 3.4, TOL);
+    mu_assert_double_eq(norms[1], 2, TOL);
+    mu_assert_double_eq(norms[2], 3.6, TOL);
+    mu_assert_double_eq(norms[3], 3.0, TOL);
+}
+
+MU_TEST(test_infinity_norm_columns)
+{
+    ladel_double norms[NCOL];
+    ladel_infinity_norm_columns(M, norms);
+    mu_assert_double_eq(norms[0], 3.6, TOL);
+    mu_assert_double_eq(norms[1], 3, TOL);
+    mu_assert_double_eq(norms[2], 3.4, TOL);
+    mu_assert_double_eq(norms[3], 1.7, TOL);
+    mu_assert_double_eq(norms[4], 0.5, TOL);
+}
+
 MU_TEST_SUITE(suite_scale) 
 {
     MU_SUITE_CONFIGURE(NULL, NULL, scale_test_setup, scale_test_teardown);
@@ -88,4 +109,6 @@ MU_TEST_SUITE(suite_scale)
     MU_RUN_TEST(test_scale_rows);
     MU_RUN_TEST(test_scale_columns);
     MU_RUN_TEST(test_scale_scalar);
+    MU_RUN_TEST(test_infinity_norm_rows);
+    MU_RUN_TEST(test_infinity_norm_columns);
 }

@@ -31,3 +31,13 @@ void ladel_scale_scalar(ladel_sparse_matrix* M, ladel_double s)
         M->x[index] *= s;
     }
 }
+
+void ladel_infinity_norm_columns(ladel_sparse_matrix *M, ladel_double *norms)
+{
+
+}
+
+void ladel_infinity_norm_rows(ladel_sparse_matrix *M, ladel_double *norms)
+{
+
+}
