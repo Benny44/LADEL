@@ -5,8 +5,8 @@
 #include "constants.h"
 #include "stdlib.h"
 
-#define LADEL_MAX(a, b) (a) > (b) ? (a) : (b)
-#define LADEL_MIN(a, b) (a) > (b) ? (b) : (a)
+#define LADEL_MAX(a, b) ((a) > (b) ? (a) : (b))
+#define LADEL_MIN(a, b) ((a) > (b) ? (b) : (a))
 
 static void *ladel_malloc(ladel_int n, size_t size) 
 {
