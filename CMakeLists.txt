@@ -13,6 +13,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 ################### Compilation options ####################
 ############################################################
 option (UNITTESTS "Perform unit testing" ON)
+option (SIMPLE_COL_COUNTS "Simplify symbolic analysis (worse asymptotic time complexity)" OFF)
+
+if (SIMPLE_COL_COUNTS)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSIMPLE_COL_COUNTS")
+endif (SIMPLE_COL_COUNTS) 
 
 if (UNIX)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wconversion")

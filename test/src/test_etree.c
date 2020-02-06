@@ -46,8 +46,30 @@ MU_TEST(test_etree)
     }
 }
 
+#ifdef SIMPLE_COL_COUNTS
+MU_TEST(test_etree_and_col_counts)
+{
+    ladel_int etree[NCOL], etree_ref[NCOL] = {5, 2, 7, 5, 7, 6, 8, 9, 9, 10, NONE};
+    // ladel_int col_counts[NCOL], col_counts_ref[NCOL] = {3, 3, 4, 3, 3, 4, 4, 3, 3, 2, 1};
+    ladel_int col_counts[NCOL], col_counts_ref[NCOL] = {3, 6, 10, 13, 16, 20, 24, 27, 30, 32, 33};
+    ladel_int Lnz = ladel_etree_and_col_counts(M, etree, col_counts);
+    mu_assert_long_eq(Lnz, 33);
+    ladel_int i;
+    printf("\n");
+    for (i = 0; i < NCOL; i++) printf("Col count: %ld\n", col_counts[i]);
+    for (i = 0; i < NCOL; i++)
+    {
+        mu_assert_long_eq(etree[i], etree_ref[i]);
+        mu_assert_long_eq(col_counts[i], col_counts_ref[i]);        
+    }
+}
+#endif /*SIMPLE_COL_COUNTS*/
+
 MU_TEST_SUITE(suite_etree)
 {
     MU_SUITE_CONFIGURE(NULL, NULL, etree_test_setup, etree_test_teardown);
     MU_RUN_TEST(test_etree);
+    #ifdef SIMPLE_COL_COUNTS
+    MU_RUN_TEST(test_etree_and_col_counts);
+    #endif /*SIMPLE_COL_COUNTS*/
 }
