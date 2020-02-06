@@ -55,8 +55,6 @@ MU_TEST(test_etree_and_col_counts)
     ladel_int Lnz = ladel_etree_and_col_counts(M, etree, col_counts);
     mu_assert_long_eq(Lnz, 33);
     ladel_int i;
-    printf("\n");
-    for (i = 0; i < NCOL; i++) printf("Col count: %ld\n", col_counts[i]);
     for (i = 0; i < NCOL; i++)
     {
         mu_assert_long_eq(etree[i], etree_ref[i]);

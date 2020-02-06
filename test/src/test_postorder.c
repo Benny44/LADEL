@@ -37,7 +37,7 @@ void postorder_test_teardown(void)
 
 MU_TEST(test_postorder)
 {
-    ladel_int etree[NCOL], postorder[NCOL], postorder_ref[NCOL] = {2, 3, 5, 8, 1, 4, 6, 7, 9, 10, 11};
+    ladel_int etree[NCOL], postorder[NCOL], postorder_ref[NCOL] = {1, 2, 4, 7, 0, 3, 5, 6, 8, 9, 10};
     ladel_etree(M, etree);
     ladel_postorder(M, etree, postorder);
     
