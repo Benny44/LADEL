@@ -23,7 +23,8 @@ endif (UNIX)
 
 SET(SRC
     src/scale.c
-    src/matvec.c)
+    src/matvec.c
+    src/upper_diag.c)
 
 add_library(ladel ${SRC})
 target_include_directories(ladel
