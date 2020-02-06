@@ -25,7 +25,8 @@ SET(SRC
     src/scale.c
     src/matvec.c
     src/upper_diag.c
-    src/etree.c)
+    src/etree.c
+    src/postorder.c)
 
 add_library(ladel ${SRC})
 target_include_directories(ladel
