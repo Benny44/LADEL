@@ -38,9 +38,12 @@ void upper_diag_test_teardown(void)
 MU_TEST(test_to_upper_diag)
 {
     ladel_to_upper_diag(M);
+
+    mu_assert_long_eq(M->nzmax, 27);
+
     ladel_int Mp[NCOL+1] = {0, 1, 2, 4, 5, 6, 9, 11, 14, 16, 21, 27};
     ladel_int Mi[27] = {0, 1, 1, 2, 3, 4, 0, 3, 5, 0, 6, 1, 4, 7, 5, 8, 2, 3, 5, 7, 9, 2, 4, 6, 7, 9, 10};
-    ladel_double Mx[27] = {12, -2, 6, 10, -9, -14, 19, -11, 10, -10, 16, 19, -15, -14, -10, 13, -11, 18, -6, -12, -10, 5, -6, 14, 3, 2, 17, -9};
+    ladel_double Mx[27] = {12, -2, 10, -9, -14, 19, -11, 10, -10, 16, 19, -15, -14, -10, 13, -11, 18, -6, -12, -10, 5, -6, 14, 3, 2, 17, -9};
 
     ladel_int i;
     for (i = 0; i < NCOL+1; i++)
@@ -51,8 +54,7 @@ MU_TEST(test_to_upper_diag)
     {
         mu_assert_long_eq(M->i[i], Mi[i]);
         mu_assert_double_eq(M->x[i], Mx[i], TOL);
-    }
-    
+    } 
 }
 
 MU_TEST_SUITE(suite_upper_diag)
