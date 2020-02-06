@@ -5,7 +5,7 @@
 #define FALSE 0
 
 #define SUCCESS 1
-#define FAIL 0
+#define FAIL -1
 
 #define NONE -1
 
