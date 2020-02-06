@@ -7,7 +7,8 @@ SET(TEST_SRC
     src/test_matvec.c
     src/test_upper_diag.c
     src/test_etree.c
-    src/test_postorder.c)
+    src/test_postorder.c
+    src/test_col_counts.c)
 
 add_executable(run_all_tests
     ${TEST_SRC}
