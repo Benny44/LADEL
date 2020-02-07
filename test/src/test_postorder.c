@@ -5,6 +5,7 @@
 #include "postorder.h"
 
 ladel_sparse_matrix *M;
+ladel_symbolics *sym;
 #define NROW 11
 #define NCOL 11
 #define NZMAX 43
@@ -28,23 +29,26 @@ void postorder_test_setup(void)
     M->x[21] = 16; M->x[22] = 19; M->x[23] = 2; M->x[24] = -15; M->x[25] = -14; M->x[26] = -10; M->x[27] = 14; 
     M->x[28] = -10; M->x[29] = 13; M->x[30] = -11; M->x[31] = 18; M->x[32] = -6; M->x[33] = -12; M->x[34] = -10; 
     M->x[35] = 5; M->x[36] = -1; M->x[37] = -6; M->x[38] = 14; M->x[39] = 3; M->x[40] = 2; M->x[41] = 17; M->x[42] = -9;
+
+    sym = ladel_symbolics_alloc(NCOL);
 }
 
 void postorder_test_teardown(void)
 {
     ladel_sparse_free(M);
+    ladel_symbolics_free(sym);
 }
 
 MU_TEST(test_postorder)
 {
-    ladel_int etree[NCOL], postorder[NCOL], postorder_ref[NCOL] = {1, 2, 4, 7, 0, 3, 5, 6, 8, 9, 10};
-    ladel_etree(M, etree);
-    ladel_postorder(M, etree, postorder);
+    ladel_int postorder_ref[NCOL] = {1, 2, 4, 7, 0, 3, 5, 6, 8, 9, 10};
+    ladel_etree(M, sym);
+    ladel_postorder(M, sym);
     
     ladel_int i;
     for (i = 0; i < NCOL; i++)
     {
-        mu_assert_long_eq(postorder[i], postorder_ref[i]);
+        mu_assert_long_eq(sym->postorder[i], postorder_ref[i]);
     }
 }
 

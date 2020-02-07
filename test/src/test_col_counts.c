@@ -6,6 +6,7 @@
 #include "col_counts.h"
 
 ladel_sparse_matrix *M;
+ladel_symbolics *sym;
 #define NROW 11
 #define NCOL 11
 #define NZMAX 43
@@ -29,26 +30,29 @@ void col_counts_test_setup(void)
     M->x[21] = 16; M->x[22] = 19; M->x[23] = 2; M->x[24] = -15; M->x[25] = -14; M->x[26] = -10; M->x[27] = 14; 
     M->x[28] = -10; M->x[29] = 13; M->x[30] = -11; M->x[31] = 18; M->x[32] = -6; M->x[33] = -12; M->x[34] = -10; 
     M->x[35] = 5; M->x[36] = -1; M->x[37] = -6; M->x[38] = 14; M->x[39] = 3; M->x[40] = 2; M->x[41] = 17; M->x[42] = -9;
+
+    sym = ladel_symbolics_alloc(NCOL);
 }
 
 void col_counts_test_teardown(void)
 {
     ladel_sparse_free(M);
+    ladel_symbolics_free(sym);
 }
 
 MU_TEST(test_col_counts)
-{
-    ladel_int etree[NCOL], postorder[NCOL], col_counts[NCOL], col_counts_ref[NCOL] = {3, 6, 10, 13, 16, 20, 24, 27, 30, 32, 33};
-    ladel_etree(M, etree);
-    ladel_postorder(M, etree, postorder);
+{    
+    ladel_int col_counts_ref[NCOL] = {3, 6, 10, 13, 16, 20, 24, 27, 30, 32, 33};
+    ladel_etree(M, sym);
+    ladel_postorder(M, sym);
 
-    ladel_int Lnz = ladel_col_counts(M, etree, postorder, col_counts);
+    ladel_int Lnz = ladel_col_counts(M, sym);
     mu_assert_long_eq(Lnz, 33);
-    
+
     ladel_int col;
     for (col = 0; col < M->ncol; col++)
     {
-        mu_assert_long_eq(col_counts[col], col_counts_ref[col]);
+        mu_assert_long_eq(sym->col_counts[col], col_counts_ref[col]);
     }
 }
 

@@ -44,8 +44,9 @@ ladel_int ladel_least_common_ancestor(ladel_int subtree_root, ladel_int node, la
     
 }
 
-ladel_int ladel_col_counts(ladel_sparse_matrix *M, ladel_int *etree, ladel_int *postorder, ladel_int *col_counts)
+ladel_int ladel_col_counts(ladel_sparse_matrix *M, ladel_symbolics *sym)
 {
+    ladel_int *etree = sym->etree, *postorder = sym->postorder, *col_counts = sym->col_counts;
     if (!M || !etree || !postorder || !col_counts) return FAIL;
     
     ladel_int ncol = M->ncol, index, node, post_node, subtree_root, lca, type_of_leaf = NOT_A_LEAF;

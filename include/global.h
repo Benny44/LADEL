@@ -72,4 +72,26 @@ static ladel_int ladel_sparse_realloc(ladel_sparse_matrix* M, ladel_int nzmax)
     return status;
 }
 
+static ladel_symbolics *ladel_symbolics_free(ladel_symbolics *sym)
+{
+    if (!sym) return NULL;
+    ladel_free(sym->etree);
+    ladel_free(sym->postorder);
+    ladel_free(sym->col_counts);
+    ladel_free(sym->pinv);
+    return (ladel_symbolics *) ladel_free(sym);
+}
+
+static ladel_symbolics *ladel_symbolics_alloc(ladel_int ncol)
+{
+    ladel_symbolics *sym = (ladel_symbolics *) ladel_calloc(1, sizeof(ladel_symbolics));
+    if (!sym) return NULL;
+    sym->ncol = ncol;
+    sym->etree = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
+    sym->postorder = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
+    sym->col_counts = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
+    if (!sym->etree || !sym->postorder || !sym->col_counts) sym = ladel_symbolics_free(sym);
+    return sym;
+}
+
 #endif /*LADEL_GLOBAL_H*/

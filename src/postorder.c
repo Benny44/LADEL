@@ -31,8 +31,9 @@ static ladel_int ladel_depth_first_search(  ladel_int root,
     }
 }
 
-ladel_int ladel_postorder(ladel_sparse_matrix *M, ladel_int *etree, ladel_int *postorder)
+ladel_int ladel_postorder(ladel_sparse_matrix *M, ladel_symbolics *sym)
 {
+    ladel_int *etree = sym->etree, *postorder = sym->postorder;
     if (!M || !etree) return FAIL;
     ladel_int col, ncol = M->ncol, top, prev_root = NONE, post_index = 0;
     ladel_int *work, *first_child, *next_child, *stack, *roots;

@@ -2,8 +2,9 @@
 #include "global.h"
 #include "constants.h"
 
-ladel_int ladel_etree(ladel_sparse_matrix *M, ladel_int *etree)
+ladel_int ladel_etree(ladel_sparse_matrix *M, ladel_symbolics *sym)
 {
+    ladel_int *etree = sym->etree;
     ladel_int index, row, col, next;
     ladel_int *ancestor = (ladel_int *) ladel_malloc(M->ncol, sizeof(ladel_int));
     if (!ancestor) return FAIL;
@@ -34,8 +35,9 @@ ladel_int ladel_etree(ladel_sparse_matrix *M, ladel_int *etree)
 
 // #define SIMPLE_COL_COUNTS
 #ifdef SIMPLE_COL_COUNTS
-ladel_int ladel_etree_and_col_counts(ladel_sparse_matrix *M, ladel_int *etree, ladel_int *col_counts)
+ladel_int ladel_etree_and_col_counts(ladel_sparse_matrix *M, ladel_symbolics *sym)
 {
+    ladel_int *etree = sym->etree, *col_counts = sym->col_counts;
     ladel_int index, row, col, next;
     ladel_int *touched = ladel_malloc(M->ncol, sizeof(ladel_int));
     if (!touched) return FAIL;

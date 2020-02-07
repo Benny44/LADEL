@@ -28,4 +28,13 @@ typedef struct compressed_column_sparse_matrix
 
 } ladel_sparse_matrix;
 
+typedef struct symbolic_cholesky_information
+{
+    ladel_int ncol; /**<  number of columns in the analyzed matrix */
+    ladel_int *etree; /**< eliminations tree*/
+    ladel_int *postorder; /**< postordiring of the elimination tree */
+    ladel_int *col_counts; /** < column counts, stored as column pointers */
+    ladel_int *pinv; /** < fill-reducing ordering (AMD) */
+} ladel_symbolics;
+
 #endif /*LADEL_TYPES_H*/
