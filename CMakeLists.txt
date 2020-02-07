@@ -32,6 +32,7 @@ SET(SRC
     src/upper_diag.c
     src/etree.c
     src/postorder.c
+    src/transpose.c
     src/col_counts.c)
 
 add_library(ladel ${SRC})
