@@ -38,11 +38,13 @@ void col_counts_test_teardown(void)
 
 MU_TEST(test_col_counts)
 {
-    ladel_int etree[NCOL], postorder[NCOL], col_counts[NCOL], col_counts_ref[NCOL] = {3, 6, 10, 13, 16, 20, 24, 27, 30, 32, 33};;
+    ladel_int etree[NCOL], postorder[NCOL], col_counts[NCOL], col_counts_ref[NCOL] = {3, 6, 10, 13, 16, 20, 24, 27, 30, 32, 33};
     ladel_etree(M, etree);
+    ladel_postorder(M, etree, postorder);
+
     ladel_int Lnz = ladel_col_counts(M, etree, postorder, col_counts);
-    
     mu_assert_long_eq(Lnz, 33);
+    
     ladel_int col;
     for (col = 0; col < M->ncol; col++)
     {

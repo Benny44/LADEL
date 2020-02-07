@@ -1,7 +1,6 @@
 #include "types.h"
 #include "global.h"
 
-#define IS_ROOT(col) (etree[(col)] == NONE)
 #define STACK_NOT_EMPTY (top >= 0)
 
 static ladel_int ladel_depth_first_search(  ladel_int root, 
@@ -47,7 +46,7 @@ ladel_int ladel_postorder(ladel_sparse_matrix *M, ladel_int *etree, ladel_int *p
     for (col = 0; col < ncol; col++) first_child[col] = NONE;
     for (col = ncol-1; col >= 0; col--)
     {
-        if (IS_ROOT(col))
+        if (IS_ROOT(col, etree))
         {
             roots[col] = prev_root;
             prev_root = col;
