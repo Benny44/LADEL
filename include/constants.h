@@ -11,6 +11,6 @@
 
 #define UNSYMMETRIC 0
 #define UPPER 1 /**< Use only upper part of matrix*/
-#define LOWER 2 /**< Use only lower part of matrix*/
+#define LOWER -1 /**< Use only lower part of matrix*/
 
 #endif /*LADEL_CONSTANTS_H*/
