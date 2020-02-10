@@ -34,7 +34,9 @@ SET(SRC
         src/transpose.c
         src/col_counts.c
         src/ldl_symbolic.c
-        src/permutation.c)
+        src/permutation.c
+        src/copy.c)
+
 if (DEFINED AMD)
     SET(AMD_SRC
             amd/Source/amd_1.c    

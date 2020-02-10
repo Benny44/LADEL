@@ -65,6 +65,7 @@ MU_TEST(test_permute_inverse_vector)
     mu_assert_double_eq(y[1], x[5], TOL);
 }
 
+
 MU_TEST(test_permute_symmetric_matrix)
 {
     ladel_int permutation_vector[NCOL] = {2, 0, 5, 3, 4, 1};
@@ -82,10 +83,26 @@ MU_TEST(test_permute_symmetric_matrix)
     }
 }
 
+MU_TEST(test_permute_symmetric_matrix_without_permutation_vector)
+{
+    ladel_permute_symmetric_matrix(M, NULL, Mpp);
+    ladel_int index;
+    for (index = 0; index < NCOL+1; index++)
+    {
+        mu_assert_long_eq(Mpp->p[index], M->p[index]);
+    }
+    for (index = 0; index < NZMAX; index++)
+    {
+        mu_assert_long_eq(Mpp->i[index], M->i[index]);
+        mu_assert_double_eq(Mpp->x[index], M->x[index], TOL);
+    }
+}
+
 MU_TEST_SUITE(suite_permutation)
 {
     MU_SUITE_CONFIGURE(permutation_suite_setup, permutation_suite_teardown, permutation_test_setup, NULL);
     MU_RUN_TEST(test_permute_vector);
     MU_RUN_TEST(test_permute_inverse_vector);
     MU_RUN_TEST(test_permute_symmetric_matrix);
+    MU_RUN_TEST(test_permute_symmetric_matrix_without_permutation_vector);
 }
