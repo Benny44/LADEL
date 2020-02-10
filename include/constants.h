@@ -13,6 +13,9 @@
 #define UPPER 1 /**< Use only upper part of matrix*/
 #define LOWER -1 /**< Use only lower part of matrix*/
 
+#define AMD 1
+#define NO_ORDERING 0
+
 #define IS_ROOT(col, etree) ((etree)[(col)] == NONE)
 
 #endif /*LADEL_CONSTANTS_H*/
