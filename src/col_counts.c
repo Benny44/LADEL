@@ -94,8 +94,7 @@ ladel_int ladel_col_counts(ladel_sparse_matrix *M, ladel_symbolics *sym)
         if (!IS_ROOT(node, etree)) col_counts[etree[node]] += col_counts[node];
 
     for (node = 1; node < ncol; node++)
-    {
-        
+    { 
         col_counts[node] += col_counts[node-1];
     }
         

@@ -2,6 +2,8 @@
 #include "types.h"
 #include "global.h"
 #include "permutation.h"
+#include "transpose.h"
+#include "copy.h"
 
 #define NCOL 6
 #define NROW NCOL
@@ -71,6 +73,12 @@ MU_TEST(test_permute_symmetric_matrix)
     ladel_int permutation_vector[NCOL] = {2, 0, 5, 3, 4, 1};
     ladel_permute_symmetric_matrix(M, permutation_vector, Mpp);
     
+    /* Sort entries after permuting by doing a double transpose */
+    ladel_sparse_matrix *Mpp_transpose = ladel_transpose(Mpp, TRUE);
+    ladel_sparse_free(Mpp);
+    Mpp = ladel_transpose(Mpp_transpose, TRUE);
+    ladel_sparse_free(Mpp_transpose);
+
     ladel_int index;
     for (index = 0; index < NCOL+1; index++)
     {
