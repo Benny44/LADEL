@@ -9,7 +9,8 @@ SET(TEST_SRC
     src/test_etree.c
     src/test_postorder.c
     src/test_transpose.c
-    src/test_col_counts.c)
+    src/test_col_counts.c
+    src/test_permutation.c)
 
 add_executable(run_all_tests
     ${TEST_SRC}

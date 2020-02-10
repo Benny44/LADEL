@@ -7,10 +7,10 @@
     typedef double ladel_double;
 #endif
 
-#ifdef DINT
-    typedef int ladel_int;
-#else
+#ifdef DLONG
     typedef long ladel_int;
+#else
+    typedef int ladel_int;
 #endif
 
 typedef struct compressed_column_sparse_matrix 

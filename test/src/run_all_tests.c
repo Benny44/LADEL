@@ -6,6 +6,7 @@
 #include "test_postorder.h"
 #include "test_transpose.h"
 #include "test_col_counts.h"
+#include "test_permutation.h"
 
 int main(){
     MU_INITIALIZE();
@@ -16,6 +17,7 @@ int main(){
     MU_RUN_SUITE(suite_postorder);
     MU_RUN_SUITE(suite_transpose);
     MU_RUN_SUITE(suite_col_counts);
+    MU_RUN_SUITE(suite_permutation);
     MU_REPORT();
     return minunit_fail;
 }

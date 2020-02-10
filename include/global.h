@@ -90,6 +90,7 @@ static ladel_symbolics *ladel_symbolics_alloc(ladel_int ncol)
     sym->etree = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
     sym->postorder = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
     sym->col_counts = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
+    sym->pinv = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
     if (!sym->etree || !sym->postorder || !sym->col_counts) sym = ladel_symbolics_free(sym);
     return sym;
 }
