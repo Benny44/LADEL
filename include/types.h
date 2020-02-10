@@ -34,7 +34,7 @@ typedef struct symbolic_cholesky_information
     ladel_int *etree; /**< eliminations tree*/
     ladel_int *postorder; /**< postordiring of the elimination tree */
     ladel_int *col_counts; /** < column counts, stored as column pointers */
-    ladel_int *pinv; /** < fill-reducing ordering (AMD) */
+    ladel_int *p; /** < fill-reducing ordering (AMD) */
 } ladel_symbolics;
 
 #endif /*LADEL_TYPES_H*/

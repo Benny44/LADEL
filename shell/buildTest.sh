@@ -19,7 +19,7 @@ fi
 builddir=$curdir/build/debug
 cd $builddir
 
-cmake $curdir -DCMAKE_BUILD_TYPE=debug -DUNITTESTS=ON -DSIMPLE_COL_COUNTS=ON -DAMD=1
+cmake $curdir -DCMAKE_BUILD_TYPE=debug -DUNITTESTS=ON -DSIMPLE_COL_COUNTS=ON -DLONG=OFF -DAMD=ON
 make
 ctest -VV
 # valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose bin/run_all_tests

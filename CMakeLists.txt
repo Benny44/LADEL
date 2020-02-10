@@ -19,9 +19,23 @@ if (SIMPLE_COL_COUNTS)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DSIMPLE_COL_COUNTS")
 endif (SIMPLE_COL_COUNTS) 
 
+option (LONG "Use long integers for indexing" ON)
+if (LONG)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DDLONG")
+endif (LONG)
+
+if (FLOAT)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DDFLOAT")
+endif (FLOAT)
+
 if (UNIX)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wconversion")
 endif (UNIX)
+
+option (AMD "Use approximate minimum degree ordering" ON)
+if (AMD)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DDAMD")
+endif (AMD)
 ############################################################
 #################### Build the library #####################
 ############################################################
@@ -37,7 +51,8 @@ SET(SRC
         src/permutation.c
         src/copy.c)
 
-if (DEFINED AMD)
+
+if (AMD)
     SET(AMD_SRC
             amd/Source/amd_1.c    
             amd/Source/amd_control.c   
@@ -54,16 +69,19 @@ if (DEFINED AMD)
             amd/Source/amd_preprocess.c
             amd/Source/SuiteSparse_config.c)
     SET(SRC ${SRC} ${AMD_SRC})
-endif (DEFINED AMD)
+endif (AMD)
 
 add_library(ladel ${SRC})
-target_include_directories(ladel
-    PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include)
 
-if (DEFINED AMD)
+if (AMD)
     target_include_directories(ladel
-    PUBLIC ${CMAKE_CURRENT_LIST_DIR}/amd/Include)
-endif (DEFINED AMD)
+        PUBLIC  ${CMAKE_CURRENT_LIST_DIR}/include 
+                ${CMAKE_CURRENT_LIST_DIR}/amd/Include)
+else ()
+    target_include_directories(ladel
+        PUBLIC  ${CMAKE_CURRENT_LIST_DIR}/include)
+
+endif (AMD)
 ############################################################
 #################### Build executables #####################
 ############################################################

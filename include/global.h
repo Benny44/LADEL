@@ -78,7 +78,7 @@ static ladel_symbolics *ladel_symbolics_free(ladel_symbolics *sym)
     ladel_free(sym->etree);
     ladel_free(sym->postorder);
     ladel_free(sym->col_counts);
-    ladel_free(sym->pinv);
+    ladel_free(sym->p);
     return (ladel_symbolics *) ladel_free(sym);
 }
 
@@ -90,7 +90,7 @@ static ladel_symbolics *ladel_symbolics_alloc(ladel_int ncol)
     sym->etree = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
     sym->postorder = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
     sym->col_counts = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
-    sym->pinv = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
+    sym->p = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
     if (!sym->etree || !sym->postorder || !sym->col_counts) sym = ladel_symbolics_free(sym);
     return sym;
 }
