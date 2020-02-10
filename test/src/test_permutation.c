@@ -44,7 +44,7 @@ void permutation_test_setup(void)
 MU_TEST(test_permute_vector)
 {
     ladel_int permutation_vector[NCOL] = {2, 0, 5, 3, 4, 1};
-    ladel_permute_vector(x, permutation_vector, y);
+    ladel_permute_vector(x, permutation_vector, NCOL, y);
     mu_assert_double_eq(y[0], x[2], TOL);
     mu_assert_double_eq(y[1], x[0], TOL);
     mu_assert_double_eq(y[2], x[5], TOL);
@@ -56,7 +56,7 @@ MU_TEST(test_permute_vector)
 MU_TEST(test_permute_inverse_vector)
 {
     ladel_int inverse_permutation_vector[NCOL] = {2, 0, 5, 3, 4, 1};
-    ladel_inverse_permute_vector(x, inverse_permutation_vector, y);
+    ladel_inverse_permute_vector(x, inverse_permutation_vector, NCOL, y);
     mu_assert_double_eq(y[2], x[0], TOL);
     mu_assert_double_eq(y[0], x[1], TOL);
     mu_assert_double_eq(y[5], x[2], TOL);
