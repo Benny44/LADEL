@@ -2,6 +2,6 @@
 #define LADEL_LDL_SYMBOLIC_H
 
 #include "types.h"
-ladel_int ladel_ldl_symbolic(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method);
+ladel_int ladel_ldl_symbolic(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_sparse_matrix *Mpp);
 
 #endif /*LADEL_LDL_SYMBOLIC_H*/
