@@ -37,4 +37,12 @@ typedef struct symbolic_cholesky_information
     ladel_int *p; /** < fill-reducing ordering (AMD) */
 } ladel_symbolics;
 
+typedef struct ldl_factors
+{
+    ladel_int ncol;         /**< number of columns in the analyzed matrix */
+    ladel_sparse_matrix *L; /**< L in LDL' factorization */
+    ladel_double *D;        /**< D in LDL' factorization (stored as vector) */
+    ladel_int *p;           /**< permutation vector */
+} ladel_factor;
+
 #endif /*LADEL_TYPES_H*/

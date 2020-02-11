@@ -22,3 +22,12 @@ void ladel_sparse_copy(ladel_sparse_matrix *M, ladel_sparse_matrix *M_copy)
         }
     }
 }
+
+void ladel_int_vector_copy(ladel_int *x, ladel_int size, ladel_int *y)
+{
+    ladel_int index;
+    for (index = 0; index < size; index++)
+    {
+        y[index] = x[index];
+    }
+}

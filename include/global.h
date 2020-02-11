@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "constants.h"
+#include "copy.h"
 #include "stdlib.h"
 
 #define LADEL_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -93,6 +94,43 @@ static ladel_symbolics *ladel_symbolics_alloc(ladel_int ncol)
     sym->p = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
     if (!sym->etree || !sym->postorder || !sym->col_counts) sym = ladel_symbolics_free(sym);
     return sym;
+}
+
+static ladel_factor *ladel_factor_free(ladel_factor *LD)
+{
+    if (!LD) return NULL;
+    ladel_sparse_free(LD->L);
+    ladel_free(LD->D);
+    ladel_free(LD->p);
+    return (ladel_factor *) ladel_free(LD);
+}
+
+static ladel_factor *ladel_factor_allocate(ladel_symbolics *sym)
+{
+    ladel_factor *LD = (ladel_factor *) ladel_calloc(1, sizeof(ladel_factor));
+    if (!LD || !sym) return NULL;
+    ladel_int ncol = LD->ncol = sym->ncol;
+    LD->L = ladel_sparse_alloc(ncol, ncol, sym->col_counts[ncol-1], UNSYMMETRIC, TRUE);
+    LD->D = ladel_malloc(ncol, sizeof(ladel_double));
+    if (!LD->L || !LD->D)
+    {
+        ladel_factor_free(LD);
+        return NULL;
+    }
+    if (sym->p)
+    {
+        LD->p = ladel_malloc(ncol, sizeof(ladel_int));
+        if (!LD->p)
+        {
+            ladel_factor_free(LD);
+            return NULL;
+        }
+        ladel_int_vector_copy(sym->p, ncol, LD->p);
+    } else 
+    {
+        LD->p = NULL;
+    }
+    return LD; 
 }
 
 #endif /*LADEL_GLOBAL_H*/
