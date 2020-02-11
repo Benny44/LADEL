@@ -49,7 +49,9 @@ SET(SRC
         src/col_counts.c
         src/ldl_symbolic.c
         src/permutation.c
-        src/copy.c)
+        src/copy.c
+        src/ldl_numeric.c
+        src/pattern.c)
 
 
 if (AMD)

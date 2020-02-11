@@ -80,6 +80,8 @@ static ladel_symbolics *ladel_symbolics_free(ladel_symbolics *sym)
     ladel_free(sym->postorder);
     ladel_free(sym->col_counts);
     ladel_free(sym->p);
+    ladel_free(sym->pattern);
+    ladel_free(sym->nodes);
     return (ladel_symbolics *) ladel_free(sym);
 }
 
@@ -92,7 +94,10 @@ static ladel_symbolics *ladel_symbolics_alloc(ladel_int ncol)
     sym->postorder = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
     sym->col_counts = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
     sym->p = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
-    if (!sym->etree || !sym->postorder || !sym->col_counts) sym = ladel_symbolics_free(sym);
+    sym->pattern = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
+    sym->nodes = (ladel_int *) ladel_calloc(ncol, sizeof(ladel_int));
+    if (!sym->etree || !sym->postorder || !sym->col_counts || !sym->pattern || !sym->nodes) 
+        sym = ladel_symbolics_free(sym);
     return sym;
 }
 
@@ -101,6 +106,7 @@ static ladel_factor *ladel_factor_free(ladel_factor *LD)
     if (!LD) return NULL;
     ladel_sparse_free(LD->L);
     ladel_free(LD->D);
+    ladel_free(LD->Dinv);
     ladel_free(LD->p);
     return (ladel_factor *) ladel_free(LD);
 }
@@ -112,7 +118,8 @@ static ladel_factor *ladel_factor_allocate(ladel_symbolics *sym)
     ladel_int ncol = LD->ncol = sym->ncol;
     LD->L = ladel_sparse_alloc(ncol, ncol, sym->col_counts[ncol-1], UNSYMMETRIC, TRUE);
     LD->D = ladel_malloc(ncol, sizeof(ladel_double));
-    if (!LD->L || !LD->D)
+    LD->Dinv = ladel_malloc(ncol, sizeof(ladel_double));
+    if (!LD->L || !LD->D || !LD->Dinv)
     {
         ladel_factor_free(LD);
         return NULL;

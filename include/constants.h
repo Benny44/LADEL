@@ -18,4 +18,10 @@
 
 #define IS_ROOT(col, etree) ((etree)[(col)] == NONE)
 
+#define MARKED 1
+#define UNMARKED 0
+#define MARK(nodes, k) (nodes[(k)] = MARKED)
+#define UNMARK(nodes, k) (nodes[(k)] = UNMARKED)
+#define IS_MARKED(nodes, k) (nodes[(k)] == MARKED)
+
 #endif /*LADEL_CONSTANTS_H*/
