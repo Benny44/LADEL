@@ -16,4 +16,26 @@ ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_in
     else return FAIL;
 }
 
+void ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, ladel_double *y)
+{
+    ladel_sparse_matrix *L = LD->L;
+    ladel_double *Dinv = LD->Dinv;
+    ladel_int index, row, ncol = LD->L->ncol;
+    for (row = 0; row < ncol; row++) y[row] = rhs[row];
 
+    for (row = 0; row < ncol; row++)
+    {
+        for (index = L->p[row]+1; index < L->p[row+1]; index++)
+        {
+            y[L->i[index]] -= L->x[index]*y[row];
+        }
+    }
+    for (row = 0; row < ncol; row++) y[row] *= Dinv[row];
+    for (row = ncol-1; row >= 0; row++)
+    {
+        for (index = L->p[row]+1; index < L->p[row+1]; index++)
+        {
+            y[row] -= L->x[index]*y[L->i[index]];
+        }
+    } 
+}
