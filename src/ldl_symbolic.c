@@ -19,6 +19,7 @@ ladel_int ladel_ldl_symbolic(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel
         #ifdef DAMD
         ladel_int status;
         double Info [AMD_INFO];
+
         #ifdef DLONG
         status = amd_l_order(M->ncol, M->p, M->i, sym->p, NULL, Info);
         #else /*DLONG*/
@@ -26,7 +27,7 @@ ladel_int ladel_ldl_symbolic(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel
         #endif
         if (status != AMD_OK) return FAIL;
 
-        #else /*ifdef DAMD*/
+        #else /*DAMD*/
         sym->p = ladel_free(sym->p);
         #endif
     } else
@@ -35,7 +36,6 @@ ladel_int ladel_ldl_symbolic(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel
     }
     if (sym->p)
     {
-        // Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values);
         ladel_permute_symmetric_matrix(M, sym->p, Mpp);
         Mwork = Mpp;
     }

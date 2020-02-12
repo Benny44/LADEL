@@ -20,6 +20,7 @@ ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_in
         if (ordering_method != NO_ORDERING) ladel_sparse_free(Mpp);
         return FAIL;
     }
+    if (!Mpp) return FAIL;
     ok_numeric = ladel_ldl_numeric(Mpp, sym, *LD);
 
     if (ordering_method != NO_ORDERING) ladel_sparse_free(Mpp);
@@ -32,7 +33,8 @@ void ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, ladel_do
     ladel_sparse_matrix *L = LD->L;
     ladel_double *Dinv = LD->Dinv;
     ladel_int index, row, ncol = LD->L->ncol;
-    for (row = 0; row < ncol; row++) y[row] = rhs[row];
+    if (LD->p) for (row = 0; row < ncol; row++) y[row] = rhs[LD->p[row]];
+    else       for (row = 0; row < ncol; row++) y[row] = rhs[row];
 
     for (row = 0; row < ncol; row++)
     {
@@ -49,4 +51,17 @@ void ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, ladel_do
             y[row] -= L->x[index]*y[L->i[index]];
         }
     } 
+
+    if (LD->p)
+    {
+        ladel_double *temp = ladel_malloc(ncol, sizeof(ladel_double));
+        if (!temp)
+        {
+            y = NULL;
+            return;
+        }
+        for (row = 0; row < ncol; row++) temp[row] = y[row];
+        for (row = 0; row < ncol; row++) y[LD->p[row]] = temp[row];
+        ladel_free(temp);
+    }
 }
