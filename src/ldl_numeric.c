@@ -28,7 +28,7 @@ ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp, ladel_symbolics *sym, lade
     for (col = 0; col < ncol; col++)
     {
         rhs[col] = 0;
-        for (index = Mpp->p[col]; index < Mpp->p[col+1]; col++) 
+        for (index = Mpp->p[col]; index < Mpp->p[col+1]; index++) 
             rhs[Mpp->i[index]] = Mpp->x[index];
         diag_elem = rhs[col];
         rhs[col] = 0;
@@ -40,11 +40,11 @@ ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp, ladel_symbolics *sym, lade
             temp = rhs[row] / L->x[L->p[row]];
             L_elem = Dinv[row]*temp; /*L(col,row) = rhs(row) / L(row,row) / D(row,row)*/
             diag_elem -= L_elem*temp; /*D(col, col) -= L(col,row)*D(row,row)*L(col,row)*/
-
-            /* Gaussian elimination */
             rhs[row] = 0;
+            /* Gaussian elimination */
+            
             for (index = L->p[row]+1; index < col_pointers[row]; index++)
-                rhs[L->i[index]] -= L->x[index]*L_elem;
+                rhs[L->i[index]] -= L->x[index]*temp;
             
             index = col_pointers[row];
             col_pointers[row]++;

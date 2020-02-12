@@ -27,11 +27,11 @@ ladel_int ladel_ldl_symbolic(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel
         if (status != AMD_OK) return FAIL;
 
         #else /*ifdef DAMD*/
-        sym->p = NULL;
+        sym->p = ladel_free(sym->p);
         #endif
     } else
     {
-        sym->p = NULL;
+        sym->p = ladel_free(sym->p);
     }
     if (sym->p)
     {

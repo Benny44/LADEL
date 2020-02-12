@@ -51,7 +51,8 @@ SET(SRC
         src/permutation.c
         src/copy.c
         src/ldl_numeric.c
-        src/pattern.c)
+        src/pattern.c
+        src/ladel.c)
 
 
 if (AMD)
