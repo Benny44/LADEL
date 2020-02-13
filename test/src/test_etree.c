@@ -57,12 +57,12 @@ MU_TEST(test_etree_and_col_counts)
     // ladel_int col_counts_ref[NCOL] = {3, 3, 4, 3, 3, 4, 4, 3, 3, 2, 1};
     ladel_int col_counts_ref[NCOL] = {3, 6, 10, 13, 16, 20, 24, 27, 30, 32, 33};
     ladel_int Lnz = ladel_etree_and_col_counts(M, sym);
-    mu_assert_long_eq(Lnz, 33);
+    mu_assert_long_eq(Lnz, col_counts_ref[NCOL-1]-NCOL);
     ladel_int i;
     for (i = 0; i < NCOL; i++)
     {
         mu_assert_long_eq(sym->etree[i], etree_ref[i]);
-        mu_assert_long_eq(sym->col_counts[i], col_counts_ref[i]);        
+        mu_assert_long_eq(sym->col_counts[i], col_counts_ref[i]-col-1);        
     }
 }
 #endif /*SIMPLE_COL_COUNTS*/

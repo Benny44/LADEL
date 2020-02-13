@@ -47,12 +47,12 @@ MU_TEST(test_col_counts)
     ladel_postorder(M, sym);
 
     ladel_int Lnz = ladel_col_counts(M, sym);
-    mu_assert_long_eq(Lnz, 33);
+    mu_assert_long_eq(Lnz, col_counts_ref[NCOL-1]-NCOL);
 
     ladel_int col;
     for (col = 0; col < M->ncol; col++)
     {
-        mu_assert_long_eq(sym->col_counts[col], col_counts_ref[col]);
+        mu_assert_long_eq(sym->col_counts[col], col_counts_ref[col]-col-1);
     }
 }
 

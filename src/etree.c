@@ -38,13 +38,13 @@ ladel_int ladel_etree(ladel_sparse_matrix *M, ladel_symbolics *sym)
 ladel_int ladel_etree_and_col_counts(ladel_sparse_matrix *M, ladel_symbolics *sym)
 {
     ladel_int *etree = sym->etree, *col_counts = sym->col_counts;
-    ladel_int index, row, col, next;
-    ladel_int *touched = ladel_malloc(M->ncol, sizeof(ladel_int));
+    ladel_int index, row, col, next, ncol = M->ncol;
+    ladel_int *touched = ladel_malloc(ncol, sizeof(ladel_int));
     if (!touched) return FAIL;
 
-    for (col = 0; col < M->ncol; col++) col_counts[col] = 0;
+    for (col = 0; col < ncol; col++) col_counts[col] = 0;
 
-    for (col = 0; col < M->ncol; col++)
+    for (col = 0; col < ncol; col++)
     {
         etree[col] = NONE;
         touched[col] = col;
@@ -67,8 +67,7 @@ ladel_int ladel_etree_and_col_counts(ladel_sparse_matrix *M, ladel_symbolics *sy
     }
 
     ladel_free(touched);
-    for (col = 1; col < M->ncol; col++) col_counts[col] += col_counts[col-1];
-
-    return col_counts[M->ncol-1];
+    for (col = 1; col < ncol; col++) col_counts[col] += --col_counts[col-1];
+    return --col_counts[ncol-1];
 }
 #endif

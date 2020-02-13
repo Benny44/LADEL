@@ -38,7 +38,7 @@ void ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, ladel_do
 
     for (row = 0; row < ncol; row++)
     {
-        for (index = L->p[row]+1; index < L->p[row+1]; index++)
+        for (index = L->p[row]; index < L->p[row+1]; index++)
         {
             y[L->i[index]] -= L->x[index]*y[row];
         }
@@ -46,7 +46,7 @@ void ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, ladel_do
     for (row = 0; row < ncol; row++) y[row] *= Dinv[row];
     for (row = ncol-1; row >= 0; row--)
     {
-        for (index = L->p[row]+1; index < L->p[row+1]; index++)
+        for (index = L->p[row]; index < L->p[row+1]; index++)
         {
             y[row] -= L->x[index]*y[L->i[index]];
         }

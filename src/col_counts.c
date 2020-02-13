@@ -94,9 +94,10 @@ ladel_int ladel_col_counts(ladel_sparse_matrix *M, ladel_symbolics *sym)
         if (!IS_ROOT(node, etree)) col_counts[etree[node]] += col_counts[node];
 
     for (node = 1; node < ncol; node++)
-    { 
-        col_counts[node] += col_counts[node-1];
+    {
+        col_counts[node] += --col_counts[node-1];
     }
+    col_counts[ncol-1]--;
         
     if (M->symmetry == UPPER) ladel_sparse_free(M_lower);
     ladel_free(work);
