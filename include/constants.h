@@ -24,4 +24,8 @@
 #define UNMARK(nodes, k) (nodes[(k)] = UNMARKED)
 #define IS_MARKED(nodes, k) (nodes[(k)] == MARKED)
 
+#define SET_HAS_CHANGED TRUE
+#define SET_HAS_NOT_CHANGED FALSE
+#define MAX_SET_SIZE_EXCEEDED NONE
+
 #endif /*LADEL_CONSTANTS_H*/

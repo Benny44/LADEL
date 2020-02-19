@@ -9,9 +9,9 @@
 #define NZMAX 10
 #define TOL 1e-10
 
-ladel_sparse_matrix *M;
-ladel_symbolics *sym;
-ladel_factor *LD;
+static ladel_sparse_matrix *M;
+static ladel_symbolics *sym;
+static ladel_factor *LD;
 
 void ldl_suite_setup(void)
 {
@@ -35,8 +35,8 @@ void ldl_test_setup(void)
 
 void ldl_test_teardown(void)
 {
-    ladel_symbolics_free(sym);
-    ladel_factor_free(LD);
+    sym = ladel_symbolics_free(sym);
+    LD = ladel_factor_free(LD);
 }
 
 MU_TEST(test_simple_ldl)

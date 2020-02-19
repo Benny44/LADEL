@@ -10,10 +10,10 @@
 #define NZMAX 24
 #define TOL 1e-8
 
-ladel_sparse_matrix *M;
-ladel_sparse_matrix *W;
-ladel_factor *LD;
-ladel_symbolics *sym;
+static ladel_sparse_matrix *M;
+static ladel_sparse_matrix *W;
+static ladel_factor *LD = NULL;
+static ladel_symbolics *sym = NULL;
 
 void rank1_mod_suite_setup(void)
 {
@@ -50,7 +50,35 @@ void rank1_mod_test_setup(void)
 
 void rank1_mod_test_teardown(void)
 {
-    ladel_factor_free(LD);
+    LD = ladel_factor_free(LD);
+}
+
+MU_TEST(test_set_addition)
+{
+    ladel_int set1[8] = {1, 2, 5, 7};
+    ladel_int size_set1 = 4;
+    ladel_int set2[3] = {1, 2, 7};
+    ladel_int status;
+    status = ladel_set_addition(set1, set2, &size_set1, 8, 3);
+    mu_assert_long_eq(status, SET_HAS_NOT_CHANGED);
+    mu_assert_long_eq(size_set1, 4);
+    
+    ladel_int set3[5] = {1, 4, 6, 10, 11};
+    status = ladel_set_addition(set1, set3, &size_set1, 8, 5);
+    mu_assert_long_eq(status, SET_HAS_CHANGED);
+    mu_assert_long_eq(size_set1, 8);
+    mu_assert_long_eq(set1[0], 1);
+    mu_assert_long_eq(set1[1], 2);
+    mu_assert_long_eq(set1[2], 4);
+    mu_assert_long_eq(set1[3], 5);
+    mu_assert_long_eq(set1[4], 6);
+    mu_assert_long_eq(set1[5], 7);
+    mu_assert_long_eq(set1[6], 10);
+    mu_assert_long_eq(set1[7], 11);
+
+    ladel_int set4[1] = {14};
+    status = ladel_set_addition(set1, set4, &size_set1, 8, 1);
+    mu_assert_long_eq(status, MAX_SET_SIZE_EXCEEDED);   
 }
 
 MU_TEST(test_rank1_update)
@@ -85,5 +113,6 @@ MU_TEST(test_rank1_update)
 MU_TEST_SUITE(suite_rank1_mod)
 {
     MU_SUITE_CONFIGURE(rank1_mod_suite_setup, rank1_mod_suite_teardown, rank1_mod_test_setup, rank1_mod_test_teardown);
+    MU_RUN_TEST(test_set_addition);
     MU_RUN_TEST(test_rank1_update);
 }
