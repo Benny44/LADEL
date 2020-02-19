@@ -41,8 +41,8 @@ ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp, ladel_symbolics *sym, lade
             L_elem = Dinv[row]*temp; /*L(col,row) = rhs(row) / L(row,row) / D(row,row)*/
             diag_elem -= L_elem*temp; /*D(col, col) -= L(col,row)*D(row,row)*L(col,row)*/
             rhs[row] = 0;
-            /* Gaussian elimination */
             
+            /* Gaussian elimination */  
             for (index = L->p[row]; index < col_pointers[row]; index++)
                 rhs[L->i[index]] -= L->x[index]*temp;
             

@@ -52,7 +52,8 @@ SET(SRC
         src/copy.c
         src/ldl_numeric.c
         src/pattern.c
-        src/ladel.c)
+        src/ladel.c
+        src/rank1_mod.c)
 
 
 if (AMD)
