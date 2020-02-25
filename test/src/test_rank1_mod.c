@@ -8,6 +8,7 @@
 #define NCOL 8
 #define NROW 8
 #define NZMAX 24
+#define MAX_SIZE_SET 8
 #define TOL 1e-8
 
 static ladel_sparse_matrix *M;
@@ -53,32 +54,45 @@ void rank1_mod_test_teardown(void)
     LD = ladel_factor_free(LD);
 }
 
-MU_TEST(test_set_addition)
+MU_TEST(test_set_union)
 {
-    ladel_int set1[8] = {1, 2, 5, 7};
-    ladel_int size_set1 = 4;
-    ladel_int set2[3] = {1, 2, 7};
-    ladel_int status;
-    status = ladel_set_addition(set1, set2, &size_set1, 8, 3);
-    mu_assert_long_eq(status, SET_HAS_NOT_CHANGED);
-    mu_assert_long_eq(size_set1, 4);
-    
-    ladel_int set3[5] = {1, 4, 6, 10, 11};
-    status = ladel_set_addition(set1, set3, &size_set1, 8, 5);
-    mu_assert_long_eq(status, SET_HAS_CHANGED);
-    mu_assert_long_eq(size_set1, 8);
-    mu_assert_long_eq(set1[0], 1);
-    mu_assert_long_eq(set1[1], 2);
-    mu_assert_long_eq(set1[2], 4);
-    mu_assert_long_eq(set1[3], 5);
-    mu_assert_long_eq(set1[4], 6);
-    mu_assert_long_eq(set1[5], 7);
-    mu_assert_long_eq(set1[6], 10);
-    mu_assert_long_eq(set1[7], 11);
+    ladel_int set1_vals[MAX_SIZE_SET] = {1, 2, 5, 7};
+    ladel_set *set1 = ladel_init_set(set1_vals, 4, MAX_SIZE_SET);
 
-    ladel_int set4[1] = {14};
-    status = ladel_set_addition(set1, set4, &size_set1, 8, 1);
+    ladel_int set2_vals[MAX_SIZE_SET] = {1, 2, 7};
+    ladel_set *set2 = ladel_init_set(set2_vals, 3, MAX_SIZE_SET);
+
+    ladel_int status;
+    status = ladel_set_union(set1, set2);
+    mu_assert_long_eq(status, SET_HAS_NOT_CHANGED);
+    mu_assert_long_eq(set1->size_set, 4);
+    
+    ladel_int set3_vals[MAX_SIZE_SET] = {1, 4, 6, 10, 11};
+    ladel_set *set3 = ladel_init_set(set3_vals, 5, MAX_SIZE_SET);
+
+    status = ladel_set_union(set1, set3);
+    mu_assert_long_eq(status, SET_HAS_CHANGED);
+    mu_assert_long_eq(set1->size_set, 8);
+    
+    mu_assert_long_eq(set1_vals[0], 1);
+    mu_assert_long_eq(set1_vals[1], 2);
+    mu_assert_long_eq(set1_vals[2], 4);
+    mu_assert_long_eq(set1_vals[3], 5);
+    mu_assert_long_eq(set1_vals[4], 6);
+    mu_assert_long_eq(set1_vals[5], 7);
+    mu_assert_long_eq(set1_vals[6], 10);
+    mu_assert_long_eq(set1_vals[7], 11);
+
+    ladel_int set4_vals[MAX_SIZE_SET] = {14};
+    ladel_set *set4 = ladel_init_set(set4_vals, 1, MAX_SIZE_SET);
+
+    status = ladel_set_union(set1, set4);
     mu_assert_long_eq(status, MAX_SET_SIZE_EXCEEDED);   
+
+    ladel_free(set1);
+    ladel_free(set2);
+    ladel_free(set3);
+    ladel_free(set4);
 }
 
 MU_TEST(test_rank1_update)
@@ -110,9 +124,10 @@ MU_TEST(test_rank1_update)
 }
 
 
+
 MU_TEST_SUITE(suite_rank1_mod)
 {
     MU_SUITE_CONFIGURE(rank1_mod_suite_setup, rank1_mod_suite_teardown, rank1_mod_test_setup, rank1_mod_test_teardown);
-    MU_RUN_TEST(test_set_addition);
-    MU_RUN_TEST(test_rank1_update);
+    MU_RUN_TEST(test_set_union);
+    // MU_RUN_TEST(test_rank1_update);
 }
