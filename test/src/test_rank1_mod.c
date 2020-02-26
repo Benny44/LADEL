@@ -62,15 +62,21 @@ MU_TEST(test_set_union)
     ladel_int set2_vals[MAX_SIZE_SET] = {1, 2, 7};
     ladel_set *set2 = ladel_init_set(set2_vals, 3, MAX_SIZE_SET);
 
-    ladel_int status;
-    status = ladel_set_union(set1, set2);
+    ladel_int dif_vals[MAX_SIZE_SET];
+    ladel_set *dif = ladel_init_set(dif_vals, 0, MAX_SIZE_SET);
+
+    ladel_int offset[8], insertions[8];
+
+    ladel_int status; 
+    status = ladel_set_union(set1, set2, dif, offset, insertions);
     mu_assert_long_eq(status, SET_HAS_NOT_CHANGED);
     mu_assert_long_eq(set1->size_set, 4);
+    mu_assert_long_eq(dif->size_set, 0);
     
     ladel_int set3_vals[MAX_SIZE_SET] = {1, 4, 6, 10, 11};
     ladel_set *set3 = ladel_init_set(set3_vals, 5, MAX_SIZE_SET);
 
-    status = ladel_set_union(set1, set3);
+    status = ladel_set_union(set1, set3, dif, offset, insertions);
     mu_assert_long_eq(status, SET_HAS_CHANGED);
     mu_assert_long_eq(set1->size_set, 8);
     
@@ -83,16 +89,23 @@ MU_TEST(test_set_union)
     mu_assert_long_eq(set1_vals[6], 10);
     mu_assert_long_eq(set1_vals[7], 11);
 
+    mu_assert_long_eq(dif->size_set, 4);
+    mu_assert_long_eq(dif->set[0], 4);
+    mu_assert_long_eq(dif->set[1], 6);
+    mu_assert_long_eq(dif->set[2], 10);
+    mu_assert_long_eq(dif->set[3], 11);
+
     ladel_int set4_vals[MAX_SIZE_SET] = {14};
     ladel_set *set4 = ladel_init_set(set4_vals, 1, MAX_SIZE_SET);
 
-    status = ladel_set_union(set1, set4);
+    status = ladel_set_union(set1, set4, dif, offset, insertions);
     mu_assert_long_eq(status, MAX_SET_SIZE_EXCEEDED);   
 
     ladel_free(set1);
     ladel_free(set2);
     ladel_free(set3);
     ladel_free(set4);
+    ladel_free(dif);
 }
 
 MU_TEST(test_rank1_update)
