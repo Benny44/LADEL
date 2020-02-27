@@ -40,6 +40,7 @@ static ladel_sparse_matrix *ladel_sparse_free(ladel_sparse_matrix *M)
     ladel_free(M->p);
     ladel_free(M->i);
     ladel_free(M->x);
+    ladel_free(M->nz);
     return ((ladel_sparse_matrix *) ladel_free(M));
 }
 
@@ -57,7 +58,8 @@ static ladel_sparse_matrix *ladel_sparse_alloc(ladel_int nrow, ladel_int ncol,
     M->p = (ladel_int *) ladel_malloc(ncol+1, sizeof(ladel_int));
     M->i = (ladel_int *) ladel_malloc(nzmax, sizeof(ladel_int));
     M->x = values ? (ladel_double *) ladel_malloc(nzmax, sizeof(ladel_double)) : NULL;
-    if (!M->p || !M->i || (values && !M->x)) M = ladel_sparse_free(M);
+    M->nz = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
+    if (!M->p || !M->i || (values && !M->x) || !M->nz) M = ladel_sparse_free(M);
     return M;
 }
 

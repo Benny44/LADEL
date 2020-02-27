@@ -110,9 +110,11 @@ MU_TEST(test_set_union)
 
 MU_TEST(test_rank1_update)
 {
-    ladel_int status;
+    ladel_int status, index;
     status = ladel_factorize(M, sym, AMD, &LD);
     mu_assert_long_eq(status, SUCCESS);
+
+    // for (index = 0; index < LD->L->ncol; index++) LD->L->nz[index] = LD->L->ncol;
 
     ladel_double rhs[8] = {7.922073295595544e-01, 9.594924263929030e-01, 6.557406991565868e-01,
                             3.571167857418955e-02, 8.491293058687771e-01, 9.339932477575505e-01,
@@ -123,14 +125,13 @@ MU_TEST(test_rank1_update)
 
     ladel_double x[8];
     ladel_dense_solve(LD, rhs, x);
-    ladel_int index;
     for (index = 0; index < NCOL; index++) mu_assert_double_eq(x[index], sol[index], TOL);
 
     ladel_double sol_mod[8] = {4.021591066933866e-01, 1.257689300408343e+00, 2.457694262215502e+00,
                                 -1.584275766315217e+00, 3.426556805737886e+00, -2.481259429010251e+00, 
                                 -1.707843620820627e-01, 2.602541252030759e+00};
     
-    status = ladel_rank1_update(&LD, &sym, W, 0);
+    status = ladel_rank1_update(LD, sym, W, 0);
     mu_assert_long_eq(status, SUCCESS);
     ladel_dense_solve(LD, rhs, x);
     for (index = 0; index < NCOL; index++) mu_assert_double_eq(x[index], sol[index], TOL);
