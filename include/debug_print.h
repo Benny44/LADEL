@@ -8,4 +8,6 @@ void ladel_print_sparse_matrix_matlab(ladel_sparse_matrix *M);
 
 void ladel_print_dense_vector_matlab(ladel_double* x, size_t len);
 
+void ladel_print_factor_matlab(ladel_factor *LD);
+
 #endif

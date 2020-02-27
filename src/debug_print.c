@@ -18,6 +18,22 @@ void ladel_print_sparse_matrix_matlab(ladel_sparse_matrix *M) {
     printf("\n");
 }
 
+void ladel_print_factor_matlab(ladel_factor *LD) {
+    printf("L = sparse(%ld, %ld);", LD->L->nrow, LD->L->ncol);
+    ladel_int col, index = 0, row;
+    ladel_double *Lx = LD->L->x;
+    ladel_int *Li = LD->L->i;
+    ladel_int *Lp = LD->L->p;
+    ladel_int *nz = LD->L->nz;
+
+    for (col = 1; col <= LD->L->ncol; col++) {
+        for (index = Lp[col-1]; index < Lp[col-1] + nz[col-1]; index++) {
+            printf("L(%ld, %ld) = %.16le;", Li[index]+1, col, Lx[index]);
+        }
+    }
+    ladel_print_dense_vector_matlab(LD->Dinv, LD->ncol);
+}
+
 void ladel_print_dense_vector_matlab(ladel_double* x, size_t len) {
     size_t k;
     printf("x = zeros(%lu, 1);", len);
