@@ -7,7 +7,7 @@ ladel_int ladel_add_nonzero_pattern_to_col_of_L(ladel_sparse_matrix* L, ladel_in
 {
     ladel_int start = L->p[col], status;
     ladel_set_set(col_set, L->i + start, L->nz[col], L->p[col+1] - L->p[col]);
-    status = ladel_set_union(col_set, set, difference, offset, insertions);
+    status = ladel_set_union(col_set, set, difference, offset, insertions, col);
     
     /* For now it is assumed the user has allocated enough space. If not, the error is passed on.
     Technically, some reallocation code could go here to include cases where one doesn't know the
@@ -59,7 +59,8 @@ void ladel_set_col(ladel_col* col,ladel_int *i, ladel_double *x, ladel_int nz , 
     col->nzmax = nzmax;
 }
 
-ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set *difference, ladel_int* offset, ladel_int* insertions)
+ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set *difference, 
+                            ladel_int* offset, ladel_int* insertions, ladel_int minimum_index)
 {
     ladel_int *set1 = first_set->set; 
     ladel_int size_set1 = first_set->size_set; 
@@ -76,6 +77,8 @@ ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set
     for (index2 = 0; index2 < size_set2; index2++)
     {
         row2 = set2[index2];
+        if (row2 <= minimum_index) continue;
+        
         for (; index1 < first_set->size_set && row1 < row2; index1++) 
         {
             row1 = set1[index1];
@@ -193,7 +196,6 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
             changed_child = ladel_add_nonzero_pattern_to_col_of_L(L, col, set_L, difference_child, difference, offset, insertions);
             changed_W = ladel_add_nonzero_pattern_to_col_of_L(L, col, set_L, set_W, difference_child, offset, insertions);
             
-            
             /* numerical update */
             w = W_col[col];
             dinv = Dinv[col];
@@ -218,7 +220,7 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
                 /* NB difference_child is already the result of the change in W, therefore it does
                 not need to be adjusted when only changed_W == SET_HAS_CHANGED */
                 if (changed_W == SET_HAS_CHANGED && changed_child == SET_HAS_CHANGED)
-                    ladel_set_union(difference_child, difference, difference2, offset, insertions);
+                    ladel_set_union(difference_child, difference, difference2, offset, insertions, 0);
                 else if (changed_child == SET_HAS_CHANGED)
                     ladel_shallow_copy_set(difference_child, difference);
                 else if (changed_W == SET_HAS_NOT_CHANGED)
