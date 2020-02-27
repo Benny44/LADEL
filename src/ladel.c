@@ -4,6 +4,7 @@
 #include "ldl_symbolic.h"
 #include "ldl_numeric.h"
 
+
 ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD)
 {
     ladel_int ok_symbolic, ok_numeric;
@@ -28,6 +29,42 @@ ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_in
     else return FAIL;
 }
 
+ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_sparse_matrix *Mbasis)
+{
+    ladel_int ok_symbolic, ok_numeric;
+    ladel_sparse_matrix *Mpp, *Mwork = M;
+    
+    if (ordering_method != NO_ORDERING) Mpp = ladel_sparse_alloc(Mbasis->nrow, Mbasis->ncol, Mbasis->nzmax, Mbasis->symmetry, Mbasis->values);
+    else Mpp = Mbasis;
+
+    if (!Mpp) return FAIL;
+    ok_symbolic = ladel_ldl_symbolic(Mbasis, sym, ordering_method, Mpp);
+    *LD = ladel_factor_allocate(sym);
+    if (!*LD)
+    {
+        if (ordering_method != NO_ORDERING) ladel_sparse_free(Mpp);
+        return FAIL;
+    }
+    ladel_int index;
+    if (sym->p)
+    {
+        ladel_sparse_free(Mpp);
+        Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values);
+        ladel_permute_symmetric_matrix(M, sym->p, Mpp);
+    } else
+    {
+        Mpp = M;
+    }
+    
+    ladel_etree(Mpp, sym);
+
+    ok_numeric = ladel_ldl_numeric(Mpp, sym, *LD);
+
+    if (ordering_method != NO_ORDERING) ladel_sparse_free(Mpp);
+    if (ok_symbolic && ok_numeric) return SUCCESS;
+    else return FAIL;
+}
+
 void ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, ladel_double *y)
 {
     ladel_sparse_matrix *L = LD->L;
@@ -38,7 +75,7 @@ void ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, ladel_do
 
     for (row = 0; row < ncol; row++)
     {
-        for (index = L->p[row]; index < L->p[row+1]; index++)
+        for (index = L->p[row]; index <  L->p[row]+L->nz[row]; index++)
         {
             y[L->i[index]] -= L->x[index]*y[row];
         }
@@ -46,7 +83,7 @@ void ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, ladel_do
     for (row = 0; row < ncol; row++) y[row] *= Dinv[row];
     for (row = ncol-1; row >= 0; row--)
     {
-        for (index = L->p[row]; index < L->p[row+1]; index++)
+        for (index = L->p[row]; index < L->p[row]+L->nz[row]; index++)
         {
             y[row] -= L->x[index]*y[L->i[index]];
         }

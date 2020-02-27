@@ -30,10 +30,14 @@ ladel_int ladel_ldl_symbolic(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel
         #else /*DAMD*/
         sym->p = ladel_free(sym->p);
         #endif
-    } else
+    } else if (ordering_method == GIVEN_ORDERING)
+    {
+        /*do nothing, sym->p already contains the permutation*/
+    } else if (ordering_method == NO_ORDERING)
     {
         sym->p = ladel_free(sym->p);
     }
+    
     if (sym->p)
     {
         ladel_permute_symmetric_matrix(M, sym->p, Mpp);

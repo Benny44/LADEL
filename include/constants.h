@@ -15,6 +15,7 @@
 
 #define AMD 1
 #define NO_ORDERING 0
+#define GIVEN_ORDERING 2
 
 #define IS_ROOT(col, etree) ((etree)[(col)] == NONE)
 

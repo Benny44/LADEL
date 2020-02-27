@@ -23,6 +23,7 @@ ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp, ladel_symbolics *sym, lade
     L->p[0] = col_pointers[0] = 0;
     for (index = 1; index < ncol; index++) 
         L->p[index] = col_pointers[index] = sym->col_counts[index-1];
+
     L->p[ncol] = sym->col_counts[ncol-1];
 
     for (col = 0; col < ncol; col++)
@@ -60,6 +61,8 @@ ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp, ladel_symbolics *sym, lade
         D[col] = diag_elem;
         Dinv[col] = 1/diag_elem;
     }
+
+    for (index = 0; index < ncol; index++) L->nz[index] = col_pointers[index] - L->p[index];
     ladel_free(rhs);
     ladel_free(col_pointers);
     return SUCCESS;
