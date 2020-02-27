@@ -13,10 +13,17 @@ ladel_int ladel_add_nonzero_pattern_to_col_of_L(ladel_sparse_matrix* L, ladel_in
     Technically, some reallocation code could go here to include cases where one doesn't know the
     maximum number of nonzeros in each column of L. */
     if (status == MAX_SET_SIZE_EXCEEDED) return MAX_SET_SIZE_EXCEEDED;
-    
-    /* Initialize new nonzero values in L to zero */
+    if (status == SET_HAS_NOT_CHANGED) return SET_HAS_NOT_CHANGED;
+
+    /* Move old nz values in L to correct positions and initialize new nz values in L to zero */
     ladel_int index;
-    for (index = 0; index < difference->size_set; index++) L->x[start+insertions[index]] = 0;
+    for (index = L->nz[col]-1; index >= 0; index--) 
+        L->x[start+index+offset[index]] = L->x[start+index];
+        
+    /* Initialize new nz values in L to zero */
+    for (index = 0; index < difference->size_set; index++)
+        L->x[start+insertions[index]] = 0;
+
     L->nz[col] = col_set->size_set;
 
     return status;
@@ -71,14 +78,32 @@ ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set
     ladel_int *dif = difference->set;
     // difference->size_set = 0;
 
-    ladel_int index1 = 0, index2, row1 = set1[0], row2, index, index_dif = 0;
+    ladel_int index1 = 0, index2, row1, row2, index, index_dif = 0;
 
+    /* Special case: second set is empty => do nothing */
+    if (size_set2 == 0) return SET_HAS_NOT_CHANGED;
+
+    /* Special case: first set is empty => just copy */
+    if (size_set1 == 0) 
+    {
+        for (index2 = 0; index2 < size_set2; index2++)
+        {
+            row2 = set2[index2];
+            if (row2 <= minimum_index) continue;
+            insertions[index1] = index1;
+            set1[index1] = dif[index1] = row2; 
+        }
+        if (index1 == 0) return SET_HAS_NOT_CHANGED;
+        else return SET_HAS_CHANGED;
+    }
+
+    row1 = set1[0];
     /* Construct difference set and offsets -----------------------------------*/ 
     for (index2 = 0; index2 < size_set2; index2++)
     {
         row2 = set2[index2];
         if (row2 <= minimum_index) continue;
-        
+
         for (; index1 < first_set->size_set && row1 < row2; index1++) 
         {
             row1 = set1[index1];
@@ -142,17 +167,20 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
     ladel_set *set_W = ladel_init_set(W->i + W->p[col_in_W], size_W, size_W);
     ladel_set *set_L = ladel_malloc(1, sizeof(ladel_set));
 
-    ladel_set *difference = ladel_malloc(1, sizeof(ladel_set));
-    ladel_int *temp_ncol = ladel_malloc(ncol, sizeof(ladel_int));
-    ladel_set *difference2 = ladel_init_set(temp_ncol, 0, ncol);
-    ladel_set *difference_child = ladel_malloc(1, sizeof(ladel_set));
+    ladel_int *dif_set = ladel_malloc(ncol, sizeof(ladel_int));
+    ladel_set *difference = ladel_init_set(dif_set, 0, ncol);
+    ladel_int *dif_set2 = ladel_malloc(ncol, sizeof(ladel_int));
+    ladel_set *difference2 = ladel_init_set(dif_set2, 0, ncol);
+    ladel_int *dif_set_child = ladel_malloc(ncol, sizeof(ladel_int));
+    ladel_set *difference_child = ladel_init_set(dif_set_child, 0, ncol);
+
     ladel_int *offset = ladel_malloc(ncol, sizeof(ladel_int));
     ladel_int *insertions = ladel_malloc(ncol, sizeof(ladel_int));
     ladel_double *W_col = ladel_calloc(ncol, sizeof(ladel_double));
     for (index = W->p[col_in_W]; index < W->p[col_in_W+1]; index++) 
         W_col[W->i[index]] = W->x[index];
 
-    ladel_double alpha, alpha_new, gamma, w, dinv;
+    ladel_double alpha = 1, alpha_new, gamma, w, dinv;
     ladel_int child, old_parent;
     for (index = W->p[col_in_W]; index < W->p[col_in_W+1]; index++)
     {
@@ -165,14 +193,15 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
         dinv = Dinv[col];
         alpha_new = alpha + w*w*dinv;
         gamma = w*dinv/alpha_new; /*if alpha_new == o then matrix not full rank */
-        Dinv[col] = alpha_new/alpha;
+        Dinv[col] *= alpha/alpha_new;
+        alpha = alpha_new;
         for (index_L = L->p[col]; index_L < L->p[col]+L->nz[col]; index_L++)
         {
             row = L->i[index_L];
             W_col[row] -= w*L->x[index_L];
             L->x[index_L] += gamma*W_col[row];
         }
-
+         
         if (changed == SET_HAS_CHANGED)
         {
             child = col;
@@ -201,7 +230,8 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
             dinv = Dinv[col];
             alpha_new = alpha + w*w*dinv;
             gamma = w*dinv/alpha_new; /*if alpha_new == o then matrix not full rank */
-            Dinv[col] = alpha_new/alpha;
+            Dinv[col] *= alpha/alpha_new;
+            alpha = alpha_new;
             for (index_L = L->p[col]; index_L < L->p[col]+L->nz[col]; index_L++)
             {
                 row = L->i[index_L];
@@ -228,9 +258,24 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
             }     
             else
                 ladel_set_set(difference_child, L->i+L->p[child], L->nz[child], L->p[child+1] - L->p[child]);
-            
-             
+                         
         }
     }
+
+
+    ladel_free(set_W);
+    ladel_free(set_L);
+
+    ladel_free(dif_set);
+    ladel_free(difference);
+    ladel_free(dif_set2);
+    ladel_free(difference2);
+    ladel_free(dif_set_child);
+    ladel_free(difference_child);
+
+    ladel_free(offset);
+    ladel_free(insertions);
+    ladel_free(W_col);
+    return SUCCESS;
 
 }

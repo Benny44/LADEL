@@ -4,6 +4,7 @@
 #include "types.h"
 #include "ladel.h"
 #include "rank1_mod.h"
+#include "debug_print.h"
 
 #define NCOL 8
 #define NROW 8
@@ -11,7 +12,7 @@
 #define MAX_SIZE_SET 8
 #define TOL 1e-8
 
-static ladel_sparse_matrix *M;
+static ladel_sparse_matrix *M, *Mbasis;
 static ladel_sparse_matrix *W;
 static ladel_factor *LD = NULL;
 static ladel_symbolics *sym = NULL;
@@ -34,13 +35,26 @@ void rank1_mod_suite_setup(void)
     W->i[0] = 3; W->i[1] = 5; W->i[2] = 7;
     W->x[0] = 1.418863386272153e-01; W->x[1] = 4.217612826262750e-01; W->x[2] = 9.157355251890671e-01;  
 
-    sym = ladel_symbolics_alloc(NCOL);   
+    sym = ladel_symbolics_alloc(NCOL); 
+
+    Mbasis = ladel_sparse_alloc(NROW, NCOL, 36, UPPER, FALSE);
+    Mbasis->p[0] = 0; Mbasis->p[1] = 1; Mbasis->p[2] = 3; Mbasis->p[3] = 6; Mbasis->p[4] = 10; 
+    Mbasis->p[5] = 15; Mbasis->p[6] = 21; Mbasis->p[7] = 28; Mbasis->p[8] = 36; 
+    Mbasis->i[0] = 0; Mbasis->i[1] = 0; Mbasis->i[2] = 1; Mbasis->i[3] = 0; Mbasis->i[4] = 1; 
+    Mbasis->i[5] = 2; Mbasis->i[6] = 0; Mbasis->i[7] = 1; Mbasis->i[8] = 2; Mbasis->i[9] = 3; 
+    Mbasis->i[10] = 0; Mbasis->i[11] = 1; Mbasis->i[12] = 2; Mbasis->i[13] = 3; Mbasis->i[14] = 4; 
+    Mbasis->i[15] = 0; Mbasis->i[16] = 1; Mbasis->i[17] = 2; Mbasis->i[18] = 3; Mbasis->i[19] = 4; 
+    Mbasis->i[20] = 5; Mbasis->i[21] = 0; Mbasis->i[22] = 1; Mbasis->i[23] = 2; Mbasis->i[24] = 3; 
+    Mbasis->i[25] = 4; Mbasis->i[26] = 5; Mbasis->i[27] = 6; Mbasis->i[28] = 0; Mbasis->i[29] = 1; 
+    Mbasis->i[30] = 2; Mbasis->i[31] = 3; Mbasis->i[32] = 4; Mbasis->i[33] = 5; Mbasis->i[34] = 6; 
+    Mbasis->i[35] = 7;  
 }
 
 void rank1_mod_suite_teardown(void)
 {
     ladel_sparse_free(M);
     ladel_sparse_free(W);
+    ladel_sparse_free(Mbasis);
     ladel_symbolics_free(sym);
 }
 
@@ -111,7 +125,7 @@ MU_TEST(test_set_union)
 MU_TEST(test_rank1_update)
 {
     ladel_int status, index;
-    status = ladel_factorize(M, sym, AMD, &LD);
+    status = ladel_factorize_advanced(M, sym, NO_ORDERING, &LD, Mbasis);
     mu_assert_long_eq(status, SUCCESS);
 
     // for (index = 0; index < LD->L->ncol; index++) LD->L->nz[index] = LD->L->ncol;
@@ -134,7 +148,7 @@ MU_TEST(test_rank1_update)
     status = ladel_rank1_update(LD, sym, W, 0);
     mu_assert_long_eq(status, SUCCESS);
     ladel_dense_solve(LD, rhs, x);
-    for (index = 0; index < NCOL; index++) mu_assert_double_eq(x[index], sol[index], TOL);
+    for (index = 0; index < NCOL; index++) mu_assert_double_eq(x[index], sol_mod[index], TOL);
 }
 
 
@@ -143,5 +157,5 @@ MU_TEST_SUITE(suite_rank1_mod)
 {
     MU_SUITE_CONFIGURE(rank1_mod_suite_setup, rank1_mod_suite_teardown, rank1_mod_test_setup, rank1_mod_test_teardown);
     MU_RUN_TEST(test_set_union);
-    // MU_RUN_TEST(test_rank1_update);
+    MU_RUN_TEST(test_rank1_update);
 }

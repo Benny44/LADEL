@@ -20,7 +20,6 @@ void ldl_suite_setup(void)
     M->p[0] = 0; M->p[1] = 1; M->p[2] = 3; M->p[3] = 4; M->p[4] = 7; M->p[5] = 10;
     M->i[0] = 0; M->i[1] = 0; M->i[2] = 1; M->i[3] = 2; M->i[4] = 1; M->i[5] = 2; M->i[6] = 3; M->i[7] = 0; M->i[8] = 3; M->i[9] = 4;  
     M->x[0] = 1; M->x[1] = 10; M->x[2] = 2; M->x[3] = -3; M->x[4] = 11; M->x[5] = 12; M->x[6] = 4; M->x[7] = -3; M->x[8] = 2; M->x[9] = -5;
-    // ladel_print_sparse_matrix_matlab(M);   
     Mbasis = ladel_sparse_alloc(NROW, NCOL, 15, UPPER, FALSE); /*full matrix*/
     Mbasis->p[0] = 0; Mbasis->p[1] = 1; Mbasis->p[2] = 3; Mbasis->p[3] = 6; Mbasis->p[4] = 10; Mbasis->p[5] = 15;
     Mbasis->i[0] = 0; Mbasis->i[1] = 0; Mbasis->i[2] = 1; Mbasis->i[3] = 0; Mbasis->i[4] = 1; Mbasis->i[5] = 2; Mbasis->i[6] = 0; Mbasis->i[7] = 1; 
@@ -57,8 +56,6 @@ MU_TEST(test_simple_ldl)
 
     for (index = 0; index < NCOL; index++)
         mu_assert_double_eq(y[index], y_ref[index], TOL);
-
-    // ladel_print_sparse_matrix_matlab(LD->L);    
 }
 
 #ifdef DAMD
@@ -92,9 +89,6 @@ MU_TEST(test_advanced_ldl)
 
     for (index = 0; index < NCOL; index++)
         mu_assert_double_eq(y[index], y_ref[index], TOL);
-
-    // ladel_print_sparse_matrix_matlab(LD->L);    
-
 }
 
 
