@@ -50,4 +50,33 @@ typedef struct ldl_factors
     ladel_int *p;           /**< permutation vector */
 } ladel_factor;
 
+typedef struct ladel_set_struct {
+    ladel_int *set;
+    ladel_int size_set;
+    ladel_int max_size_set;
+} ladel_set;
+
+typedef struct ladel_col_struct {
+    ladel_int *i;
+    ladel_double *x;
+    ladel_int nz;
+    ladel_int nzmax;
+} ladel_col;
+
+/* Workspace needed for the factorization and updates */
+typedef struct workspace
+{
+    ladel_set *set_preallocated1;
+    ladel_set *set_preallocated2;
+    ladel_set *set_preallocated3;
+    ladel_set *set_unallocated_values1;
+    ladel_set *set_unallocated_values2;
+    ladel_set *set_unallocated_values3;
+    ladel_int *array_int_ncol1;
+    ladel_int *array_int_ncol2;
+    ladel_int *array_int_ncol3;
+    ladel_int *array_int_ncol4;
+    ladel_double *array_double_all_zeros_ncol1;
+} ladel_work;
+
 #endif /*LADEL_TYPES_H*/

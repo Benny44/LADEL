@@ -3,7 +3,7 @@
 #include "types.h"
 #include "global.h"
 
-ladel_sparse_matrix *M;
+static ladel_sparse_matrix *M;
 #define NROW 11
 #define NCOL 11
 #define NZMAX 43

@@ -2,18 +2,18 @@
 #include "global.h"
 #include "constants.h"
 
-ladel_sparse_matrix *ladel_transpose(ladel_sparse_matrix *M, int values)
+ladel_sparse_matrix *ladel_transpose(ladel_sparse_matrix *M, int values, ladel_work* work)
 {
-    ladel_sparse_matrix *M_transpose = ladel_sparse_alloc(M->ncol, M->nrow, M->nzmax, -M->symmetry, values && M->values);
-    ladel_int *col_pointers = ladel_calloc(M->nrow, sizeof(ladel_int));
-    if (!M_transpose || !col_pointers) 
-    {
-        ladel_sparse_free(M_transpose);
-        ladel_free(col_pointers);
-        return NULL;
-    }
+    if (!M || !work) return NULL;
+    ladel_int index;
+    ladel_int *col_pointers = work->array_int_ncol1;
+    for (index = 0; index < M->nrow; index++) col_pointers[index] = 0;
 
-    ladel_int index, col, new_index, prev_col_count;
+    ladel_sparse_matrix *M_transpose = ladel_sparse_alloc(M->ncol, M->nrow, M->nzmax, -M->symmetry, values && M->values);
+    
+    if (!M_transpose) return NULL; 
+
+    ladel_int col, new_index, prev_col_count;
     for (index = 0; index < M->nzmax; index++) col_pointers[M->i[index]]++;
     
     M_transpose->p[0] = 0;
@@ -36,6 +36,5 @@ ladel_sparse_matrix *ladel_transpose(ladel_sparse_matrix *M, int values)
             if (M_transpose->values) M_transpose->x[new_index] = M->x[index];
         }
     }
-    ladel_free(col_pointers);
     return M_transpose;
 }

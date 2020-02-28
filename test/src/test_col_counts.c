@@ -5,14 +5,17 @@
 #include "postorder.h"
 #include "col_counts.h"
 
-ladel_sparse_matrix *M;
-ladel_symbolics *sym;
+static ladel_work *work;
+static ladel_sparse_matrix *M;
+static ladel_symbolics *sym;
 #define NROW 11
 #define NCOL 11
 #define NZMAX 43
 
 void col_counts_test_setup(void) 
 {
+    work = ladel_workspace_allocate(NCOL);
+
     M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE);
     M->p[0] = 0; M->p[1] = 3; M->p[2] = 6; M->p[3] = 10; M->p[4] = 13; M->p[5] = 16; 
     M->p[6] = 21; M->p[7] = 24; M->p[8] = 29; M->p[9] = 31; M->p[10] = 37; M->p[11] = 43;
@@ -36,6 +39,7 @@ void col_counts_test_setup(void)
 
 void col_counts_test_teardown(void)
 {
+    ladel_workspace_free(work);
     ladel_sparse_free(M);
     ladel_symbolics_free(sym);
 }
@@ -43,10 +47,10 @@ void col_counts_test_teardown(void)
 MU_TEST(test_col_counts)
 {    
     ladel_int col_counts_ref[NCOL] = {3, 6, 10, 13, 16, 20, 24, 27, 30, 32, 33};
-    ladel_etree(M, sym);
-    ladel_postorder(M, sym);
+    ladel_etree(M, sym, work);
+    ladel_postorder(M, sym, work);
 
-    ladel_int Lnz = ladel_col_counts(M, sym);
+    ladel_int Lnz = ladel_col_counts(M, sym, work);
     mu_assert_long_eq(Lnz, col_counts_ref[NCOL-1]-NCOL);
 
     ladel_int col;

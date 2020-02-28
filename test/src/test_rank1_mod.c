@@ -12,6 +12,7 @@
 #define MAX_SIZE_SET 8
 #define TOL 1e-8
 
+static ladel_work *work;
 static ladel_sparse_matrix *M, *Mbasis;
 static ladel_sparse_matrix *W;
 static ladel_factor *LD = NULL;
@@ -19,6 +20,7 @@ static ladel_symbolics *sym = NULL;
 
 void rank1_mod_suite_setup(void)
 {
+    work = ladel_workspace_allocate(NCOL);
     M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE);
     M->p[0] = 0; M->p[1] = 1; M->p[2] = 2; M->p[3] = 4; M->p[4] = 7; M->p[5] = 8; M->p[6] = 10; M->p[7] = 14; M->p[8] = 16;
     M->i[0] = 0; M->i[1] = 1; M->i[2] = 0; M->i[3] = 2; M->i[4] = 1; M->i[5] = 2; M->i[6] = 3; M->i[7] = 4;  
@@ -52,6 +54,7 @@ void rank1_mod_suite_setup(void)
 
 void rank1_mod_suite_teardown(void)
 {
+    ladel_workspace_free(work);
     ladel_sparse_free(M);
     ladel_sparse_free(W);
     ladel_sparse_free(Mbasis);
@@ -71,13 +74,15 @@ void rank1_mod_test_teardown(void)
 MU_TEST(test_set_union)
 {
     ladel_int set1_vals[MAX_SIZE_SET] = {1, 2, 5, 7};
-    ladel_set *set1 = ladel_init_set(set1_vals, 4, MAX_SIZE_SET);
+    ladel_set *set1 = ladel_malloc(1, sizeof(ladel_set));
+    ladel_set_set(set1, set1_vals, 4, MAX_SIZE_SET);
 
     ladel_int set2_vals[MAX_SIZE_SET] = {1, 2, 7};
-    ladel_set *set2 = ladel_init_set(set2_vals, 3, MAX_SIZE_SET);
+    ladel_set *set2 = ladel_malloc(1, sizeof(ladel_set));
+    ladel_set_set(set2, set2_vals, 3, MAX_SIZE_SET);
 
-    ladel_int dif_vals[MAX_SIZE_SET];
-    ladel_set *dif = ladel_init_set(dif_vals, 0, MAX_SIZE_SET);
+    ladel_set *dif = work->set_preallocated1;
+    dif->size_set = 0;
 
     ladel_int offset[8], insertions[8];
 
@@ -88,7 +93,8 @@ MU_TEST(test_set_union)
     mu_assert_long_eq(dif->size_set, 0);
     
     ladel_int set3_vals[MAX_SIZE_SET] = {1, 4, 6, 10, 11};
-    ladel_set *set3 = ladel_init_set(set3_vals, 5, MAX_SIZE_SET);
+    ladel_set *set3 = ladel_malloc(1, sizeof(ladel_set));
+    ladel_set_set(set3, set3_vals, 5, MAX_SIZE_SET);
 
     status = ladel_set_union(set1, set3, dif, offset, insertions, 0);
     mu_assert_long_eq(status, SET_HAS_CHANGED);
@@ -110,7 +116,8 @@ MU_TEST(test_set_union)
     mu_assert_long_eq(dif->set[3], 11);
 
     ladel_int set4_vals[MAX_SIZE_SET] = {14};
-    ladel_set *set4 = ladel_init_set(set4_vals, 1, MAX_SIZE_SET);
+    ladel_set *set4 = ladel_malloc(1, sizeof(ladel_set));
+    ladel_set_set(set4, set4_vals, 1, MAX_SIZE_SET);
 
     status = ladel_set_union(set1, set4, dif, offset, insertions, 0);
     mu_assert_long_eq(status, MAX_SET_SIZE_EXCEEDED);   
@@ -119,13 +126,12 @@ MU_TEST(test_set_union)
     ladel_free(set2);
     ladel_free(set3);
     ladel_free(set4);
-    ladel_free(dif);
 }
 
 MU_TEST(test_rank1_update)
 {
     ladel_int status, index;
-    status = ladel_factorize_advanced(M, sym, NO_ORDERING, &LD, Mbasis);
+    status = ladel_factorize_advanced(M, sym, NO_ORDERING, &LD, Mbasis, work);
     mu_assert_long_eq(status, SUCCESS);
 
     // for (index = 0; index < LD->L->ncol; index++) LD->L->nz[index] = LD->L->ncol;
@@ -138,16 +144,16 @@ MU_TEST(test_rank1_update)
                             1.986908367068955e+02, 7.843195055030803e+02};
 
     ladel_double x[8];
-    ladel_dense_solve(LD, rhs, x);
+    ladel_dense_solve(LD, rhs, x, work);
     for (index = 0; index < NCOL; index++) mu_assert_double_eq(x[index], sol[index], TOL);
 
     ladel_double sol_mod[8] = {4.021591066933866e-01, 1.257689300408343e+00, 2.457694262215502e+00,
                                 -1.584275766315217e+00, 3.426556805737886e+00, -2.481259429010251e+00, 
                                 -1.707843620820627e-01, 2.602541252030759e+00};
     
-    status = ladel_rank1_update(LD, sym, W, 0);
+    status = ladel_rank1_update(LD, sym, W, 0, work);
     mu_assert_long_eq(status, SUCCESS);
-    ladel_dense_solve(LD, rhs, x);
+    ladel_dense_solve(LD, rhs, x, work);
     for (index = 0; index < NCOL; index++) mu_assert_double_eq(x[index], sol_mod[index], TOL);
 }
 

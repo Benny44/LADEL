@@ -29,20 +29,21 @@ static ladel_int ladel_depth_first_search(  ladel_int root,
             stack[top] = current_child;
         }    
     }
+    return post_index;
 }
 
-ladel_int ladel_postorder(ladel_sparse_matrix *M, ladel_symbolics *sym)
+ladel_int ladel_postorder(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_work* work)
 {
+    if (!M || !sym || !sym->etree || !work) return FAIL;
+
     ladel_int *etree = sym->etree, *postorder = sym->postorder;
-    if (!M || !etree) return FAIL;
+    
     ladel_int col, ncol = M->ncol, top, prev_root = NONE, post_index = 0;
-    ladel_int *work, *first_child, *next_child, *stack, *roots;
-    work = ladel_malloc(ncol*4, sizeof(ladel_int));
-    if (!work) return FAIL;
-    first_child = work;
-    next_child = work + ncol;
-    stack = work + 2*ncol;
-    roots = work + 3*ncol;
+    ladel_int *first_child, *next_child, *stack, *roots;
+    first_child = work->array_int_ncol1;
+    next_child = work->array_int_ncol2;
+    stack = work->array_int_ncol3;
+    roots = work->array_int_ncol4;
 
     for (col = 0; col < ncol; col++) first_child[col] = NONE;
     for (col = ncol-1; col >= 0; col--)
@@ -62,6 +63,5 @@ ladel_int ladel_postorder(ladel_sparse_matrix *M, ladel_symbolics *sym)
         post_index = ladel_depth_first_search(col, post_index, first_child, next_child, stack, postorder);
     }
 
-    ladel_free(work);
     return SUCCESS;
 }

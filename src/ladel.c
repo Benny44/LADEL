@@ -3,10 +3,13 @@
 #include "global.h"
 #include "ldl_symbolic.h"
 #include "ldl_numeric.h"
+#include "permutation.h"
 
 
-ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD)
+ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_work* work)
 {
+    if (!M || !sym || !work) return FAIL;
+
     ladel_int ok_symbolic, ok_numeric;
     ladel_sparse_matrix *Mpp;
     
@@ -14,7 +17,7 @@ ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_in
     else Mpp = M;
 
     if (!Mpp) return FAIL;
-    ok_symbolic = ladel_ldl_symbolic(M, sym, ordering_method, Mpp);
+    ok_symbolic = ladel_ldl_symbolic(M, sym, ordering_method, Mpp, work);
     *LD = ladel_factor_allocate(sym);
     if (!*LD)
     {
@@ -22,15 +25,17 @@ ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_in
         return FAIL;
     }
     if (!Mpp) return FAIL;
-    ok_numeric = ladel_ldl_numeric(Mpp, sym, *LD);
+    ok_numeric = ladel_ldl_numeric(Mpp, sym, *LD, work);
 
     if (ordering_method != NO_ORDERING) ladel_sparse_free(Mpp);
     if (ok_symbolic && ok_numeric) return SUCCESS;
     else return FAIL;
 }
 
-ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_sparse_matrix *Mbasis)
+ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_sparse_matrix *Mbasis, ladel_work* work)
 {
+    if (!M || !sym || !Mbasis || !work) return FAIL;
+
     ladel_int ok_symbolic, ok_numeric;
     ladel_sparse_matrix *Mpp, *Mwork = M;
     
@@ -38,7 +43,7 @@ ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym,
     else Mpp = Mbasis;
 
     if (!Mpp) return FAIL;
-    ok_symbolic = ladel_ldl_symbolic(Mbasis, sym, ordering_method, Mpp);
+    ok_symbolic = ladel_ldl_symbolic(Mbasis, sym, ordering_method, Mpp, work);
     *LD = ladel_factor_allocate(sym);
     if (!*LD)
     {
@@ -50,7 +55,7 @@ ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym,
     {
         ladel_sparse_free(Mpp);
         Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values);
-        ladel_permute_symmetric_matrix(M, sym->p, Mpp);
+        ladel_permute_symmetric_matrix(M, sym->p, Mpp, work);
     } else
     {
         Mpp = M;
@@ -58,15 +63,17 @@ ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym,
     
     ladel_etree(Mpp, sym);
 
-    ok_numeric = ladel_ldl_numeric(Mpp, sym, *LD);
+    ok_numeric = ladel_ldl_numeric(Mpp, sym, *LD, work);
 
     if (ordering_method != NO_ORDERING) ladel_sparse_free(Mpp);
     if (ok_symbolic && ok_numeric) return SUCCESS;
     else return FAIL;
 }
 
-void ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, ladel_double *y)
+ladel_int ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, ladel_double *y, ladel_work* work)
 {
+    if (!LD || !rhs || !y || !work) return FAIL;
+    
     ladel_sparse_matrix *L = LD->L;
     ladel_double *Dinv = LD->Dinv;
     ladel_int index, row, ncol = LD->L->ncol;
@@ -91,14 +98,13 @@ void ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, ladel_do
 
     if (LD->p)
     {
-        ladel_double *temp = ladel_malloc(ncol, sizeof(ladel_double));
-        if (!temp)
-        {
-            y = NULL;
-            return;
-        }
+        ladel_double *temp = work->array_double_all_zeros_ncol1;
         for (row = 0; row < ncol; row++) temp[row] = y[row];
-        for (row = 0; row < ncol; row++) y[LD->p[row]] = temp[row];
-        ladel_free(temp);
+        for (row = 0; row < ncol; row++) 
+        {
+            y[LD->p[row]] = temp[row];
+            temp[row] = 0; /*reset to keep the workspace consistent*/
+        }
     }
+    return SUCCESS;
 }

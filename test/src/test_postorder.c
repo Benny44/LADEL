@@ -4,14 +4,16 @@
 #include "etree.h"
 #include "postorder.h"
 
-ladel_sparse_matrix *M;
-ladel_symbolics *sym;
+static ladel_work *work;
+static ladel_sparse_matrix *M;
+static ladel_symbolics *sym;
 #define NROW 11
 #define NCOL 11
 #define NZMAX 43
 
 void postorder_test_setup(void) 
 {
+    work = ladel_workspace_allocate(NCOL);
     M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE);
     M->p[0] = 0; M->p[1] = 3; M->p[2] = 6; M->p[3] = 10; M->p[4] = 13; M->p[5] = 16; 
     M->p[6] = 21; M->p[7] = 24; M->p[8] = 29; M->p[9] = 31; M->p[10] = 37; M->p[11] = 43;
@@ -35,6 +37,7 @@ void postorder_test_setup(void)
 
 void postorder_test_teardown(void)
 {
+    ladel_workspace_free(work);
     ladel_sparse_free(M);
     ladel_symbolics_free(sym);
 }
@@ -42,8 +45,8 @@ void postorder_test_teardown(void)
 MU_TEST(test_postorder)
 {
     ladel_int postorder_ref[NCOL] = {1, 2, 4, 7, 0, 3, 5, 6, 8, 9, 10};
-    ladel_etree(M, sym);
-    ladel_postorder(M, sym);
+    ladel_etree(M, sym, work);
+    ladel_postorder(M, sym, work);
     
     ladel_int i;
     for (i = 0; i < NCOL; i++)

@@ -8,7 +8,7 @@
 #define NZMAX 11
 #define TOL 1e-8
 
-ladel_sparse_matrix *M;
+static ladel_sparse_matrix *M;
 /*
 M = [1.2  0  3.4  0    0.5;
      0   -2  1.1  0    0;

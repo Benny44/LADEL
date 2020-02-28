@@ -14,7 +14,7 @@ void ladel_inverse_permute_vector(ladel_double *x, ladel_int *pinv, ladel_int si
     for (index = 0; index < size; index++) y[pinv[index]] = x[index];
 }
 
-void ladel_permute_symmetric_matrix(ladel_sparse_matrix *M, ladel_int *p, ladel_sparse_matrix *Mpp)
+void ladel_permute_symmetric_matrix(ladel_sparse_matrix *M, ladel_int *p, ladel_sparse_matrix *Mpp, ladel_work* work)
 {
     if (!M || !Mpp) return;
     if (!p) 
@@ -23,9 +23,7 @@ void ladel_permute_symmetric_matrix(ladel_sparse_matrix *M, ladel_int *p, ladel_
     } else
     {
         ladel_int col, pcol, row, prow, index, pindex, prev_col_count, ncol = M->ncol;
-        ladel_int *work = (ladel_int *)ladel_malloc(ncol*2, sizeof(ladel_int));
-        if (!work) return;
-        ladel_int *col_counts = work, *pinv = work+ncol;
+        ladel_int *col_counts = work->array_int_ncol1, *pinv = work->array_int_ncol2;
         for (index = 0; index < ncol; index++) col_counts[index] = 0;
         for (col = 0; col < ncol; col++) pinv[p[col]] = col;
         for (col = 0; col < ncol; col++)
@@ -66,7 +64,6 @@ void ladel_permute_symmetric_matrix(ladel_sparse_matrix *M, ladel_int *p, ladel_
                 if (M->values) Mpp->x[pindex] = M->x[index]; 
             }
         }
-        ladel_free(work);
     }
     
     

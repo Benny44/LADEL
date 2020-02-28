@@ -44,27 +44,27 @@ ladel_int ladel_least_common_ancestor(ladel_int subtree_root, ladel_int node, la
     
 }
 
-ladel_int ladel_col_counts(ladel_sparse_matrix *M, ladel_symbolics *sym)
+ladel_int ladel_col_counts(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_work *work)
 {
-    ladel_int *etree = sym->etree, *postorder = sym->postorder, *col_counts = sym->col_counts;
-    if (!M || !etree || !postorder || !col_counts) return FAIL;
+    if (!M || !sym || !sym->etree || !sym->postorder || !sym->col_counts || !work) return FAIL;
     
+    ladel_int *etree = sym->etree, *postorder = sym->postorder, *col_counts = sym->col_counts;
+    ladel_int *prev_leaf = work->array_int_ncol1;
+    ladel_int *first_descendant = work->array_int_ncol2;
+    ladel_int *max_first_descendant = work->array_int_ncol3;
+    ladel_int *ancestor = work->array_int_ncol4;
     ladel_int ncol = M->ncol, index, node, post_node, subtree_root, lca, type_of_leaf = NOT_A_LEAF;
+    
     ladel_sparse_matrix *M_lower;
-    if (M->symmetry == UPPER) M_lower = ladel_transpose(M, FALSE);
+    if (M->symmetry == UPPER) M_lower = ladel_transpose(M, FALSE, work);
     else if (M->symmetry == LOWER) M_lower = M;
     else return FAIL;
 
-    ladel_int *work = ladel_malloc(4*ncol, sizeof(ladel_int));
-    if (!M_lower || !work)
-    {
-        if (M->symmetry == UPPER) ladel_sparse_free(M_lower);
-        ladel_free(work);
-        return FAIL;
-    }
+    if (!M_lower) return FAIL;
 
-    ladel_int *prev_leaf = work, *first_descendant = work + ncol, *max_first_descendant = work + 2*ncol, *ancestor = work + 3*ncol;
-    for (index = 0; index < 3*ncol; index++) work[index] = NONE;
+    for (index = 0; index < ncol; index++) prev_leaf[index] = NONE;
+    for (index = 0; index < ncol; index++) first_descendant[index] = NONE;
+    for (index = 0; index < ncol; index++) max_first_descendant[index] = NONE;
     for (index = 0; index < ncol; index++) ancestor[index] = index;
 
     for (node = 0; node < ncol; node++)
@@ -100,6 +100,5 @@ ladel_int ladel_col_counts(ladel_sparse_matrix *M, ladel_symbolics *sym)
     col_counts[ncol-1]--;
         
     if (M->symmetry == UPPER) ladel_sparse_free(M_lower);
-    ladel_free(work);
     return col_counts[ncol-1];
 }

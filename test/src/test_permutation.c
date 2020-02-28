@@ -10,11 +10,13 @@
 #define NZMAX 10
 #define TOL 1e-8
 
-ladel_double x[NCOL], y[NCOL];
-ladel_sparse_matrix *M, *Mpp, *Mpp_ref;
+static ladel_work *work;
+static ladel_double x[NCOL], y[NCOL];
+static ladel_sparse_matrix *M, *Mpp, *Mpp_ref;
 
 void permutation_suite_setup(void)
 {
+    work = ladel_workspace_allocate(NCOL);
     M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE);
     M->p[0] = 0; M->p[1] = 1; M->p[2] = 2; M->p[3] = 4; M->p[4] = 5; M->p[5] = 7; M->p[6] = 10;
     M->i[0] = 0; M->i[1] = 1; M->i[2] = 0; M->i[3] = 2; M->i[4] = 3; M->i[5] = 1; M->i[6] = 4; 
@@ -33,6 +35,7 @@ void permutation_suite_setup(void)
 
 void permutation_suite_teardown(void)
 {
+    ladel_workspace_free(work);
     ladel_sparse_free(M);
     ladel_sparse_free(Mpp);
     ladel_sparse_free(Mpp_ref);
@@ -71,12 +74,12 @@ MU_TEST(test_permute_inverse_vector)
 MU_TEST(test_permute_symmetric_matrix)
 {
     ladel_int permutation_vector[NCOL] = {2, 0, 5, 3, 4, 1};
-    ladel_permute_symmetric_matrix(M, permutation_vector, Mpp);
+    ladel_permute_symmetric_matrix(M, permutation_vector, Mpp, work);
     
     /* Sort entries after permuting by doing a double transpose */
-    ladel_sparse_matrix *Mpp_transpose = ladel_transpose(Mpp, TRUE);
+    ladel_sparse_matrix *Mpp_transpose = ladel_transpose(Mpp, TRUE, work);
     ladel_sparse_free(Mpp);
-    Mpp = ladel_transpose(Mpp_transpose, TRUE);
+    Mpp = ladel_transpose(Mpp_transpose, TRUE, work);
     ladel_sparse_free(Mpp_transpose);
 
     ladel_int index;
@@ -93,7 +96,7 @@ MU_TEST(test_permute_symmetric_matrix)
 
 MU_TEST(test_permute_symmetric_matrix_without_permutation_vector)
 {
-    ladel_permute_symmetric_matrix(M, NULL, Mpp);
+    ladel_permute_symmetric_matrix(M, NULL, Mpp, work);
     ladel_int index;
     for (index = 0; index < NCOL+1; index++)
     {

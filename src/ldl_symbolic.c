@@ -11,8 +11,10 @@
 #include "amd.h"
 #endif /*DAMD*/
 
-ladel_int ladel_ldl_symbolic(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_sparse_matrix *Mpp)
+ladel_int ladel_ldl_symbolic(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_sparse_matrix *Mpp, ladel_work* work)
 {
+    if (!M || !sym || !Mpp || !work) return FAIL;
+
     ladel_sparse_matrix *Mwork = M;
     if (ordering_method == AMD)
     {
@@ -40,16 +42,16 @@ ladel_int ladel_ldl_symbolic(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel
     
     if (sym->p)
     {
-        ladel_permute_symmetric_matrix(M, sym->p, Mpp);
+        ladel_permute_symmetric_matrix(M, sym->p, Mpp, work);
         Mwork = Mpp;
     }
 
     #ifdef SIMPLE_COL_COUNTS
-    ladel_etree_and_col_counts(Mwork, sym);
+    ladel_etree_and_col_counts(Mwork, sym, work);
     #else
-    ladel_etree(Mwork, sym);
-    ladel_postorder(Mwork, sym);
-    ladel_col_counts(Mwork, sym);
+    ladel_etree(Mwork, sym, work);
+    ladel_postorder(Mwork, sym, work);
+    ladel_col_counts(Mwork, sym, work);
     #endif /*SIMPLE_COL_COUNTS*/
 
     return SUCCESS;

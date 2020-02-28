@@ -142,4 +142,75 @@ static ladel_factor *ladel_factor_allocate(ladel_symbolics *sym)
     return LD; 
 }
 
+static ladel_set *ladel_set_free(ladel_set *set)
+{
+    if (!set) return NULL;
+    ladel_free(set->set);
+    return (ladel_set *) ladel_free(set);
+}
+
+static ladel_set *ladel_set_allocate(ladel_int ncol)
+{
+    ladel_set* set = ladel_malloc(1, sizeof(ladel_set));
+    if (!set) return NULL;
+    set->set = ladel_malloc(ncol, sizeof(ladel_int));
+    if (!set->set) 
+    {
+        ladel_set_free(set);
+        return NULL;
+    }
+    return set;
+}
+
+static void ladel_set_set(ladel_set *set, ladel_int *set_vals, ladel_int size_set, ladel_int max_size_set)
+{
+    set->set = set_vals;
+    set->size_set = size_set;
+    set->max_size_set = max_size_set;
+}
+
+static ladel_work *ladel_workspace_free(ladel_work* work)
+{
+    if (!work) return NULL;
+    ladel_set_free(work->set_preallocated1);
+    ladel_set_free(work->set_preallocated2);
+    ladel_set_free(work->set_preallocated3);
+    ladel_free(work->set_unallocated_values1);
+    ladel_free(work->set_unallocated_values2);
+    ladel_free(work->set_unallocated_values3);
+    ladel_free(work->array_int_ncol1);
+    ladel_free(work->array_int_ncol2);
+    ladel_free(work->array_int_ncol3);
+    ladel_free(work->array_int_ncol4);
+    ladel_free(work->array_double_all_zeros_ncol1);
+    return (ladel_work *) ladel_free(work);
+}
+
+static ladel_work *ladel_workspace_allocate(ladel_int ncol)
+{
+    ladel_work *work = ladel_malloc(1, sizeof(ladel_work));
+    if (!work) return NULL;
+    work->set_preallocated1 = ladel_set_allocate(ncol);
+    work->set_preallocated2 = ladel_set_allocate(ncol);
+    work->set_preallocated3 = ladel_set_allocate(ncol);
+    work->set_unallocated_values1 = ladel_malloc(1, sizeof(ladel_set));
+    work->set_unallocated_values2 = ladel_malloc(1, sizeof(ladel_set));
+    work->set_unallocated_values3 = ladel_malloc(1, sizeof(ladel_set));
+    work->array_int_ncol1 = ladel_malloc(ncol, sizeof(ladel_int));
+    work->array_int_ncol2 = ladel_malloc(ncol, sizeof(ladel_int));
+    work->array_int_ncol3 = ladel_malloc(ncol, sizeof(ladel_int));
+    work->array_int_ncol4 = ladel_malloc(ncol, sizeof(ladel_int));
+    work->array_double_all_zeros_ncol1 = ladel_malloc(ncol, sizeof(ladel_double));
+
+    if (!work->set_preallocated1 || !work->set_preallocated2 || !work->set_preallocated3 
+        || !work->set_unallocated_values1 || !work->set_unallocated_values2 || !work->set_unallocated_values3
+        || !work->array_int_ncol1 || !work->array_int_ncol2 || !work->array_int_ncol3 
+        || !work->array_int_ncol4 || !work->array_double_all_zeros_ncol1) 
+    {
+        ladel_workspace_free(work);
+        return NULL;   
+    }
+    return work;
+}
+
 #endif /*LADEL_GLOBAL_H*/

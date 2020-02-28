@@ -3,14 +3,16 @@
 #include "global.h"
 #include "etree.h"
 
-ladel_sparse_matrix *M;
-ladel_symbolics *sym;
+static ladel_work *work;
+static ladel_sparse_matrix *M;
+static ladel_symbolics *sym;
 #define NROW 11
 #define NCOL 11
 #define NZMAX 43
 
 void etree_test_setup(void) 
 {
+    work = ladel_workspace_allocate(NCOL);
     M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE);
     M->p[0] = 0; M->p[1] = 3; M->p[2] = 6; M->p[3] = 10; M->p[4] = 13; M->p[5] = 16; 
     M->p[6] = 21; M->p[7] = 24; M->p[8] = 29; M->p[9] = 31; M->p[10] = 37; M->p[11] = 43;
@@ -34,6 +36,7 @@ void etree_test_setup(void)
 
 void etree_test_teardown(void)
 {
+    ladel_workspace_free(work);
     ladel_sparse_free(M);
     ladel_symbolics_free(sym);
 }
@@ -41,7 +44,7 @@ void etree_test_teardown(void)
 MU_TEST(test_etree)
 {
     ladel_int etree_ref[NCOL] = {5, 2, 7, 5, 7, 6, 8, 9, 9, 10, NONE};
-    ladel_etree(M, sym);
+    ladel_etree(M, sym, work);
     
     ladel_int i;
     for (i = 0; i < NCOL; i++)
@@ -56,7 +59,7 @@ MU_TEST(test_etree_and_col_counts)
     ladel_int etree_ref[NCOL] = {5, 2, 7, 5, 7, 6, 8, 9, 9, 10, NONE};
     // ladel_int col_counts_ref[NCOL] = {3, 3, 4, 3, 3, 4, 4, 3, 3, 2, 1};
     ladel_int col_counts_ref[NCOL] = {3, 6, 10, 13, 16, 20, 24, 27, 30, 32, 33};
-    ladel_int Lnz = ladel_etree_and_col_counts(M, sym);
+    ladel_int Lnz = ladel_etree_and_col_counts(M, sym, work);
     mu_assert_long_eq(Lnz, col_counts_ref[NCOL-1]-NCOL);
     ladel_int i;
     for (i = 0; i < NCOL; i++)
