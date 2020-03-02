@@ -128,7 +128,7 @@ MU_TEST(test_set_union)
     ladel_free(set4);
 }
 
-MU_TEST(test_rank1_update)
+MU_TEST(test_rank1_mod)
 {
     ladel_int status, index;
     status = ladel_factorize_advanced(M, sym, NO_ORDERING, &LD, Mbasis, work);
@@ -151,17 +151,20 @@ MU_TEST(test_rank1_update)
                                 -1.584275766315217e+00, 3.426556805737886e+00, -2.481259429010251e+00, 
                                 -1.707843620820627e-01, 2.602541252030759e+00};
     
-    status = ladel_rank1_update(LD, sym, W, 0, work);
+    status = ladel_rank1_update(LD, sym, W, 0, UPDATE, work);
     mu_assert_long_eq(status, SUCCESS);
     ladel_dense_solve(LD, rhs, x, work);
     for (index = 0; index < NCOL; index++) mu_assert_double_eq(x[index], sol_mod[index], TOL);
+
+    status = ladel_rank1_update(LD, sym, W, 0, DOWNDATE, work);
+    mu_assert_long_eq(status, SUCCESS);
+    ladel_dense_solve(LD, rhs, x, work);
+    for (index = 0; index < NCOL; index++) mu_assert_double_eq(x[index], sol[index], TOL);
 }
-
-
 
 MU_TEST_SUITE(suite_rank1_mod)
 {
     MU_SUITE_CONFIGURE(rank1_mod_suite_setup, rank1_mod_suite_teardown, rank1_mod_test_setup, rank1_mod_test_teardown);
     MU_RUN_TEST(test_set_union);
-    MU_RUN_TEST(test_rank1_update);
+    MU_RUN_TEST(test_rank1_mod);
 }

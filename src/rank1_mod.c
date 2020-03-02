@@ -116,7 +116,7 @@ ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set
 }
 
 
-ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_sparse_matrix *W, ladel_int col_in_W, ladel_work* work)
+ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_sparse_matrix *W, ladel_int col_in_W, ladel_int up_or_down, ladel_work* work)
 {
     if (!LD || !sym || !W || !work) return FAIL;
     
@@ -128,7 +128,11 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
     
     ladel_int ncol = L->ncol, col, row, index, index_L, size_W = W->p[col_in_W+1] - W->p[col_in_W];
     ladel_int changed = SET_HAS_NOT_CHANGED, changed_W, changed_child;
-    
+    ladel_double sigma;
+    if (up_or_down == UPDATE) sigma = 1.0;
+    else if (up_or_down == DOWNDATE) sigma = -1.0;
+    else return FAIL;
+
     ladel_set *set_W = work->set_unallocated_values1;
     ladel_set_set(set_W, W->i + W->p[col_in_W], size_W, size_W);
     ladel_set *set_L = work->set_unallocated_values2;
@@ -154,20 +158,6 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
         col = W->i[index];
         changed = ladel_add_nonzero_pattern_to_col_of_L(L, col, set_L, set_W, difference_child, offset, insertions);
         if (changed == MAX_SET_SIZE_EXCEEDED) return FAIL;
-
-        /* numerical update */
-        w = W_col[col];
-        dinv = Dinv[col];
-        alpha_new = alpha + w*w*dinv;
-        gamma = w*dinv/alpha_new; /*if alpha_new == 0 then matrix not full rank */
-        Dinv[col] *= alpha/alpha_new;
-        alpha = alpha_new;
-        for (index_L = L->p[col]; index_L < L->p[col]+L->nz[col]; index_L++)
-        {
-            row = L->i[index_L];
-            W_col[row] -= w*L->x[index_L];
-            L->x[index_L] += gamma*W_col[row];
-        }
          
         if (changed == SET_HAS_CHANGED)
         {
@@ -193,20 +183,6 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
                 changed_child = ladel_add_nonzero_pattern_to_col_of_L(L, col, set_L, set_child, difference, offset, insertions);
                 
             changed_W = ladel_add_nonzero_pattern_to_col_of_L(L, col, set_L, set_W, difference_child, offset, insertions);
-            
-            /* numerical update */
-            w = W_col[col];
-            dinv = Dinv[col];
-            alpha_new = alpha + w*w*dinv;
-            gamma = w*dinv/alpha_new; /*if alpha_new == o then matrix not full rank */
-            Dinv[col] *= alpha/alpha_new;
-            alpha = alpha_new;
-            for (index_L = L->p[col]; index_L < L->p[col]+L->nz[col]; index_L++)
-            {
-                row = L->i[index_L];
-                W_col[row] -= w*L->x[index_L];
-                L->x[index_L] += gamma*W_col[row];
-            }
 
             child = col;
             old_parent = etree[col];
@@ -218,6 +194,23 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
                 ladel_set_union(difference_child, difference, difference2, offset, insertions, 0);   
             else
                 ladel_set_set(set_child, L->i+L->p[child], L->nz[child], L->p[child+1] - L->p[child]);                      
+        }
+    }
+
+    /* numerical update */
+    for (col = W->i[col_in_W]; col != NONE; col = etree[col])
+    {
+        w = W_col[col];
+        dinv = Dinv[col];
+        alpha_new = alpha + sigma*w*w*dinv;
+        gamma = w*dinv/alpha_new; /*if alpha_new == 0 then matrix not full rank */
+        Dinv[col] *= alpha/alpha_new;
+        alpha = alpha_new;
+        for (index_L = L->p[col]; index_L < L->p[col]+L->nz[col]; index_L++)
+        {
+            row = L->i[index_L];
+            W_col[row] -= w*L->x[index_L];
+            L->x[index_L] += sigma*gamma*W_col[row];
         }
     }
 
