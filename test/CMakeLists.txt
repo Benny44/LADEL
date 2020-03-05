@@ -12,7 +12,8 @@ SET(TEST_SRC
     src/test_col_counts.c
     src/test_permutation.c
     src/test_ldl.c
-    src/test_rank1_mod.c)
+    src/test_rank1_mod.c
+    src/test_row_mod.c)
 
 add_executable(run_all_tests
     ${TEST_SRC}

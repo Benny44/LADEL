@@ -54,6 +54,7 @@ SET(SRC
         src/pattern.c
         src/ladel.c
         src/rank1_mod.c
+        src/row_mod.c
         src/debug_print.c)
 
 

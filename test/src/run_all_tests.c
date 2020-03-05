@@ -9,6 +9,7 @@
 #include "test_permutation.h"
 #include "test_ldl.h"
 #include "test_rank1_mod.h"
+#include "test_row_mod.h"
 
 int main(){
     MU_INITIALIZE();
@@ -22,6 +23,7 @@ int main(){
     MU_RUN_SUITE(suite_permutation);
     MU_RUN_SUITE(suite_ldl);
     MU_RUN_SUITE(suite_rank1_mod);
+    MU_RUN_SUITE(suite_row_mod);
     MU_REPORT();
     return minunit_fail;
 }
