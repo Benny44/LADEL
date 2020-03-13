@@ -9,7 +9,7 @@ ladel_int ladel_row_add(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
 {
     if (!LD || !sym || !W || !work) return FAIL;
     
-    ladel_int start, index_in_pattern, ncol = sym->ncol, row, index, index2;
+    ladel_int start, index_in_pattern, ncol = sym->ncol, row, index, index2, status;
     ladel_sparse_matrix* L = LD->L;
     ladel_double *Dinv = LD->Dinv;
     ladel_double temp, d22 = diag;
@@ -54,6 +54,7 @@ ladel_int ladel_row_add(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
         L->i[index] = row_in_L;
         L->x[index] = l12[row];
         l12[row] = 0;
+        L->nz[row]++;
     }
 
     /* Insert l31 */
@@ -68,7 +69,8 @@ ladel_int ladel_row_add(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
     
     /* 4. w = l32*sqrt(abs(d22)) */
     /* 5. Update or downdate L33*D33*L33^T = L33*D33*L33^T - sign(d22)*w*w^T */
-    ladel_rank1_update(LD, sym, L, row_in_L, 1/sqrt(d22), d22 < 0, work);
+    status = ladel_rank1_update(LD, sym, L, row_in_L, 1/sqrt(d22), d22 < 0, work);
+    return status;
 }
 
 ladel_int ladel_row_del(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in_L, ladel_work *work)
