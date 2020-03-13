@@ -100,7 +100,7 @@ MU_TEST(test_row_add_at_the_end)
 MU_TEST(test_row_del)
 {
     /*Delete the third row (first copy it so we can use it in the next test)*/
-    new_row->x[0] = M->x[3]; new_row->x[1] = M->x[4]; new_diag = M->x[5];
+    new_row->x[0] = M->x[3]; new_row->x[1] = M->x[4]; new_diag = M->x[5]; new_row->x[1] = M->x[4];
     new_row->p[1] = 2;
     
     ladel_int status, index;

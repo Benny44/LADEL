@@ -151,12 +151,12 @@ MU_TEST(test_rank1_mod)
                                 -1.584275766315217e+00, 3.426556805737886e+00, -2.481259429010251e+00, 
                                 -1.707843620820627e-01, 2.602541252030759e+00};
     
-    status = ladel_rank1_update(LD, sym, W, 0, UPDATE, work);
+    status = ladel_rank1_update(LD, sym, W, 0, 1.0, UPDATE, work);
     mu_assert_long_eq(status, SUCCESS);
     ladel_dense_solve(LD, rhs, x, work);
     for (index = 0; index < NCOL; index++) mu_assert_double_eq(x[index], sol_mod[index], TOL);
 
-    status = ladel_rank1_update(LD, sym, W, 0, DOWNDATE, work);
+    status = ladel_rank1_update(LD, sym, W, 0, 1.0, DOWNDATE, work);
     mu_assert_long_eq(status, SUCCESS);
     ladel_dense_solve(LD, rhs, x, work);
     for (index = 0; index < NCOL; index++) mu_assert_double_eq(x[index], sol[index], TOL);

@@ -116,7 +116,7 @@ ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set
 }
 
 
-ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_sparse_matrix *W, ladel_int col_in_W, ladel_int up_or_down, ladel_work* work)
+ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_sparse_matrix *W, ladel_int col_in_W, ladel_double factor, ladel_int up_or_down, ladel_work* work)
 {
     if (!LD || !sym || !W || !work) return FAIL;
     
@@ -149,7 +149,7 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
     ladel_double *W_col = work->array_double_all_zeros_ncol1;
 
     for (index = W->p[col_in_W]; index < W->p[col_in_W+1]; index++) 
-        W_col[W->i[index]] = W->x[index];
+        W_col[W->i[index]] = factor*W->x[index];
 
     ladel_double alpha = 1, alpha_new, gamma, w, dinv;
     ladel_int child, old_parent;
