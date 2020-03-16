@@ -126,7 +126,8 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
 
     /* TODO: account for the permutation! */
     
-    ladel_int ncol = L->ncol, col, row, index, index_L, size_W = W->p[col_in_W+1] - W->p[col_in_W];
+    ladel_int ncol = L->ncol, col, row, index, index_L, size_W = W->nz[col_in_W];
+    if (size_W == 0) return SUCCESS; 
     ladel_int changed = SET_HAS_NOT_CHANGED, changed_W, changed_child;
     ladel_double sigma;
     if (up_or_down == UPDATE) sigma = 1.0;
@@ -148,12 +149,12 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
     ladel_int *insertions = work->array_int_ncol2;
     ladel_double *W_col = work->array_double_all_zeros_ncol1;
 
-    for (index = W->p[col_in_W]; index < W->p[col_in_W+1]; index++) 
+    for (index = W->p[col_in_W]; index < W->p[col_in_W] + size_W; index++) 
         W_col[W->i[index]] = factor*W->x[index];
 
     ladel_double alpha = 1, alpha_new, gamma, w, dinv;
     ladel_int child, old_parent;
-    for (index = W->p[col_in_W]; index < W->p[col_in_W+1]; index++)
+    for (index = W->p[col_in_W]; index < W->p[col_in_W] + size_W; index++)
     {
         col = W->i[index];
         changed = ladel_add_nonzero_pattern_to_col_of_L(L, col, set_L, set_W, difference_child, offset, insertions);
@@ -198,7 +199,7 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
     }
 
     /* numerical update */
-    for (col = W->i[col_in_W]; col != NONE; col = etree[col])
+    for (col = W->i[W->p[col_in_W]]; col != NONE; col = etree[col])
     {
         w = W_col[col];
         dinv = Dinv[col];

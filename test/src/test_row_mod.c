@@ -47,9 +47,11 @@ void row_mod_suite_setup(void)
 
     new_row = ladel_sparse_alloc(NROW, 1, NROW, UNSYMMETRIC, TRUE);
     new_row->p[0] = 0; new_row->p[1] = 5;
+    new_row->nz[0] = 5;
     new_row->i[0] = 0; new_row->i[1] = 1; new_row->i[2] = 2; new_row->i[3] = 3; new_row->i[4] = 4;   
     new_row->x[0] = 8.746015987152932e-01; new_row->x[1] = 7.532514851657419e-01; new_row->x[2] = 2.226659543716385e-01; 
     new_row->x[3] = 1.380149620432186e-01; new_row->x[4] = 2.208883363414058e-01;   
+
 
     new_diag = -1.3;  
 
@@ -63,11 +65,12 @@ void row_mod_suite_teardown(void)
     ladel_symbolics_free(sym);
     ladel_sparse_free(new_row);
     ladel_workspace_free(work);
+    LD = ladel_factor_free(LD);
 }
 
 void row_mod_test_teardown(void)
 {
-    LD = ladel_factor_free(LD);
+    
 }
 
 MU_TEST(test_row_add_at_the_end)
@@ -99,11 +102,9 @@ MU_TEST(test_row_add_at_the_end)
 
 MU_TEST(test_row_del)
 {
-    /*Delete the third row (first copy it so we can use it in the next test)*/
-    new_row->x[0] = M->x[3]; new_row->x[1] = M->x[4]; new_diag = M->x[5]; new_row->x[1] = M->x[4];
-    new_row->p[1] = 2;
-    
+    /*Delete the third row */ 
     ladel_int status, index;
+
     status = ladel_row_del(LD, sym, 2, work);
     mu_assert_long_eq(status, SUCCESS);
 
@@ -119,6 +120,15 @@ MU_TEST(test_row_del)
 
 MU_TEST(test_row_add_in_middle)
 {
+    /* Add the third row back */
+    new_row->x[0] = 6.893733655105202e-01; new_row->x[1] = 4.565212273616481e-01; 
+    new_row->x[2] = 9.357072685394627e-01; new_row->x[3] = 5.614789725017673e-01;
+    new_row->x[4] = 2.226659543716385e-01;
+    new_diag = 8.270829803188939e-02;
+    new_row->i[0] = 0; new_row->i[1] = 1; new_row->i[2] = 3; new_row->i[3] = 4; new_row->i[4] = 5; 
+    new_row->p[1] = 5;
+    new_row->nz[0] = 5;
+
     ladel_int status, index;
     status = ladel_row_add(LD, sym, 2, new_row, 0, new_diag, work);
     mu_assert_long_eq(status, SUCCESS);
@@ -128,6 +138,7 @@ MU_TEST(test_row_add_in_middle)
 
     ladel_double sol[6] = {2.609664443874901e+00, 3.027486501422937e+00, -9.998957722639763e-01, 
                                 -2.530237213301512e+00, -1.203546137577670e+00, 2.121111804411014e+00};
+    
     ladel_double x[6];
     ladel_dense_solve(LD, rhs, x, work);
     for (index = 0; index < NCOL; index++) mu_assert_double_eq(x[index], sol[index], TOL);

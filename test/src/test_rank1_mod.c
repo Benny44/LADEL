@@ -33,9 +33,11 @@ void rank1_mod_suite_setup(void)
     M->x[15] = 6.404488288848778e-01; 
 
     W = ladel_sparse_alloc(NROW, 1, 3, UNSYMMETRIC, TRUE);
-    W->p[0] = 0; W->p[1] = 3;
+    W->p[0] = 0; W->p[1] = 3; 
+    W->nz[0] = 3;
     W->i[0] = 3; W->i[1] = 5; W->i[2] = 7;
     W->x[0] = 1.418863386272153e-01; W->x[1] = 4.217612826262750e-01; W->x[2] = 9.157355251890671e-01;  
+
 
     sym = ladel_symbolics_alloc(NCOL); 
 

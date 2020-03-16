@@ -159,6 +159,7 @@ static ladel_set *ladel_set_allocate(ladel_int ncol)
         ladel_set_free(set);
         return NULL;
     }
+    set->max_size_set = ncol;
     return set;
 }
 
