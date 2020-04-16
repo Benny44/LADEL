@@ -38,7 +38,7 @@ ladel_int ladel_postorder(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_wo
 
     ladel_int *etree = sym->etree, *postorder = sym->postorder;
     
-    ladel_int col, ncol = M->ncol, top, prev_root = NONE, post_index = 0;
+    ladel_int col, ncol = M->ncol, prev_root = NONE, post_index = 0;
     ladel_int *first_child, *next_child, *stack, *roots;
     first_child = work->array_int_ncol1;
     next_child = work->array_int_ncol2;

@@ -22,7 +22,7 @@ void ladel_permute_symmetric_matrix(ladel_sparse_matrix *M, ladel_int *p, ladel_
         ladel_sparse_copy(M, Mpp);
     } else
     {
-        ladel_int col, pcol, row, prow, index, pindex, prev_col_count, ncol = M->ncol;
+        ladel_int col, pcol, prow, index, pindex, prev_col_count, ncol = M->ncol;
         ladel_int *col_counts = work->array_int_ncol1, *pinv = work->array_int_ncol2;
         for (index = 0; index < ncol; index++) col_counts[index] = 0;
         for (col = 0; col < ncol; col++) pinv[p[col]] = col;

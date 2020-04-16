@@ -4,6 +4,7 @@
 #include "ldl_symbolic.h"
 #include "ldl_numeric.h"
 #include "permutation.h"
+#include "etree.h"
 
 
 ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_work* work)
@@ -37,7 +38,7 @@ ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym,
     if (!M || !sym || !Mbasis || !work) return FAIL;
 
     ladel_int ok_symbolic, ok_numeric;
-    ladel_sparse_matrix *Mpp, *Mwork = M;
+    ladel_sparse_matrix *Mpp;
     
     if (ordering_method != NO_ORDERING) Mpp = ladel_sparse_alloc(Mbasis->nrow, Mbasis->ncol, Mbasis->nzmax, Mbasis->symmetry, Mbasis->values);
     else Mpp = Mbasis;
@@ -50,7 +51,6 @@ ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym,
         if (ordering_method != NO_ORDERING) ladel_sparse_free(Mpp);
         return FAIL;
     }
-    ladel_int index;
     if (sym->p)
     {
         ladel_sparse_free(Mpp);
@@ -61,7 +61,7 @@ ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym,
         Mpp = M;
     }
     
-    ladel_etree(Mpp, sym);
+    ladel_etree(Mpp, sym, work);
 
     ok_numeric = ladel_ldl_numeric(Mpp, sym, *LD, work);
 

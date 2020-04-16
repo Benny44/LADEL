@@ -4,12 +4,13 @@
 #include "pattern.h"
 #include "rank1_mod.h"
 #include "row_mod.h"
+#include <math.h>
 
 ladel_int ladel_row_add(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in_L, ladel_sparse_matrix *W, ladel_int col_in_W, ladel_double diag, ladel_work *work)
 {
     if (!LD || !sym || !W || !work) return FAIL;
     
-    ladel_int start, index_in_pattern, ncol = sym->ncol, row, row2, index, index2, status;
+    ladel_int start, index_in_pattern, ncol = sym->ncol, row, index, index2, status;
     ladel_sparse_matrix* L = LD->L;
     ladel_double *Dinv = LD->Dinv;
     ladel_int *etree = sym->etree;

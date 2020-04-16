@@ -41,7 +41,7 @@ ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set
     ladel_int *dif = difference->set;
     difference->size_set = 0;
 
-    ladel_int index1 = 0, index2, row1, row2, index, index_dif = 0;
+    ladel_int index1 = 0, index2, row1, row2, index_dif = 0;
 
     /* Special case: second set is empty => do nothing */
     if (size_set2 == 0) return SET_HAS_NOT_CHANGED;
@@ -126,7 +126,7 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
 
     /* TODO: account for the permutation! */
     
-    ladel_int ncol = L->ncol, col, row, index, index_L, size_W = W->nz[col_in_W];
+    ladel_int col, row, index, index_L, size_W = W->nz[col_in_W];
     if (size_W == 0) return SUCCESS; 
     ladel_int changed = SET_HAS_NOT_CHANGED, changed_W, changed_child;
     ladel_double sigma;
@@ -184,6 +184,8 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
                 changed_child = ladel_add_nonzero_pattern_to_col_of_L(L, col, set_L, set_child, difference, offset, insertions);
                 
             changed_W = ladel_add_nonzero_pattern_to_col_of_L(L, col, set_L, set_W, difference_child, offset, insertions);
+
+            if (changed_child == MAX_SET_SIZE_EXCEEDED || changed_W == MAX_SET_SIZE_EXCEEDED) return FAIL;
 
             child = col;
             old_parent = etree[col];

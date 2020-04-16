@@ -29,7 +29,7 @@ if (FLOAT)
 endif (FLOAT)
 
 if (UNIX)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wconversion")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wno-conversion -Wno-sign-conversion")
 endif (UNIX)
 
 option (AMD "Use approximate minimum degree ordering" ON)
@@ -40,6 +40,7 @@ endif (AMD)
 #################### Build the library #####################
 ############################################################
 SET(SRC
+        src/global.c
         src/scale.c
         src/matvec.c
         src/upper_diag.c

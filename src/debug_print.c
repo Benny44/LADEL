@@ -1,5 +1,7 @@
 #include "global.h"
 #include "types.h"
+#include "debug_print.h"
+#include <stdio.h>
 
 /* Print a sparse matrix so the output can be entered into matlab */
 void ladel_print_sparse_matrix_matlab(ladel_sparse_matrix *M) {
@@ -20,7 +22,7 @@ void ladel_print_sparse_matrix_matlab(ladel_sparse_matrix *M) {
 
 void ladel_print_factor_matlab(ladel_factor *LD) {
     printf("L = sparse(%ld, %ld);", LD->L->nrow, LD->L->ncol);
-    ladel_int col, index = 0, row;
+    ladel_int col, index = 0;
     ladel_double *Lx = LD->L->x;
     ladel_int *Li = LD->L->i;
     ladel_int *Lp = LD->L->p;

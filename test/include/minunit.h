@@ -150,12 +150,13 @@ minunit_suite_teardown = NULL;\
 	printf("\n\n\033[1;32m%d tests, %d assertions, %d failures\033[0m\n", minunit_run, minunit_assert, minunit_fail);\
 	} else {\
 	printf("\n\033[1;31m%d tests, %d assertions, %d failures\033[0m\n", minunit_run, minunit_assert, minunit_fail);\
-	}\	
+	}\
 	minunit_end_real_timer = mu_timer_real();\
 	minunit_end_proc_timer = mu_timer_cpu();\
-	printf("\nFinished in %.8f seconds (real) %.8f seconds (proc)\n\n",\
+	snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "\nFinished in %.8f seconds (real) %.8f seconds (proc)\n\n",\
 		minunit_end_real_timer - minunit_real_timer,\
 		minunit_end_proc_timer - minunit_proc_timer);\
+	printf("%s", minunit_last_message);\
 )
 
 /*  Assertions */

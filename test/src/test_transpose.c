@@ -52,7 +52,6 @@ MU_TEST(test_transpose_no_values)
     ladel_sparse_matrix *M_transpose = ladel_transpose(M, FALSE, work);
     ladel_int p_sol[NROW+1] = {0, 2, 3, 5, 7};
     ladel_int i_sol[NZMAX] = {0, 3, 1, 0, 2, 2, 4};
-    ladel_double x_sol[NZMAX] = {1, 4, 2, 3, 5, 6, 7};
 
     ladel_int index;
     for (index = 0; index < NROW+1; index++)

@@ -6,7 +6,6 @@
 #include "postorder.h"
 #include "col_counts.h"
 
-#define DAMD
 #ifdef DAMD
 #include "amd.h"
 #endif /*DAMD*/
