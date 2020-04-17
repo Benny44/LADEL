@@ -4,6 +4,37 @@
 #include "copy.h"
 #include "stdlib.h"
 
+#ifdef MATLAB
+#include "mex.h"
+void* ladel_calloc(ladel_int n, size_t size)
+{
+    void *m = mxCalloc(LADEL_MAX(n, 1), size);
+    mexMakeMemoryPersistent(m);
+    return m;
+}
+
+void *ladel_malloc(ladel_int n, size_t size) 
+{
+    void *m = mxMalloc(LADEL_MAX(n, 1) * size);
+    mexMakeMemoryPersistent(m);
+    return m;
+}
+
+void* ladel_realloc(void *p, ladel_int n, size_t size, ladel_int *status) 
+{
+    void *p_new = mxRealloc(p, LADEL_MAX(n, 1) * size);
+    *status = (p_new != NULL);
+    mexMakeMemoryPersistent(p_new);
+    return ((*status) ? p_new : p);
+}
+
+void *ladel_free(void* p) 
+{
+    if (p) mxFree(p);
+    return NULL;
+}
+
+#else
 void *ladel_malloc(ladel_int n, size_t size) 
 {
     return (malloc(LADEL_MAX(n, 1) * size));
@@ -27,6 +58,8 @@ void *ladel_realloc(void *p, ladel_int n, size_t size, ladel_int *status)
     *status = (p_new != NULL);
     return ((*status) ? p_new : p);
 }
+
+#endif /*MATLAB*/
 
 ladel_sparse_matrix *ladel_sparse_free(ladel_sparse_matrix *M)
 {
