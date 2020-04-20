@@ -4,6 +4,8 @@
 #include "global.h"
 #include "types.h"
 #include "row_mod.h"
+#include "upper_diag.h"
+#include "debug_print.h"
 
 /* Modes of operation */
 #define MODE_INIT "init"
@@ -15,6 +17,8 @@
 
 /* LADEL work identifier */
 static ladel_work* work = NULL;
+static ladel_symbolics *sym = NULL;
+static ladel_factor *LD = NULL;
 
 /* Mex calls this when it closes unexpectedly, freeing the workspace */
 void exitFcn() {
@@ -22,6 +26,21 @@ void exitFcn() {
       ladel_workspace_free(work);
       work = NULL;
   }  
+}
+
+ladel_sparse_matrix *ladel_get_sparse_from_matlab(const mxArray *M_mex, ladel_sparse_matrix *M, ladel_int symmetry)
+{
+    // ladel_sparse_matrix *M;
+    M->nrow = mxGetM(M_mex);
+    M->ncol = mxGetN(M_mex);
+    M->p = (ladel_int *) mxGetJc(M_mex);
+    M->i = (ladel_int *) mxGetIr(M_mex);
+    M->x = (ladel_double *) mxGetPr(M_mex);
+    M->values = TRUE;
+    M->symmetry = symmetry;
+    M->nzmax = M->p[M->ncol];
+    M->nz = NULL;
+    return M;
 }
 
 /**
@@ -50,12 +69,11 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
 
     /* Get the command string */
     char cmd[64];
-
     if (nrhs < 1 || mxGetString(prhs[0], cmd, sizeof(cmd)))
 		mexErrMsgTxt("First input should be a command string less than 64 characters long.");
 
-    /* report the default settings */
-    if (strcmp(cmd, MODE_INIT) == 0) {
+    if (strcmp(cmd, MODE_INIT) == 0) 
+    {
         /* Warn if other commands were ignored */
         if (nrhs != 2)
             mexErrMsgTxt("Wrong number of input arguments for mode init.");
@@ -63,22 +81,56 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
         if (work != NULL)
             mexErrMsgTxt("Work is already initialized.");
 
-        ladel_int ncol = (int)*mxGetPr(prhs[1]);
+        ladel_int ncol = (ladel_int) *mxGetPr(prhs[1]);
         work = ladel_workspace_allocate(ncol);
+        sym = ladel_symbolics_alloc(ncol);
         return;
 
-    } else if (strcmp(cmd, MODE_DELETE) == 0) {    
+    } 
+    else if (strcmp(cmd, MODE_DELETE) == 0) 
+    {    
         /* clean up the problem workspace */
         if(work != NULL){
-            ladel_workspace_free(work);
-            work = NULL;
+            work = ladel_workspace_free(work);
+            sym = ladel_symbolics_free(sym);
+            LD = ladel_factor_free(LD);
         }
         /* Warn if other commands were ignored */
         if (nlhs != 0 || nrhs != 1)
             mexWarnMsgTxt("Delete: Unexpected arguments ignored.");
         return;
 
-    } else {
+    } 
+    else if (strcmp(cmd, MODE_FACTORIZE) == 0)
+    {
+        if (nlhs != 0 || (nrhs != 2 && nrhs != 3))
+            mexErrMsgTxt("Wrong number of input or output arguments for mode factorize.");
+
+        ladel_sparse_matrix Mmatlab;
+        ladel_sparse_matrix *M = ladel_get_sparse_from_matlab(prhs[1], &Mmatlab, UPPER);
+        ladel_int ordering;
+        if (nrhs == 3)
+            ordering = (ladel_int) *mxGetPr(prhs[2]);
+        else
+            ordering = NO_ORDERING;
+        
+        ladel_int status = ladel_factorize(M, sym, ordering, &LD, work);
+        if (status != SUCCESS)
+            mexWarnMsgTxt("Factorize: Something went wrong in the factorization.");
+
+    }
+    else if (strcmp(cmd, MODE_DENSE_SOLVE) == 0)
+    {
+        if (nlhs != 1 || nrhs != 2 )
+            mexErrMsgTxt("Wrong number of input or output arguments for mode solve.");
+
+        plhs[0] = mxCreateDoubleMatrix(LD->ncol,1,mxREAL);
+        ladel_double *y = mxGetPr(plhs[0]); 
+        ladel_double *x = mxGetPr(prhs[1]); 
+        ladel_dense_solve(LD, x, y, work);
+    }
+    else 
+    {
         mexErrMsgTxt("Invalid LADEL mode");
     }
 }

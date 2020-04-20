@@ -3,6 +3,7 @@
 #include "constants.h"
 #include "copy.h"
 #include "stdlib.h"
+#include "stdio.h"
 
 #ifdef MATLAB
 #include "mex.h"

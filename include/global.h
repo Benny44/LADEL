@@ -18,6 +18,13 @@ void *ladel_free(void* p);
 
 void *ladel_realloc(void *p, ladel_int n, size_t size, ladel_int *status);
 
+#ifdef MATLAB
+#include "mex.h"
+#define ladel_print mexPrintf
+#else
+#define ladel_print printf
+#endif
+
 ladel_sparse_matrix *ladel_sparse_free(ladel_sparse_matrix *M);
 
 ladel_sparse_matrix *ladel_sparse_alloc(ladel_int nrow, ladel_int ncol, 

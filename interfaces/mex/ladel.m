@@ -18,8 +18,22 @@ classdef ladel < handle
             ladel_mex('init', ncol);
         end
         
-        function delete(this)
+        function delete(~)
             ladel_mex('delete');
+        end
+        
+        function factorize(~, M, varargin)
+            M = triu(M);
+            if nargin == 3
+                ordering = varargin{1};
+                ladel_mex('factorize', M, ordering);
+            else
+                ladel_mex('factorize', M);
+            end    
+        end
+        
+        function y = dense_solve(~, x)
+            y = ladel_mex('solve', x);
         end
 
     end
