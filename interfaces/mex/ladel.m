@@ -35,6 +35,17 @@ classdef ladel < handle
         function y = dense_solve(~, x)
             y = ladel_mex('solve', x);
         end
+        
+        function factorize_advanced(~, M, Mbasis, varargin)
+            M = triu(M);
+            Mbasis = triu(Mbasis);
+            if nargin == 4
+                ordering = varargin{1};
+                ladel_mex('factorize_advanced', M, Mbasis, ordering);
+            else
+                ladel_mex('factorize_advanced', M, Mbasis);
+            end
+        end
 
     end
     

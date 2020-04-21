@@ -106,6 +106,8 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
         if (nlhs != 0 || (nrhs != 2 && nrhs != 3))
             mexErrMsgTxt("Wrong number of input or output arguments for mode factorize.");
 
+        if (LD != NULL) LD = ladel_factor_free(LD);
+
         ladel_sparse_matrix Mmatlab;
         ladel_sparse_matrix *M = ladel_get_sparse_from_matlab(prhs[1], &Mmatlab, UPPER);
         ladel_int ordering;
@@ -116,8 +118,7 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
         
         ladel_int status = ladel_factorize(M, sym, ordering, &LD, work);
         if (status != SUCCESS)
-            mexWarnMsgTxt("Factorize: Something went wrong in the factorization.");
-
+            mexErrMsgTxt("Factorize: Something went wrong in the factorization.");
     }
     else if (strcmp(cmd, MODE_DENSE_SOLVE) == 0)
     {
@@ -128,6 +129,30 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
         ladel_double *y = mxGetPr(plhs[0]); 
         ladel_double *x = mxGetPr(prhs[1]); 
         ladel_dense_solve(LD, x, y, work);
+    }
+    else if (strcmp(cmd, MODE_FACTORIZE_ADVANCED) == 0)
+    {
+        if (nlhs != 0 || (nrhs != 3 && nrhs != 4))
+            mexErrMsgTxt("Wrong number of input or output arguments for mode factorize_advanced.");
+
+        if (LD != NULL) LD = ladel_factor_free(LD);
+
+        ladel_sparse_matrix Mmatlab;
+        ladel_sparse_matrix *M = ladel_get_sparse_from_matlab(prhs[1], &Mmatlab, UPPER);
+
+        ladel_sparse_matrix Mbasismatlab;
+        ladel_sparse_matrix *Mbasis = ladel_get_sparse_from_matlab(prhs[2], &Mbasismatlab, UPPER);
+
+        ladel_int ordering;
+        if (nrhs == 4)
+            ordering = (ladel_int) *mxGetPr(prhs[3]);
+        else
+            ordering = NO_ORDERING;
+        
+
+        ladel_int status = ladel_factorize_advanced(M, sym, ordering, &LD, Mbasis, work);
+        if (status != SUCCESS)
+            mexErrMsgTxt("Factorize_advanced: Something went wrong in the factorization.");
     }
     else 
     {
