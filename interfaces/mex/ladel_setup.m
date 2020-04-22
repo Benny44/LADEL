@@ -21,7 +21,7 @@ catch
     mac = 0 ;
 end
 
-flags = '-silent -DMATLAB_MEX_FILE -DNMALLOC' ;
+flags = '-silent -DMATLAB_MEX_FILE -DNMALLOC -g' ;
 is64 = ~isempty (strfind (computer, '64')) ;
 if (is64)
     % 64-bit MATLAB

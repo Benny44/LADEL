@@ -7,6 +7,12 @@ ladel_int ladel_add_nonzero_pattern_to_col_of_L(ladel_sparse_matrix *L, ladel_in
 {
     ladel_int start = L->p[col], status;
     ladel_set_set(col_set, L->i + start, L->nz[col], L->p[col+1] - L->p[col]);
+    ladel_print("L->nz[col] = %d, L->p[col+1] - L->p[col] = %d\n", L->nz[col], L->p[col+1] - L->p[col]);
+    for (ladel_int index = 0; index < col_set->size_set; index++)
+        ladel_print("Li = %ld\n", col_set->set[index]);
+    for (ladel_int index = 0; index < set->size_set; index++)
+        ladel_print("Wi = %ld\n", set->set[index]);
+        
     status = ladel_set_union(col_set, set, difference, offset, insertions, col);
     
     /* For now it is assumed the user has allocated enough space. If not, the error is passed on.
@@ -30,7 +36,7 @@ ladel_int ladel_add_nonzero_pattern_to_col_of_L(ladel_sparse_matrix *L, ladel_in
 }
 
 ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set *difference, 
-                            ladel_int* offset, ladel_int* insertions, ladel_int minimum_index)
+                            ladel_int *offset, ladel_int *insertions, ladel_int minimum_index)
 {
     ladel_int *set1 = first_set->set; 
     ladel_int size_set1 = first_set->size_set; 
@@ -61,7 +67,7 @@ ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set
     }
 
     row1 = set1[0];
-    /* Construct difference set and offsets -----------------------------------*/ 
+/* Construct difference set and offsets -----------------------------------*/ 
     for (index2 = 0; index2 < size_set2; index2++)
     {
         row2 = set2[index2];
@@ -79,7 +85,7 @@ ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set
             index_dif++;
 
             size_set1++;
-            if (size_set1 == max_size_set1) return MAX_SET_SIZE_EXCEEDED;
+            if (size_set1 > max_size_set1) return MAX_SET_SIZE_EXCEEDED;
         }
         else if (row1 < row2) /*append the rest of set2 to the end of set1*/
         {
@@ -97,7 +103,7 @@ ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set
     for (; index1 < first_set->size_set; index1++) offset[index1] = index_dif;
     difference->size_set = index_dif;
 
-    /* Merge difference into the first set ------------------------------------*/
+/* Merge difference into the first set ------------------------------------*/
 
     /* Move original set1 values to the correct positions */
     for (index1 = first_set->size_set-1; index1 >= 0; index1--) set1[index1+offset[index1]] = set1[index1];
@@ -119,14 +125,14 @@ ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set
 ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_sparse_matrix *W, ladel_int col_in_W, ladel_double factor, ladel_int up_or_down, ladel_work* work)
 {
     if (!LD || !sym || !W || !work) return FAIL;
-    
+
     ladel_int *etree = sym->etree;
     ladel_sparse_matrix *L = LD->L;
     ladel_double *Dinv = LD->Dinv;
 
     /* TODO: account for the permutation! */
     
-    ladel_int col, row, index, index_L, size_W = W->nz[col_in_W];
+    ladel_int col, row, index, index_L, size_W = (W->nz == NULL) ? W->p[col_in_W+1] - W->p[col_in_W] : W->nz[col_in_W] ;
     if (size_W == 0) return SUCCESS; 
     ladel_int changed = SET_HAS_NOT_CHANGED, changed_W, changed_child;
     ladel_double sigma;
@@ -178,7 +184,7 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
     {
         while (TRUE)
         {
-            if (child == old_parent)
+            if (col == old_parent)
                 changed_child = ladel_add_nonzero_pattern_to_col_of_L(L, col, set_L, difference_child, difference, offset, insertions);             
             else
                 changed_child = ladel_add_nonzero_pattern_to_col_of_L(L, col, set_L, set_child, difference, offset, insertions);
@@ -218,7 +224,8 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
     }
 
     /* Return the double workspace to all zeros */
-    for (index = W->i[col_in_W]; index != NONE; index = etree[index]) W_col[index] = 0;
+
+    for (index = W->i[W->p[col_in_W]]; index != NONE; index = etree[index]) W_col[index] = 0;
 
     return SUCCESS;
 

@@ -67,7 +67,7 @@ ladel_int ladel_etree_dfs(ladel_sparse_matrix *W,
     }
     /* unmark all the nodes to prepare for finding the pattern of the next row */
     for (index = start; index < sym->ncol; index++) UNMARK(nodes, pattern[index]);
-        UNMARK(nodes, row);
+    UNMARK(nodes, row);
 
     return start;
 }

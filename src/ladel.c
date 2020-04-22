@@ -103,7 +103,7 @@ ladel_int ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, lad
         for (row = 0; row < ncol; row++) 
         {
             y[LD->p[row]] = temp[row];
-            temp[row] = 0; /*reset to keep the workspace consistent*/
+            temp[row] = 0.0; /*reset to keep the workspace consistent*/
         }
     }
     return SUCCESS;

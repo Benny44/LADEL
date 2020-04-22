@@ -4,13 +4,14 @@
 #include "pattern.h"
 #include "rank1_mod.h"
 #include "row_mod.h"
+#include "permutation.h"
 #include <math.h>
 
 ladel_int ladel_row_add(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in_L, ladel_sparse_matrix *W, ladel_int col_in_W, ladel_double diag, ladel_work *work)
 {
     if (!LD || !sym || !W || !work) return FAIL;
     
-    ladel_int start, index_in_pattern, ncol = sym->ncol, row, index, index2, status;
+    ladel_int start, index_in_pattern, ncol = sym->ncol, row, index, index2, Wnz, status;
     ladel_sparse_matrix* L = LD->L;
     ladel_double *Dinv = LD->Dinv;
     ladel_int *etree = sym->etree;
@@ -24,8 +25,13 @@ ladel_int ladel_row_add(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
     ladel_int *offset = work->array_int_ncol1;
     ladel_int *insertions = work->array_int_ncol2;
     
+    if (LD->p != NULL)
+        ladel_permute_sparse_vector(W, col_in_W, LD->p, work);
+
     /* 1. Solve lower triangular system L11*D11*l12 = W12 */
-    for (index = W->p[col_in_W]; index < W->p[col_in_W] + W->nz[col_in_W]; index++)
+    if (W->nz == NULL) Wnz = W->p[col_in_W+1] - W->p[col_in_W];
+    else Wnz = W->nz[col_in_W];
+    for (index = W->p[col_in_W]; index < W->p[col_in_W] + Wnz; index++)
     {
         row = W->i[index];
         l12[row] = W->x[index];

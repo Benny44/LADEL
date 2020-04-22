@@ -53,7 +53,7 @@ ladel_sparse_matrix *ladel_get_sparse_from_matlab(const mxArray *M_mex, ladel_sp
  * ladel_mex('factorize_advanced', M, Mbasis);
  * ladel_mex('factorize_advanced', M, Mbasis, ordering);
  * ladel_mex('rowmod', row_index);
- * ladel_mex('rowmod', row_index, row);
+ * ladel_mex('rowmod', row_index, row, diag_elem);
  * y = ladel_mex('solve', x);
  * ladel_mex('delete');
  *
@@ -153,6 +153,33 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
         ladel_int status = ladel_factorize_advanced(M, sym, ordering, &LD, Mbasis, work);
         if (status != SUCCESS)
             mexErrMsgTxt("Factorize_advanced: Something went wrong in the factorization.");
+    }
+    else if (strcmp(cmd, MODE_ROW_MOD) == 0)
+    {
+        if (nlhs != 0 || (nrhs != 2 && nrhs != 4))
+            mexErrMsgTxt("Wrong number of input or output arguments for mode row_mod.");
+
+        if (LD == NULL)
+            mexErrMsgTxt("Row_mod: No factor found. First use factorize_advanced to compute L and D.");
+
+        ladel_int row_in_L = (ladel_int) *mxGetPr(prhs[1]);
+        row_in_L--; /*Matlab vs. C-based indexing */
+        ladel_int status;
+        if (nrhs == 2)
+        {
+            status = ladel_row_del(LD, sym, row_in_L, work);
+        } 
+        else if (nrhs == 4)
+        {
+            ladel_sparse_matrix Wmatlab;
+            ladel_sparse_matrix *W = ladel_get_sparse_from_matlab(prhs[2], &Wmatlab, UNSYMMETRIC);
+            // ladel_print_sparse_matrix_matlab(W);
+            // mexErrMsgTxt("Row_mod: Something went wrong in updating the factorization.");
+            ladel_double diag = *mxGetPr(prhs[3]);
+            status = ladel_row_add(LD, sym, row_in_L, W, 0, diag, work);
+        }
+        if (status != SUCCESS)
+            mexErrMsgTxt("Row_mod: Something went wrong in updating the factorization.");
     }
     else 
     {
