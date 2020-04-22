@@ -1,6 +1,7 @@
 #include "types.h"
 #include "constants.h"
 #include "global.h"
+#include "stdlib.h"
 
 void ladel_permute_vector(ladel_double *x, ladel_int *p, ladel_int size, ladel_double *y)
 {
@@ -12,6 +13,57 @@ void ladel_inverse_permute_vector(ladel_double *x, ladel_int *pinv, ladel_int si
 {
     ladel_int index;
     for (index = 0; index < size; index++) y[pinv[index]] = x[index];
+}
+
+static int ladel_int_compare(const ladel_int *a, const ladel_int *b) 
+{ 
+    if (*a > *b) return -1;
+    else return 1;
+} 
+
+void ladel_permute_sparse_vector(ladel_sparse_matrix *x, ladel_int col, ladel_int *p, ladel_work *work)
+{
+    ladel_int row, index, index_temp, xnz = x->p[col+1] - x->p[col];
+    ladel_double *temp = work->array_double_all_zeros_ncol1;
+    
+    /* In a relatively dense case, don't sort but just do a dense permutation.
+    The dense permutation takes O(nrow) computations.
+    The sparse permutation takes O(xnz*log(xnz)) computations, because of the sort. */
+    if (xnz > x->nrow / 5)
+    {
+        for (index = x->p[col]; index < x->p[col+1]; index++)
+        {
+            row = p[x->i[index]];
+            temp[row] = x->x[index]; 
+        }
+        index = 0;
+        for (index_temp = 0; index_temp < x->nrow; index_temp++)
+        {
+            if (temp[index_temp] != 0.0)
+            {
+                x->i[index] = row;
+                x->x[index] = temp[index_temp];
+                temp[index_temp] = 0.0; /*reset to keep the workspace consistent*/
+                index++; 
+            }
+        }
+    }
+    else
+    {
+        for (index = x->p[col]; index < x->p[col+1]; index++)
+        {
+            row = p[x->i[index]];
+            x->i[index] = row;
+            temp[row] = x->x[index]; 
+        }
+        qsort(x->i, xnz, sizeof(ladel_int), (int (*) (const void *, const void *)) ladel_int_compare);
+        for (index = x->p[col]; index < x->p[col+1]; index++)
+        {
+            row = x->i[index];
+            x->x[index] = temp[row];
+            temp[row] = 0.0;
+        }
+    }   
 }
 
 void ladel_permute_symmetric_matrix(ladel_sparse_matrix *M, ladel_int *p, ladel_sparse_matrix *Mpp, ladel_work* work)
@@ -64,8 +116,5 @@ void ladel_permute_symmetric_matrix(ladel_sparse_matrix *M, ladel_int *p, ladel_
                 if (M->values) Mpp->x[pindex] = M->x[index]; 
             }
         }
-    }
-    
-    
-    
+    } 
 }
