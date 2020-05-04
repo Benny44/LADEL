@@ -2,17 +2,12 @@
 #include "global.h"
 #include "constants.h"
 #include "rank1_mod.h"
+#include "debug_print.h"
 
 ladel_int ladel_add_nonzero_pattern_to_col_of_L(ladel_sparse_matrix *L, ladel_int col, ladel_set *col_set, ladel_set *set, ladel_set *difference, ladel_int* offset, ladel_int* insertions)
 {
     ladel_int start = L->p[col], status;
-    ladel_set_set(col_set, L->i + start, L->nz[col], L->p[col+1] - L->p[col]);
-    ladel_print("L->nz[col] = %d, L->p[col+1] - L->p[col] = %d\n", L->nz[col], L->p[col+1] - L->p[col]);
-    for (ladel_int index = 0; index < col_set->size_set; index++)
-        ladel_print("Li = %ld\n", col_set->set[index]);
-    for (ladel_int index = 0; index < set->size_set; index++)
-        ladel_print("Wi = %ld\n", set->set[index]);
-        
+    ladel_set_set(col_set, L->i + start, L->nz[col], L->p[col+1] - L->p[col]);    
     status = ladel_set_union(col_set, set, difference, offset, insertions, col);
     
     /* For now it is assumed the user has allocated enough space. If not, the error is passed on.
@@ -61,7 +56,9 @@ ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set
             if (row2 <= minimum_index) continue;
             insertions[index1] = index1;
             set1[index1] = dif[index1] = row2; 
+            index1++;
         }
+        first_set->size_set = difference->size_set = index1;
         if (index1 == 0) return SET_HAS_NOT_CHANGED;
         else return SET_HAS_CHANGED;
     }
@@ -165,7 +162,6 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
         col = W->i[index];
         changed = ladel_add_nonzero_pattern_to_col_of_L(L, col, set_L, set_W, difference_child, offset, insertions);
         if (changed == MAX_SET_SIZE_EXCEEDED) return FAIL;
-         
         if (changed == SET_HAS_CHANGED)
         {
             child = col;
