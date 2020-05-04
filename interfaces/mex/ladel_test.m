@@ -1,4 +1,4 @@
-%% Demo on how to use LADEL
+%% Demo on how to use LADEL (without permutation)
 if exist('solver')
     solver.delete();
     clear solver

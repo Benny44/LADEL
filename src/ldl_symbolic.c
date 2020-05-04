@@ -5,6 +5,7 @@
 #include "etree.h"
 #include "postorder.h"
 #include "col_counts.h"
+#include "debug_print.h"
 
 #ifdef DAMD
 #include "amd.h"
@@ -27,7 +28,7 @@ ladel_int ladel_ldl_symbolic(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel
         status = amd_order(M->ncol, M->p, M->i, sym->p, NULL, Info);
         #endif
         if (status != AMD_OK) return FAIL;
-
+        
         #else /*DAMD*/
         sym->p = ladel_free(sym->p);
         #endif

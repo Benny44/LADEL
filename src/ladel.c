@@ -19,6 +19,8 @@ ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_in
 
     if (!Mpp) return FAIL;
     ok_symbolic = ladel_ldl_symbolic(M, sym, ordering_method, Mpp, work);
+    if (ok_symbolic == FAIL) return FAIL;
+
     *LD = ladel_factor_allocate(sym);
     if (!*LD)
     {
