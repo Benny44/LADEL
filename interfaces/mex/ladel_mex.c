@@ -192,15 +192,12 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
             mexWarnMsgTxt("Factor has permutation but this is not requested in the output arguments.");
         if (nlhs == 3)
         {
+            plhs[2] = mxCreateDoubleMatrix(LD->ncol, 1, mxREAL);
+            double *p = mxGetPr(plhs[2]);
             if (LD->p != NULL)
-            {
-                plhs[2] = mxCreateDoubleMatrix(LD->ncol, 1, mxREAL);
-                double *p = mxGetPr(plhs[2]);
-                for (index = 0; index < LD->ncol; index++) p[index] = (double) LD->p[index];
-            } else
-            {
-                plhs[2] = NULL;
-            }            
+                for (index = 0; index < LD->ncol; index++) p[index] = (double) LD->p[index]+1;
+            else
+                for (index = 0; index < LD->ncol; index++) p[index] = (double) index+1;                   
         }
         return;     
     }
@@ -247,8 +244,6 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
         {
             ladel_sparse_matrix Wmatlab;
             ladel_sparse_matrix *W = ladel_get_sparse_from_matlab(prhs[2], &Wmatlab, UNSYMMETRIC);
-            // ladel_print_sparse_matrix_matlab(W);
-            // mexErrMsgTxt("Row_mod: Something went wrong in updating the factorization.");
             ladel_double diag = *mxGetPr(prhs[3]);
             status = ladel_row_add(LD, sym, row_in_L, W, 0, diag, work);
         }

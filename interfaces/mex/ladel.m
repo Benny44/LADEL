@@ -22,21 +22,36 @@ classdef ladel < handle
             ladel_mex('delete');
         end
         
-        function factorize(~, M, varargin)
+        function varargout = factorize(~, M, varargin)
             M = triu(M);
             if nargin == 3
                 ordering = varargin{1};
                 ladel_mex('factorize', M, ordering);
             else
                 ladel_mex('factorize', M);
-            end    
+            end
+            
+            if nargout > 0
+                if nargout == 2
+                    [L, D] = ladel_mex('return');
+                    varargout{1} = L;
+                    varargout{2} = D;
+                elseif nargout == 3
+                    [L, D, p] = ladel_mex('return');
+                    varargout{1} = L;
+                    varargout{2} = D;
+                    varargout{3} = p;
+                else
+                    error('Wrong number of output arguments for factorized_advanced');
+                end
+            end
         end
         
         function y = dense_solve(~, x)
             y = ladel_mex('solve', x);
         end
         
-        function [varargout] = factorize_advanced(~, M, Mbasis, varargin)
+        function varargout = factorize_advanced(~, M, Mbasis, varargin)
             M = triu(M);
             Mbasis = triu(Mbasis);
             if nargin == 4
