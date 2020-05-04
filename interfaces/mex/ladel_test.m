@@ -1,9 +1,10 @@
 %% Demo on how to use LADEL
 if exist('solver')
     solver.delete();
+    clear solver
 end
 
-n = 4;
+n = 40;
 M = sprand(n,n, 1e-1, 1) + 2*speye(n);
 M = (M+M')/2;
 x = rand(n,1);
@@ -26,19 +27,26 @@ M(n/2,n/2) = 1;
 
 Mbasis = Mbasis + M; %make sure entries of M are in Mbasis
 
-solver.factorize_advanced(M, Mbasis);
+[L,D] = solver.factorize_advanced(M, Mbasis);
+% LD = ldlchol(M);
+
 y = solver.dense_solve(x);
 assert(norm(y-M\x) < 1e-12);
+% y_chol = ldlsolve(LD, x);
+% assert(norm(y_chol-M\x) < 1e-12);
 
-solver.row_mod(n/2, Mbasis(:,n/2), full(Mbasis(n/2,n/2)));
+[Lupd, Dupd] = solver.row_mod(n/2, Mbasis(:,n/2), full(Mbasis(n/2,n/2)));
+% LD = ldlrowmod(LD, n/2, Mbasis(:,n/2));
+
 Mupd = M;
 Mupd(:,n/2) = Mbasis(:,n/2);
 Mupd(n/2,:) = Mbasis(n/2,:);
 
+% y_chol = ldlsolve(LD, x);
+% assert(norm(y_chol-Mupd\x) < 1e-12);
+
 y = solver.dense_solve(x);
 assert(norm(y-Mupd\x) < 1e-12);
-
-
 
 
 solver.delete();
