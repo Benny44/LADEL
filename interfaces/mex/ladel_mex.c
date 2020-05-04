@@ -1,4 +1,5 @@
 #include "mex.h"
+#include "matrix.h"
 #include <string.h>
 #include "ladel.h"
 #include "global.h"
@@ -14,6 +15,7 @@
 #define MODE_ROW_MOD "rowmod"
 #define MODE_DENSE_SOLVE "solve"
 #define MODE_DELETE "delete"
+#define MODE_RETURN "return"
 
 /* LADEL work identifier */
 static ladel_work* work = NULL;
@@ -43,6 +45,44 @@ ladel_sparse_matrix *ladel_get_sparse_from_matlab(const mxArray *M_mex, ladel_sp
     return M;
 }
 
+mxArray *ladel_put_matlab_from_sparse(ladel_sparse_matrix *M)
+{
+    if (!M || M->x == NULL) 
+        mexErrMsgTxt ("Tried converting an unitialized sparse matrix to matlab.") ;
+
+    mxArray *M_matlab ;
+    
+    M_matlab = mxCreateSparse(M->nrow, M->ncol, M->nzmax, mxREAL);
+    mxSetJc(M_matlab, M->p);
+    mxSetIr(M_matlab, M->i);
+    mxSetPr(M_matlab, M->x);
+
+    return (M_matlab);
+}
+
+ladel_sparse_matrix *ladel_convert_factor_to_sparse(ladel_sparse_matrix *L)
+{
+    /* The difference is that the number of nonzeros in L is indicated by L->nz,
+    *  whereas in L_out they are given by L_out->p */
+   if (!L) return NULL;
+   ladel_int index_L, index_L_out = 0, col, ncol = L->ncol, nrow = L->nrow, Lnz = 0;
+   for (col = 0; col < ncol; col++) Lnz += L->nz[col];
+   ladel_sparse_matrix *L_out = ladel_sparse_alloc(nrow, ncol, Lnz, L->symmetry, L->values);
+   if (!L_out) return NULL;
+   L_out->p[0] = 0;
+   for (col = 0; col < ncol; col++)
+   {
+       for (index_L = L->p[col]; index_L < L->p[col]+L->nz[col]; index_L++)
+       {
+           L_out->i[index_L_out] = L->i[index_L];
+           L_out->x[index_L_out] = L->x[index_L];
+           index_L_out++;
+       }
+       L_out->p[col+1] = index_L_out; 
+   }
+   return L_out;
+}
+
 /**
  * The gateway function to LADEL
  *
@@ -50,6 +90,8 @@ ladel_sparse_matrix *ladel_get_sparse_from_matlab(const mxArray *M_mex, ladel_sp
  * ladel_mex('init', ncol);
  * ladel_mex('factorize', M);
  * ladel_mex('factorize', M, ordering);
+ * [L, D] = ladel_mex('return');
+ * [L, D, p] = ladel_mex('return');
  * ladel_mex('factorize_advanced', M, Mbasis);
  * ladel_mex('factorize_advanced', M, Mbasis, ordering);
  * ladel_mex('rowmod', row_index);
@@ -130,9 +172,41 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
         ladel_double *x = mxGetPr(prhs[1]); 
         ladel_dense_solve(LD, x, y, work);
     }
+    else if (strcmp(cmd, MODE_RETURN) == 0)
+    {
+        if (nlhs != 2 && nlhs != 3)
+            mexErrMsgTxt("Wrong number of output arguments for mode return.");
+
+        if (LD == NULL)
+            mexErrMsgTxt("No factors to return.");
+
+        ladel_sparse_matrix *L_sparse = ladel_convert_factor_to_sparse(LD->L);
+        plhs[0] = ladel_put_matlab_from_sparse(L_sparse);
+
+        plhs[1] = mxCreateDoubleMatrix(LD->ncol, 1, mxREAL);
+        double *D = mxGetPr(plhs[1]);
+        ladel_int index;
+        for (index = 0; index < LD->ncol; index++) D[index] = (double) 1.0/LD->Dinv[index];
+
+        if (nlhs == 2 && LD->p != NULL)
+            mexWarnMsgTxt("Factor has permutation but this is not requested in the output arguments.");
+        if (nlhs == 3)
+        {
+            if (LD->p != NULL)
+            {
+                plhs[2] = mxCreateDoubleMatrix(LD->ncol, 1, mxREAL);
+                double *p = mxGetPr(plhs[2]);
+                for (index = 0; index < LD->ncol; index++) p[index] = (double) LD->p[index];
+            } else
+            {
+                plhs[2] = NULL;
+            }            
+        }
+        return;     
+    }
     else if (strcmp(cmd, MODE_FACTORIZE_ADVANCED) == 0)
     {
-        if (nlhs != 0 || (nrhs != 3 && nrhs != 4))
+        if (nlhs != 0  || (nrhs != 3 && nrhs != 4))
             mexErrMsgTxt("Wrong number of input or output arguments for mode factorize_advanced.");
 
         if (LD != NULL) LD = ladel_factor_free(LD);
