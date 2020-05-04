@@ -4,7 +4,7 @@ if exist('solver')
     clear solver
 end
 
-n = 40;
+n = 10;
 M = sprand(n,n, 1e-1, 1) + 2*speye(n);
 M = (M+M')/2;
 x = rand(n,1);
@@ -35,6 +35,7 @@ assert(norm(y-M\x) < 1e-12);
 % y_chol = ldlsolve(LD, x);
 % assert(norm(y_chol-M\x) < 1e-12);
 
+%% ADD row using row_mod
 [Lupd, Dupd] = solver.row_mod(n/2, Mbasis(:,n/2), full(Mbasis(n/2,n/2)));
 % LD = ldlrowmod(LD, n/2, Mbasis(:,n/2));
 
@@ -48,5 +49,11 @@ Mupd(n/2,:) = Mbasis(n/2,:);
 y = solver.dense_solve(x);
 assert(norm(y-Mupd\x) < 1e-12);
 
+%% DELETE row using row_mod
+% We delete the row we just added again
+
+solver.row_mod(n/2);
+y = solver.dense_solve(x);
+assert(norm(y-M\x) < 1e-12);
 
 solver.delete();
