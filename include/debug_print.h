@@ -10,4 +10,6 @@ void ladel_print_dense_vector_matlab(ladel_double* x, size_t len);
 
 void ladel_print_factor_matlab(ladel_factor *LD);
 
+void ladel_print_set(ladel_set *set);
+
 #endif

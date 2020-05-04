@@ -44,3 +44,12 @@ void ladel_print_dense_vector_matlab(ladel_double* x, size_t len) {
     }
     ladel_print("\n");
 }
+
+void ladel_print_set(ladel_set *set)
+{
+    ladel_print("Size set %d (max %d)\n", set->size_set, set->max_size_set);
+    ladel_print("Elements: ");
+    ladel_int index;
+    for (index = 0; index < set->size_set; index++) ladel_print("%d ", set->set[index]);
+    ladel_print("\n");
+}
