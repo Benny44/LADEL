@@ -21,7 +21,7 @@ catch
     mac = 0 ;
 end
 
-flags = '-silent -DMATLAB_MEX_FILE -DNMALLOC -g' ;
+flags = '-silent -g' ;
 is64 = ~isempty (strfind (computer, '64')) ;
 if (is64)
     % 64-bit MATLAB
@@ -84,7 +84,7 @@ else
 end
 obj = '' ;
 
-cflags = ' CFLAGS="\$CFLAGS -std=c99 -fPIC -DMATLAB -O3 -DDLONG"';
+cflags = ' CFLAGS="\$CFLAGS -std=c99 -fPIC -DMATLAB -DDAMD -O3 -DDLONG"';
 flags = [flags cflags];
 source = [amd_src ladel_src];
 kk = 0;
