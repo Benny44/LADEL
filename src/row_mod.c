@@ -5,6 +5,7 @@
 #include "rank1_mod.h"
 #include "row_mod.h"
 #include "permutation.h"
+#include "debug_print.h"
 #include <math.h>
 
 ladel_int ladel_row_add(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in_L, ladel_sparse_matrix *W, ladel_int col_in_W, ladel_double diag, ladel_work *work)
@@ -25,9 +26,12 @@ ladel_int ladel_row_add(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
     ladel_int *offset = work->array_int_ncol1;
     ladel_int *insertions = work->array_int_ncol2;
     
-    if (LD->p != NULL)
-        ladel_permute_sparse_vector(W, col_in_W, LD->p, work);
-
+    if (LD->pinv != NULL)
+    {
+        ladel_permute_sparse_vector(W, col_in_W, LD->pinv, work);
+        row_in_L = LD->pinv[row_in_L];
+    }
+    
     /* 1. Solve lower triangular system L11*D11*l12 = W12 */
     if (W->nz == NULL) Wnz = W->p[col_in_W+1] - W->p[col_in_W];
     else Wnz = W->nz[col_in_W];
@@ -102,6 +106,9 @@ ladel_int ladel_row_del(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
                top, bottom, top_row, bottom_row, middle, middle_row;
     ladel_double d22_old;
     ladel_sparse_matrix *L = LD->L;
+
+    if (LD->pinv != NULL) row_in_L = LD->pinv[row_in_L];
+
     /* 1. Delete row_in_L l12 */
     for (col = 0; col < row_in_L; col++)
     {
