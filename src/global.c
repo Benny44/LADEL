@@ -2,6 +2,7 @@
 #include "types.h"
 #include "constants.h"
 #include "copy.h"
+#include "permutation.h"
 #include "stdlib.h"
 #include "stdio.h"
 
@@ -138,6 +139,7 @@ ladel_factor *ladel_factor_free(ladel_factor *LD)
     ladel_free(LD->D);
     ladel_free(LD->Dinv);
     ladel_free(LD->p);
+    ladel_free(LD->pinv);
     return (ladel_factor *) ladel_free(LD);
 }
 
@@ -157,15 +159,18 @@ ladel_factor *ladel_factor_allocate(ladel_symbolics *sym)
     if (sym->p)
     {
         LD->p = ladel_malloc(ncol, sizeof(ladel_int));
-        if (!LD->p)
+        LD->pinv = ladel_malloc(ncol, sizeof(ladel_int));
+        if (!LD->p || !LD->pinv)
         {
             ladel_factor_free(LD);
             return NULL;
         }
         ladel_int_vector_copy(sym->p, ncol, LD->p);
+        ladel_invert_permutation_vector(LD->p, LD->pinv, ncol);
     } else 
     {
         LD->p = NULL;
+        LD->pinv = NULL;
     }
     return LD; 
 }

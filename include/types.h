@@ -48,6 +48,7 @@ typedef struct ldl_factors
     ladel_double *D;        /**< D in LDL' factorization (stored as vector) */
     ladel_double *Dinv;     /**< D^-1 in LDL' factorization (stored as vector) */
     ladel_int *p;           /**< permutation vector */
+    ladel_int *pinv;        /**< inverse permutation vector */
 } ladel_factor;
 
 typedef struct ladel_set_struct {
