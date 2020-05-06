@@ -23,6 +23,10 @@ void ladel_sparse_copy(ladel_sparse_matrix *M, ladel_sparse_matrix *M_copy)
         M_copy->values = M->values;
         ladel_int index;
         for (index = 0; index < M->ncol+1; index++) M_copy->p[index] = M->p[index];
+        
+        if (M->nz) for (index = 0; index < M->ncol; index++) M_copy->nz[index] = M->nz[index];
+        else M_copy->nz = ladel_free(M_copy->nz);
+            
         for (index = 0; index < M->nzmax; index++)
         {
             M_copy->i[index] = M->i[index];
