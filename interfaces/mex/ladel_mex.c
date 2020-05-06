@@ -244,8 +244,12 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
         {
             ladel_sparse_matrix Wmatlab;
             ladel_sparse_matrix *W = ladel_get_sparse_from_matlab(prhs[2], &Wmatlab, UNSYMMETRIC);
+            /* To not modify the matlab argument in place, we have to copy it */
+            ladel_sparse_matrix *W_copy = ladel_sparse_allocate_and_copy(W);
             ladel_double diag = *mxGetPr(prhs[3]);
-            status = ladel_row_add(LD, sym, row_in_L, W, 0, diag, work);
+            status = ladel_row_add(LD, sym, row_in_L, W_copy, 0, diag, work);
+            
+            W_copy = ladel_sparse_free(W_copy);
         }
         if (status != SUCCESS)
             mexErrMsgTxt("Row_mod: Something went wrong in updating the factorization.");
