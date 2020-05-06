@@ -6,9 +6,9 @@ end
 
 test_cholmod = true;
 
-ordering = 1; %1 for AMD, 0 for natural ordering
+ordering = 0; %1 for AMD, 0 for natural ordering
 
-n = 100;
+n = 500;
 changed_row = n/2;
 
 tic

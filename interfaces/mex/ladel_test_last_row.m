@@ -6,10 +6,10 @@ end
 
 test_cholmod = true;
 
-ordering = 1; %1 for AMD, 0 for natural ordering
+ordering = 0; %1 for AMD, 0 for natural ordering
 
-n = 100;
-changed_row = n/2;
+n = 500;
+changed_row = n;
 
 tic
 M = sprand(n,n, 1e-1, 1) + 2*speye(n);
@@ -51,16 +51,25 @@ solver.factorize_advanced(M, Mbasis, ordering);
 times.ladel.factorize = toc;
 if test_cholmod
     tic;
-    [LD,~, LD_p] = ldlchol(M);
-    LD_pinv = 1:n;
-    LD_pinv(LD_p) = LD_pinv;
+    if ordering
+        [LD,~, LD_p] = ldlchol(M);
+        LD_pinv = 1:n;
+        LD_pinv(LD_p) = LD_pinv;
+    else
+        [LD] = ldlchol(M);
+    end
+    
     times.chol.factorize = toc;
 end
 
 y = solver.dense_solve(x);
 assert(norm(y-M\x) < 1e-12);
 if test_cholmod
-    y_chol = ldl_perm_solve(LD, LD_p, x);
+    if ordering
+        y_chol = ldl_perm_solve(LD, LD_p, x);
+    else
+        y_chol = ldlsolve(LD, x);
+    end
     assert(norm(y_chol-M\x) < 1e-12);
 end
 
@@ -75,8 +84,12 @@ times.ladel.rowadd = toc;
 if test_cholmod
     row = Mbasis(:,changed_row);
     tic;
-    row = row(LD_p);
-    LD = ldlrowmod(LD, LD_pinv(changed_row), row);
+    if ordering
+        row = row(LD_p);
+        LD = ldlrowmod(LD, LD_pinv(changed_row), row);
+    else
+        LD = ldlrowmod(LD, changed_row, row);
+    end
     times.chol.rowadd = toc;
 end
 
@@ -85,7 +98,11 @@ Mupd(:,changed_row) = Mbasis(:,changed_row);
 Mupd(changed_row,:) = Mbasis(changed_row,:);
 
 if test_cholmod
-    y_chol = ldl_perm_solve(LD, LD_p, x);
+    if ordering
+        y_chol = ldl_perm_solve(LD, LD_p, x);
+    else
+        y_chol = ldlsolve(LD, x);
+    end
     assert(norm(y_chol-Mupd\x) < 1e-12);
 end
 
@@ -97,9 +114,18 @@ assert(norm(y-Mupd\x) < 1e-12);
 
 if test_cholmod
     tic;
-    LD = ldlrowmod(LD, LD_pinv(changed_row));
+    if ordering
+        LD = ldlrowmod(LD, LD_pinv(changed_row));
+    else
+        LD = ldlrowmod(LD, changed_row);
+    end
     times.chol.rowdel = toc;
-    y_chol = ldl_perm_solve(LD, LD_p, x);
+    
+    if ordering
+        y_chol = ldl_perm_solve(LD, LD_p, x);
+    else
+        y_chol = ldlsolve(LD, x);
+    end
     assert(norm(y_chol-M\x) < 1e-12);
 end
 
