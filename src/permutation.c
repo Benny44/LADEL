@@ -15,6 +15,12 @@ void ladel_inverse_permute_vector(ladel_double *x, ladel_int *pinv, ladel_int si
     for (index = 0; index < size; index++) y[pinv[index]] = x[index];
 }
 
+void ladel_invert_permutation_vector(ladel_int *p, ladel_int *pinv, ladel_int size)
+{
+    ladel_int index;
+    for (index = 0; index < size; index++) pinv[p[index]] = index;
+}
+
 static int ladel_int_compare(const ladel_int *a, const ladel_int *b) 
 { 
     if (*a > *b) return -1;
