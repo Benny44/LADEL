@@ -7,7 +7,7 @@
 ladel_int ladel_add_nonzero_pattern_to_col_of_L(ladel_sparse_matrix *L, ladel_int col, ladel_set *col_set, ladel_set *set, ladel_set *difference, ladel_int* offset, ladel_int* insertions)
 {
     ladel_int start = L->p[col], status;
-    ladel_set_set(col_set, L->i + start, L->nz[col], L->p[col+1] - L->p[col]);    
+    ladel_set_set(col_set, L->i + start, L->nz[col], L->p[col+1] - L->p[col]); 
     status = ladel_set_union(col_set, set, difference, offset, insertions, col);
     
     /* For now it is assumed the user has allocated enough space. If not, the error is passed on.

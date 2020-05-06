@@ -23,8 +23,8 @@ void ladel_invert_permutation_vector(ladel_int *p, ladel_int *pinv, ladel_int si
 
 static int ladel_int_compare(const ladel_int *a, const ladel_int *b) 
 { 
-    if (*a > *b) return -1;
-    else return 1;
+    if (*a > *b) return 1;
+    else return -1;
 } 
 
 void ladel_permute_sparse_vector(ladel_sparse_matrix *x, ladel_int col, ladel_int *p, ladel_work *work)
