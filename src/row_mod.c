@@ -112,6 +112,7 @@ ladel_int ladel_row_del(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
     /* 1. Delete row_in_L l12 */
     for (col = 0; col < row_in_L; col++)
     {
+        if (L->nz[col] == 0) continue;
         /* Perform binary search between top and bottom of col to look for row row_in_L */
         top = L->p[col];
         top_row = L->i[top];
