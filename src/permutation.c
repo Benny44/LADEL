@@ -47,7 +47,7 @@ void ladel_permute_sparse_vector(ladel_sparse_matrix *x, ladel_int col, ladel_in
         {
             if (temp[index_temp] != 0.0)
             {
-                x->i[index] = row;
+                x->i[index] = index_temp;
                 x->x[index] = temp[index_temp];
                 temp[index_temp] = 0.0; /*reset to keep the workspace consistent*/
                 index++; 
