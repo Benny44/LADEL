@@ -99,6 +99,7 @@ ladel_int ladel_row_add(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
     /* 4. w = l32*sqrt(abs(d22)) */
     /* 5. Update or downdate L33*D33*L33^T = L33*D33*L33^T - sign(d22)*w*w^T */
     status = ladel_rank1_update(LD, sym, L, row_in_L, 1/sqrt(LADEL_ABS(d22)), d22 < 0, work);
+
     return status;
 }
 
@@ -109,6 +110,7 @@ ladel_int ladel_row_del(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
                top, bottom, top_row, bottom_row, middle, middle_row;
     ladel_double d22_old;
     ladel_sparse_matrix *L = LD->L;
+    ladel_int *etree = sym->etree;
 
     if (LD->pinv != NULL) row_in_L = LD->pinv[row_in_L];
 
@@ -164,15 +166,21 @@ ladel_int ladel_row_del(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
         }
         if (found == TRUE)
         {
-            /* Delete the entry at index_of_row_in_L and move the rest of the column one position up */
+            /* Delete the entry at index_of_row_in_L and move the rest of the column one position up. */
             for (index = index_of_row_in_L; index < L->p[col] + L->nz[col] - 1; index++)
             {
                 L->i[index] = L->i[index+1];
                 L->x[index] = L->x[index+1];
             }
             L->nz[col]--;
-        }
-        
+
+            /* Adjust the etree accordingly. */
+            if (etree[col] == row_in_L)
+            {
+                if (index_of_row_in_L < L->p[col] + L->nz[col]) etree[col] = L->i[index_of_row_in_L];
+                else etree[col] = NONE;
+            }     
+        } 
     }
     
     /* 2. d22_new = 1 */
@@ -182,10 +190,9 @@ ladel_int ladel_row_del(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
     /* 4. w = l32_old*sqrt(d22_old) */
     /* 5. Update or downdate L33*D33*L33^T = L33*D33*L33^T + sign(d22_old)*w*w^T */
     status = ladel_rank1_update(LD, sym, L, row_in_L, sqrt(LADEL_ABS(d22_old)), d22_old > 0, work);
-
     /* 3. Delete column l32 */
     L->nz[row_in_L] = 0;
-    sym->etree[row_in_L] = NONE;
+    etree[row_in_L] = NONE;
 
     return status;
 }
