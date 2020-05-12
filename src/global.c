@@ -234,7 +234,7 @@ ladel_work *ladel_workspace_allocate(ladel_int ncol)
     work->array_int_ncol2 = ladel_malloc(ncol, sizeof(ladel_int));
     work->array_int_ncol3 = ladel_malloc(ncol, sizeof(ladel_int));
     work->array_int_ncol4 = ladel_malloc(ncol, sizeof(ladel_int));
-    work->array_double_all_zeros_ncol1 = ladel_malloc(ncol, sizeof(ladel_double));
+    work->array_double_all_zeros_ncol1 = ladel_calloc(ncol, sizeof(ladel_double));
 
     if (!work->set_preallocated1 || !work->set_preallocated2 || !work->set_preallocated3 
         || !work->set_unallocated_values1 || !work->set_unallocated_values2 || !work->set_unallocated_values3

@@ -2,6 +2,7 @@
 #include "global.h"
 #include "constants.h"
 #include "pattern.h"
+#include "debug_print.h"
 
 ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp, ladel_symbolics *sym, ladel_factor *LD, ladel_work* work)
 {
@@ -15,12 +16,6 @@ ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp, ladel_symbolics *sym, lade
     ladel_double *D = LD->D, *Dinv = LD->Dinv;
     ladel_double *rhs = work->array_double_all_zeros_ncol1;
     ladel_int *col_pointers = work->array_int_ncol1;
-    if (!rhs || !col_pointers) 
-    {
-        ladel_free(rhs);
-        ladel_free(col_pointers);
-        return FAIL;
-    }
 
     L->p[0] = col_pointers[0] = 0;
     for (index = 1; index < ncol; index++) 
@@ -30,7 +25,6 @@ ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp, ladel_symbolics *sym, lade
 
     for (col = 0; col < ncol; col++)
     {
-        rhs[col] = 0;
         for (index = Mpp->p[col]; index < Mpp->p[col+1]; index++) 
             rhs[Mpp->i[index]] = Mpp->x[index];
         diag_elem = rhs[col];
@@ -59,6 +53,7 @@ ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp, ladel_symbolics *sym, lade
 
         D[col] = diag_elem;
         Dinv[col] = 1/diag_elem;
+
     }
 
     for (index = 0; index < ncol; index++) L->nz[index] = col_pointers[index] - L->p[index];

@@ -93,6 +93,9 @@ ladel_int ladel_row_add(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
         etree[row_in_L] = L->i[L->p[row_in_L]];
     }
     
+    /* Reset the diagonal element from W (this was not used and so not reset yet).*/
+    l12[row_in_L] = 0;
+
     /* 4. w = l32*sqrt(abs(d22)) */
     /* 5. Update or downdate L33*D33*L33^T = L33*D33*L33^T - sign(d22)*w*w^T */
     status = ladel_rank1_update(LD, sym, L, row_in_L, 1/sqrt(LADEL_ABS(d22)), d22 < 0, work);
