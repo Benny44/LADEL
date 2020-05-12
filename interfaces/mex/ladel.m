@@ -42,7 +42,7 @@ classdef ladel < handle
                     varargout{2} = D;
                     varargout{3} = p;
                 else
-                    error('Wrong number of output arguments for factorized_advanced');
+                    error('Wrong number of output arguments for factorize');
                 end
             end
         end
@@ -72,10 +72,29 @@ classdef ladel < handle
                     varargout{2} = D;
                     varargout{3} = p;
                 else
-                    error('Wrong number of output arguments for factorized_advanced');
+                    error('Wrong number of output arguments for factorize_advanced');
                 end
             end
                     
+        end
+        
+        function varargout = factorize_with_prior_basis(~, M)
+            M = triu(M);         
+            ladel_mex('factorize_with_prior_basis', M);
+            if nargout > 0
+                if nargout == 2
+                    [L, D] = ladel_mex('return');
+                    varargout{1} = L;
+                    varargout{2} = D;
+                elseif nargout == 3
+                    [L, D, p] = ladel_mex('return');
+                    varargout{1} = L;
+                    varargout{2} = D;
+                    varargout{3} = p;
+                else
+                    error('Wrong number of output arguments for factorize_with_prior_basis');
+                end
+            end 
         end
         
         function varargout = row_mod(~, row, varargin)

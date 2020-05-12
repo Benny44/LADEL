@@ -12,6 +12,7 @@
 #define MODE_INIT "init"
 #define MODE_FACTORIZE "factorize"
 #define MODE_FACTORIZE_ADVANCED "factorize_advanced"
+#define MODE_FACTORIZE_WITH_PRIOR_BASIS "factorize_with_prior_basis"
 #define MODE_ROW_MOD "rowmod"
 #define MODE_DENSE_SOLVE "solve"
 #define MODE_DELETE "delete"
@@ -94,6 +95,7 @@ ladel_sparse_matrix *ladel_convert_factor_to_sparse(ladel_sparse_matrix *L)
  * [L, D, p] = ladel_mex('return');
  * ladel_mex('factorize_advanced', M, Mbasis);
  * ladel_mex('factorize_advanced', M, Mbasis, ordering);
+ * ladel_mex('factorize_with_prior_basis', M);
  * ladel_mex('rowmod', row_index);
  * ladel_mex('rowmod', row_index, row, diag_elem);
  * y = ladel_mex('solve', x);
@@ -224,6 +226,18 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
         ladel_int status = ladel_factorize_advanced(M, sym, ordering, &LD, Mbasis, work);
         if (status != SUCCESS)
             mexErrMsgTxt("Factorize_advanced: Something went wrong in the factorization.");
+    }
+    else if (strcmp(cmd, MODE_FACTORIZE_WITH_PRIOR_BASIS) == 0)
+    {
+        if (nlhs != 0  || (nrhs != 2))
+            mexErrMsgTxt("Wrong number of input or output arguments for mode factorize_with_prior_basis.");
+
+        ladel_sparse_matrix Mmatlab;
+        ladel_sparse_matrix *M = ladel_get_sparse_from_matlab(prhs[1], &Mmatlab, UPPER);
+       
+        ladel_int status = ladel_factorize_with_prior_basis(M, sym, LD, work);
+        if (status != SUCCESS)
+            mexErrMsgTxt("Factorize_with_prior_basis: Something went wrong in the factorization.");
     }
     else if (strcmp(cmd, MODE_ROW_MOD) == 0)
     {

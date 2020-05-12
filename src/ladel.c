@@ -72,6 +72,29 @@ ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym,
     else return FAIL;
 }
 
+ladel_int ladel_factorize_with_prior_basis(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_factor *LD, ladel_work* work)
+{
+    if (!M || !sym || !LD || !work) return FAIL;
+
+    ladel_int ok_numeric;
+    ladel_sparse_matrix *Mpp;
+
+    if (sym->p)
+    {
+        Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values);
+        ladel_permute_symmetric_matrix(M, sym->p, Mpp, work);
+    } else
+    {
+        Mpp = M;
+    }
+
+    ladel_etree(Mpp, sym, work);
+    ok_numeric = ladel_ldl_numeric(Mpp, sym, LD, work);
+
+    if (sym->p) ladel_sparse_free(Mpp);
+    return ok_numeric;
+}
+
 ladel_int ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, ladel_double *y, ladel_work* work)
 {
     if (!LD || !rhs || !y || !work) return FAIL;

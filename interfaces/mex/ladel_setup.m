@@ -84,7 +84,7 @@ else
 end
 obj = '' ;
 
-cflags = ' CFLAGS="\$CFLAGS -std=c99 -fPIC -DMATLAB -DDAMD -O3 -DDLONG"';
+cflags = ' CFLAGS="\$CFLAGS -std=c99 -fPIC -DMATLAB -DDAMD -DSIMPLE_COL_COUNTS -O3 -DDLONG"';
 flags = [flags cflags];
 source = [amd_src ladel_src];
 kk = 0;
