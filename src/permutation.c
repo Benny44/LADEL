@@ -42,7 +42,7 @@ void ladel_permute_sparse_vector(ladel_sparse_matrix *x, ladel_int col, ladel_in
             row = p[x->i[index]];
             temp[row] = x->x[index]; 
         }
-        index = 0;
+        index = x->p[col]; 
         for (index_temp = 0; index_temp < x->nrow; index_temp++)
         {
             if (temp[index_temp] != 0.0)
@@ -62,7 +62,7 @@ void ladel_permute_sparse_vector(ladel_sparse_matrix *x, ladel_int col, ladel_in
             x->i[index] = row;
             temp[row] = x->x[index]; 
         }
-        qsort(x->i, xnz, sizeof(ladel_int), (int (*) (const void *, const void *)) ladel_int_compare);
+        qsort(x->i + x->p[col], xnz, sizeof(ladel_int), (int (*) (const void *, const void *)) ladel_int_compare);
         for (index = x->p[col]; index < x->p[col+1]; index++)
         {
             row = x->i[index];

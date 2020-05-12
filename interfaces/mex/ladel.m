@@ -84,11 +84,11 @@ classdef ladel < handle
                 error('Wrong number of input arguments for row_mod.\n Use .row_mod(row) to delete a row (with index row) or .row_mod(row, w, diag_elem) to add a row w and with on the diagonal diag_elem.\n');
             end
             if nargin == 2
-                ladel_mex('rowmod', row);
+                ladel_mex('rowmod', int64(row), length(row));
             else
                 w = varargin{1};
                 diag_elem = varargin{2};
-                ladel_mex('rowmod', row, w, diag_elem);
+                ladel_mex('rowmod', int64(row), length(row), w, diag_elem);
             end
             
             if nargout > 0

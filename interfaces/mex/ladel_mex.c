@@ -227,32 +227,43 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
     }
     else if (strcmp(cmd, MODE_ROW_MOD) == 0)
     {
-        if (nlhs != 0 || (nrhs != 2 && nrhs != 4))
+        if (nlhs != 0 || (nrhs != 3 && nrhs != 5))
             mexErrMsgTxt("Wrong number of input or output arguments for mode row_mod.");
 
         if (LD == NULL)
             mexErrMsgTxt("Row_mod: No factor found. First use factorize_advanced to compute L and D.");
 
-        ladel_int row_in_L = (ladel_int) *mxGetPr(prhs[1]);
-        row_in_L--; /*Matlab vs. C-based indexing */
-        ladel_int status;
-        if (nrhs == 2)
+        ladel_int* rows_in_L = (ladel_int*) mxGetData(prhs[1]);
+        ladel_int nb_rows = (ladel_int) mxGetScalar(prhs[2]);
+        
+        ladel_int status, index;
+        if (nrhs == 3)
         {
-            status = ladel_row_del(LD, sym, row_in_L, work);
+            for (index = 0; index < nb_rows; index++)
+            {
+                status = ladel_row_del(LD, sym, --(rows_in_L[index]), work);
+                if (status != SUCCESS)
+                    mexErrMsgTxt("Row_mod: Something went wrong in updating the factorization.");
+            }
         } 
-        else if (nrhs == 4)
+        else if (nrhs == 5)
         {
             ladel_sparse_matrix Wmatlab;
-            ladel_sparse_matrix *W = ladel_get_sparse_from_matlab(prhs[2], &Wmatlab, UNSYMMETRIC);
+            ladel_sparse_matrix *W = ladel_get_sparse_from_matlab(prhs[3], &Wmatlab, UNSYMMETRIC);
             /* To not modify the matlab argument in place, we have to copy it */
             ladel_sparse_matrix *W_copy = ladel_sparse_allocate_and_copy(W);
-            ladel_double diag = *mxGetPr(prhs[3]);
-            status = ladel_row_add(LD, sym, row_in_L, W_copy, 0, diag, work);
-            
-            W_copy = ladel_sparse_free(W_copy);
+            ladel_double* diag = mxGetPr(prhs[4]);
+
+            for (index = 0; index < nb_rows; index++)
+            {
+                status = ladel_row_add(LD, sym, --(rows_in_L[index]), W_copy, index, diag[index], work);
+                if (status != SUCCESS)
+                {
+                    W_copy = ladel_sparse_free(W_copy);
+                    mexErrMsgTxt("Row_mod: Something went wrong in updating the factorization.");
+                }
+            }
         }
-        if (status != SUCCESS)
-            mexErrMsgTxt("Row_mod: Something went wrong in updating the factorization.");
     }
     else 
     {

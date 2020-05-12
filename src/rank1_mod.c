@@ -151,12 +151,13 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
     ladel_int *offset = work->array_int_ncol1;
     ladel_int *insertions = work->array_int_ncol2;
     ladel_double *W_col = work->array_double_all_zeros_ncol1;
-
+    
     for (index = W->p[col_in_W]; index < W->p[col_in_W] + size_W; index++) 
         W_col[W->i[index]] = factor*W->x[index];
 
     ladel_double alpha = 1, alpha_new, gamma, w, dinv;
     ladel_int child, old_parent;
+
     for (index = W->p[col_in_W]; index < W->p[col_in_W] + size_W; index++)
     {
         col = W->i[index];
@@ -192,7 +193,7 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
             child = col;
             old_parent = etree[col];
             if (L->nz[col] == 0) break; /* There is no subdiag entry, so no new parent */
-            col = etree[col] = L->i[L->p[col]]; /*new_parent*/
+            col = etree[col] = L->i[L->p[col]]; /* new_parent */
 
             /* prepare the difference in the next col due to the child */
             if (col == old_parent)
@@ -220,7 +221,6 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
     }
 
     /* Return the double workspace to all zeros */
-
     for (index = W->i[W->p[col_in_W]]; index != NONE; index = etree[index]) W_col[index] = 0;
 
     return SUCCESS;
