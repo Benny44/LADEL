@@ -24,6 +24,7 @@ if (LONG)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DDLONG")
 endif (LONG)
 
+option (FLOAT "Use single precision instead of double" OFF)
 if (FLOAT)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DDFLOAT")
 endif (FLOAT)

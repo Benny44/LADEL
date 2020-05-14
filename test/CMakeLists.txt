@@ -15,16 +15,16 @@ SET(TEST_SRC
     src/test_rank1_mod.c
     src/test_row_mod.c)
 
-add_executable(run_all_tests
+add_executable(ladel_run_all_tests
     ${TEST_SRC}
 )
 
-target_include_directories(run_all_tests
+target_include_directories(ladel_run_all_tests
     PRIVATE include
 )
 
-target_link_libraries(run_all_tests ladel)
+target_link_libraries(ladel_run_all_tests ladel)
 
 if(UNIX)
-target_link_libraries(run_all_tests m)
+target_link_libraries(ladel_run_all_tests m)
 endif(UNIX)
