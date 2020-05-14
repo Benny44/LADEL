@@ -1,7 +1,7 @@
 #include "minunit.h"
-#include "types.h"
-#include "global.h"
-#include "etree.h"
+#include "ladel_types.h"
+#include "ladel_global.h"
+#include "ladel_etree.h"
 
 static ladel_work *work;
 static ladel_sparse_matrix *M;

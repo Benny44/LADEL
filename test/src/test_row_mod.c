@@ -1,10 +1,10 @@
 #include "minunit.h"
-#include "global.h"
-#include "constants.h"
-#include "types.h"
+#include "ladel_global.h"
+#include "ladel_constants.h"
+#include "ladel_types.h"
 #include "ladel.h"
-#include "row_mod.h"
-#include "debug_print.h"
+#include "ladel_row_mod.h"
+#include "ladel_debug_print.h"
 
 #define NCOL 6
 #define NROW 6

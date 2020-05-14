@@ -1,9 +1,9 @@
 #include "minunit.h"
-#include "types.h"
-#include "global.h"
-#include "constants.h"
+#include "ladel_types.h"
+#include "ladel_global.h"
+#include "ladel_constants.h"
 #include "ladel.h"
-#include "debug_print.h"
+#include "ladel_debug_print.h"
 
 #define NCOL 5
 #define NROW 5

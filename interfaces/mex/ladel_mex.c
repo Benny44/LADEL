@@ -2,11 +2,11 @@
 #include "matrix.h"
 #include <string.h>
 #include "ladel.h"
-#include "global.h"
-#include "types.h"
-#include "row_mod.h"
-#include "upper_diag.h"
-#include "debug_print.h"
+#include "ladel_global.h"
+#include "ladel_types.h"
+#include "ladel_row_mod.h"
+#include "ladel_upper_diag.h"
+#include "ladel_debug_print.h"
 
 /* Modes of operation */
 #define MODE_INIT "init"

@@ -1,10 +1,10 @@
 #include "minunit.h"
-#include "global.h"
-#include "constants.h"
-#include "types.h"
+#include "ladel_global.h"
+#include "ladel_constants.h"
+#include "ladel_types.h"
 #include "ladel.h"
-#include "rank1_mod.h"
-#include "debug_print.h"
+#include "ladel_rank1_mod.h"
+#include "ladel_debug_print.h"
 
 #define NCOL 8
 #define NROW 8

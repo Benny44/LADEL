@@ -1,7 +1,7 @@
 #include "minunit.h"
-#include "upper_diag.h"
-#include "types.h"
-#include "global.h"
+#include "ladel_upper_diag.h"
+#include "ladel_types.h"
+#include "ladel_global.h"
 
 static ladel_sparse_matrix *M;
 #define NROW 11

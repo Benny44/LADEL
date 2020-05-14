@@ -1,7 +1,7 @@
 #include "minunit.h"
-#include "types.h"
-#include "scale.h"
-#include "global.h"
+#include "ladel_types.h"
+#include "ladel_scale.h"
+#include "ladel_global.h"
 
 #define NROW 4
 #define NCOL 5

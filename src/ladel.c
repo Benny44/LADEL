@@ -1,10 +1,10 @@
-#include "types.h"
-#include "constants.h"
-#include "global.h"
-#include "ldl_symbolic.h"
-#include "ldl_numeric.h"
-#include "permutation.h"
-#include "etree.h"
+#include "ladel_types.h"
+#include "ladel_constants.h"
+#include "ladel_global.h"
+#include "ladel_ldl_symbolic.h"
+#include "ladel_ldl_numeric.h"
+#include "ladel_permutation.h"
+#include "ladel_etree.h"
 
 
 ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_work* work)

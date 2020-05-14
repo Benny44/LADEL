@@ -1,9 +1,9 @@
 #include "minunit.h"
-#include "types.h"
-#include "global.h"
-#include "permutation.h"
-#include "transpose.h"
-#include "copy.h"
+#include "ladel_types.h"
+#include "ladel_global.h"
+#include "ladel_permutation.h"
+#include "ladel_transpose.h"
+#include "ladel_copy.h"
 
 #define NCOL 6
 #define NROW NCOL

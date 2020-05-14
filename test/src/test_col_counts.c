@@ -1,9 +1,9 @@
 #include "minunit.h"
-#include "types.h"
-#include "global.h"
-#include "etree.h"
-#include "postorder.h"
-#include "col_counts.h"
+#include "ladel_types.h"
+#include "ladel_global.h"
+#include "ladel_etree.h"
+#include "ladel_postorder.h"
+#include "ladel_col_counts.h"
 
 static ladel_work *work;
 static ladel_sparse_matrix *M;

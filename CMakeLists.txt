@@ -40,23 +40,23 @@ endif (AMD)
 #################### Build the library #####################
 ############################################################
 SET(SRC
-        src/global.c
-        src/scale.c
-        src/matvec.c
-        src/upper_diag.c
-        src/etree.c
-        src/postorder.c
-        src/transpose.c
-        src/col_counts.c
-        src/ldl_symbolic.c
-        src/permutation.c
-        src/copy.c
-        src/ldl_numeric.c
-        src/pattern.c
+        src/ladel_global.c
+        src/ladel_scale.c
+        src/ladel_matvec.c
+        src/ladel_upper_diag.c
+        src/ladel_etree.c
+        src/ladel_postorder.c
+        src/ladel_transpose.c
+        src/ladel_col_counts.c
+        src/ladel_ldl_symbolic.c
+        src/ladel_permutation.c
+        src/ladel_copy.c
+        src/ladel_ldl_numeric.c
+        src/ladel_pattern.c
         src/ladel.c
-        src/rank1_mod.c
-        src/row_mod.c
-        src/debug_print.c)
+        src/ladel_rank1_mod.c
+        src/ladel_row_mod.c
+        src/ladel_debug_print.c)
 
 
 if (AMD)
