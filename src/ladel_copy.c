@@ -43,3 +43,12 @@ void ladel_int_vector_copy(ladel_int *x, ladel_int size, ladel_int *y)
         y[index] = x[index];
     }
 }
+
+void ladel_double_vector_copy(ladel_double *x, ladel_int size, ladel_double *y)
+{
+    ladel_int index;
+    for (index = 0; index < size; index++)
+    {
+        y[index] = x[index];
+    }
+}
