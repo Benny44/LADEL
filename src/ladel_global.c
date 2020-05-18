@@ -111,6 +111,7 @@ ladel_symbolics *ladel_symbolics_free(ladel_symbolics *sym)
     ladel_free(sym->postorder);
     ladel_free(sym->col_counts);
     ladel_free(sym->p);
+    ladel_free(sym->pinv);
     ladel_free(sym->pattern);
     ladel_free(sym->nodes);
     return (ladel_symbolics *) ladel_free(sym);
@@ -125,6 +126,7 @@ ladel_symbolics *ladel_symbolics_alloc(ladel_int ncol)
     sym->postorder = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
     sym->col_counts = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
     sym->p = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
+    sym->pinv = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
     sym->pattern = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
     sym->nodes = (ladel_int *) ladel_calloc(ncol, sizeof(ladel_int));
     if (!sym->etree || !sym->postorder || !sym->col_counts || !sym->pattern || !sym->nodes) 
@@ -166,7 +168,7 @@ ladel_factor *ladel_factor_allocate(ladel_symbolics *sym)
             return NULL;
         }
         ladel_int_vector_copy(sym->p, ncol, LD->p);
-        ladel_invert_permutation_vector(LD->p, LD->pinv, ncol);
+        ladel_int_vector_copy(sym->pinv, ncol, LD->pinv);
     } else 
     {
         LD->p = NULL;

@@ -37,6 +37,7 @@ typedef struct symbolic_cholesky_information
     ladel_int *postorder; /**< postordiring of the elimination tree */
     ladel_int *col_counts; /** < column counts, stored as column pointers */
     ladel_int *p; /** < fill-reducing ordering (AMD) */
+    ladel_int *pinv; /** < inverse permutation vector */
     ladel_int *pattern; /** < stores the nonzero pattern of a row of L */ 
     ladel_int *nodes; /** < keeps track of which nodes have been marked */
 } ladel_symbolics;
@@ -63,6 +64,11 @@ typedef struct ladel_col_struct {
     ladel_int nz;
     ladel_int nzmax;
 } ladel_col;
+
+typedef struct ladel_diag_struct {
+    ladel_double diag_elem;
+    ladel_int diag_size;
+} ladel_diag;
 
 /* Workspace needed for the factorization and updates */
 typedef struct workspace

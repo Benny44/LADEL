@@ -44,6 +44,7 @@ ladel_int ladel_ldl_symbolic(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel
     {
         ladel_permute_symmetric_matrix(M, sym->p, Mpp, work);
         Mwork = Mpp;
+        ladel_invert_permutation_vector(sym->p, sym->pinv, M->ncol);
     }
 
     #ifdef SIMPLE_COL_COUNTS
@@ -52,7 +53,7 @@ ladel_int ladel_ldl_symbolic(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel
     ladel_etree(Mwork, sym, work);
     ladel_postorder(Mwork, sym, work);
     ladel_col_counts(Mwork, sym, work);
-    #endif /*SIMPLE_COL_COUNTS*/
+    #endif /* SIMPLE_COL_COUNTS */
 
     return SUCCESS;
 }

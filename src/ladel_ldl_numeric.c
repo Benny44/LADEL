@@ -4,7 +4,7 @@
 #include "ladel_pattern.h"
 #include "ladel_debug_print.h"
 
-ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp, ladel_symbolics *sym, ladel_factor *LD, ladel_work* work)
+ladel_int ladel_ldl_numeric_with_diag(ladel_sparse_matrix *Mpp, ladel_diag d, ladel_symbolics *sym, ladel_factor *LD, ladel_work* work)
 {
     if (!Mpp || !sym || !LD || !work) return FAIL;
     
@@ -28,6 +28,7 @@ ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp, ladel_symbolics *sym, lade
         for (index = Mpp->p[col]; index < Mpp->p[col+1]; index++) 
             rhs[Mpp->i[index]] = Mpp->x[index];
         diag_elem = rhs[col];
+        if ((LD->pinv && LD->pinv[col] < d.diag_size) || (!LD->pinv && col < d.diag_size)) diag_elem += d.diag_elem;
         rhs[col] = 0;
 
         start = ladel_nonzero_pattern_of_row_in_L(Mpp, sym, col);
@@ -58,4 +59,12 @@ ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp, ladel_symbolics *sym, lade
 
     for (index = 0; index < ncol; index++) L->nz[index] = col_pointers[index] - L->p[index];
     return SUCCESS;
+}
+
+ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp, ladel_symbolics *sym, ladel_factor *LD, ladel_work* work)
+{
+    ladel_diag d;
+    d.diag_elem = 0;
+    d.diag_size = 0;
+    return ladel_ldl_numeric_with_diag(Mpp, d, sym, LD, work);
 }
