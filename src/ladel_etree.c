@@ -42,7 +42,11 @@ ladel_int ladel_etree_and_col_counts(ladel_sparse_matrix *M, ladel_symbolics *sy
     ladel_int index, row, col, next, ncol = M->ncol;
     ladel_int *touched = work->array_int_ncol1;
     
-    for (col = 0; col < ncol; col++) col_counts[col] = 0;
+    for (col = 0; col < ncol; col++) 
+    {
+        col_counts[col] = 0;
+        touched[col] = NONE;
+    }
 
     for (col = 0; col < ncol; col++)
     {

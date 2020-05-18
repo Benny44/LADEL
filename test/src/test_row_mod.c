@@ -37,7 +37,7 @@ void row_mod_suite_setup(void)
     Mbasis->p[0] = 0; Mbasis->p[1] = 1; Mbasis->p[2] = 3; Mbasis->p[3] = 6; Mbasis->p[4] = 10; Mbasis->p[5] = 15; Mbasis->p[6] = 21; 
     Mbasis->i[0] = 0; Mbasis->i[1] = 0; Mbasis->i[2] = 1; Mbasis->i[3] = 0; Mbasis->i[4] = 1; Mbasis->i[5] = 2; Mbasis->i[6] = 0; 
     Mbasis->i[7] = 1; Mbasis->i[8] = 2; Mbasis->i[9] = 3; Mbasis->i[10] = 0; Mbasis->i[11] = 1; Mbasis->i[12] = 2; Mbasis->i[13] = 3; 
-    Mbasis->i[14] = 4; Mbasis->i[15] = 0; Mbasis->i[16] = 0; Mbasis->i[17] = 0; Mbasis->i[18] = 0; Mbasis->i[19] = 0; Mbasis->i[20] = 0; 
+    Mbasis->i[14] = 4; Mbasis->i[15] = 0; Mbasis->i[16] = 1; Mbasis->i[17] = 2; Mbasis->i[18] = 3; Mbasis->i[19] = 4; Mbasis->i[20] = 5; 
     Mbasis->x[0] = 2.055098610936521e-01; Mbasis->x[1] = 2.572819890455917e-01; Mbasis->x[2] = 2.417367221483280e-02; 
     Mbasis->x[3] = 6.893733655105202e-01; Mbasis->x[4] = 4.565212273616481e-01; Mbasis->x[5] = 8.270829803188939e-02; 
     Mbasis->x[6] = 4.517532293767544e-01; Mbasis->x[7] = 3.272091623419543e-01; Mbasis->x[8] = 9.357072685394627e-01; 
@@ -79,6 +79,10 @@ MU_TEST(test_row_add_at_the_end)
     ladel_int status, index;
     status = ladel_factorize_advanced(M, sym, NO_ORDERING, &LD, Mbasis, work);
     mu_assert_long_eq(status, SUCCESS);
+
+    ladel_print("Col pointers of L in row_at_the_end:\n");
+    ladel_print_dense_int_vector_matlab(LD->L->p, NCOL+1);
+    ladel_print_sparse_matrix_matlab(Mbasis);
 
     ladel_double rhs[6] = {5.679645458145579e-01, 6.630438231677197e-01, 5.274175204016522e-01, 
                             5.634939173447451e-02, 3.631625949531299e-01, 0};
