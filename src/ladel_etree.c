@@ -52,7 +52,7 @@ ladel_int ladel_etree_and_col_counts(ladel_sparse_matrix *M, ladel_symbolics *sy
         {
             row = M->i[index];
             if (row == col) col_counts[row]++;
-            for (; row <= col && touched[row] != col; row = next)
+            for (; row < col && touched[row] != col; row = next)
             {
                 col_counts[row]++;
                 touched[row] = col;
