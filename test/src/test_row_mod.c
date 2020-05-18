@@ -80,10 +80,6 @@ MU_TEST(test_row_add_at_the_end)
     status = ladel_factorize_advanced(M, sym, NO_ORDERING, &LD, Mbasis, work);
     mu_assert_long_eq(status, SUCCESS);
 
-    ladel_print("Col pointers of L in row_at_the_end:\n");
-    ladel_print_dense_int_vector_matlab(LD->L->p, NCOL+1);
-    ladel_print_sparse_matrix_matlab(Mbasis);
-
     ladel_double rhs[6] = {5.679645458145579e-01, 6.630438231677197e-01, 5.274175204016522e-01, 
                             5.634939173447451e-02, 3.631625949531299e-01, 0};
     ladel_double sol[6] = {-4.192429648798019e-01, -2.456611750539314e+00, 1.398638846414751e-01,
