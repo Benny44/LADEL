@@ -6,17 +6,14 @@
 /* Print a sparse matrix so the output can be entered into matlab */
 void ladel_print_sparse_matrix_matlab(ladel_sparse_matrix *M) {
     ladel_print("M = sparse(%ld, %ld);", M->nrow, M->ncol);
-    ladel_int col, index = 0, row;
+    ladel_int col, index = 0;
     ladel_double *Mx = M->x;
     ladel_int *Mi = M->i;
     ladel_int *Mp = M->p;
 
     for (col = 1; col <= M->ncol; col++) {
-        LADEL_FOR(row, M, col)
-        {
+        LADEL_FOR(index, M, col-1)
             ladel_print("M(%ld, %ld) = %.16le;", Mi[index]+1, col, Mx[index]);
-            index++;
-        }
     }    
     ladel_print("\n");
 }
