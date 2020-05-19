@@ -14,7 +14,7 @@ ladel_int ladel_etree(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_work* 
     {
         etree[col] = NONE;
         ancestor[col] = NONE;
-        for (index = M->p[col]; index < M->p[col+1]; index++)
+        LADEL_FOR(index, M, col)
         {
             row = M->i[index];
             for (; row < col; row = next)
@@ -53,7 +53,7 @@ ladel_int ladel_etree_and_col_counts(ladel_sparse_matrix *M, ladel_symbolics *sy
     {
         etree[col] = NONE;
         touched[col] = col;
-        for (index = M->p[col]; index < M->p[col+1]; index++)
+        LADEL_FOR(index, M, col)
         {
             row = M->i[index];
             for (; row < col && touched[row] != col; row = next)

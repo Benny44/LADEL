@@ -81,7 +81,7 @@ ladel_int ladel_col_counts(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_w
     {
         post_node = postorder[node];
         if (!IS_ROOT(post_node, etree)) col_counts[etree[post_node]]--;
-        for (index = M_lower->p[post_node]; index < M_lower->p[post_node+1]; index++)
+        LADEL_FOR(index, M_lower, post_node)
         {
             subtree_root = M_lower->i[index];
             lca = ladel_least_common_ancestor(subtree_root, post_node, first_descendant, max_first_descendant, prev_leaf, ancestor, &type_of_leaf);

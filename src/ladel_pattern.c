@@ -1,5 +1,6 @@
 #include "ladel_types.h"
 #include "ladel_constants.h"
+#include "ladel_global.h"
 
 ladel_int ladel_nonzero_pattern_of_row_in_L(ladel_sparse_matrix *M, 
                                                 ladel_symbolics *sym,
@@ -8,7 +9,7 @@ ladel_int ladel_nonzero_pattern_of_row_in_L(ladel_sparse_matrix *M,
     ladel_int start = M->ncol, index, next_node, nb_marked_nodes;
     ladel_int *etree = sym->etree, *pattern = sym->pattern, *nodes = sym->nodes;
     MARK(nodes,row);
-    for (index = M->p[row]; index < M->p[row+1]; index++)
+    LADEL_FOR(index, M, row)
     {
         next_node = M->i[index];
         nb_marked_nodes = 0;
@@ -44,7 +45,7 @@ ladel_int ladel_etree_dfs(ladel_sparse_matrix *W,
     ladel_int start = sym->ncol, index, next_node, nb_marked_nodes;
     ladel_int *etree = sym->etree, *pattern = sym->pattern, *nodes = sym->nodes;
 
-    for (index = W->p[row]; index < W->p[row+1]; index++)
+    LADEL_FOR(index, W, row)
     {
         next_node = W->i[index];
         if (next_node >= maximum_row) break;

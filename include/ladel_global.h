@@ -10,6 +10,8 @@
 #define LADEL_MIN(a, b) ((a) > (b) ? (b) : (a))
 #define LADEL_ABS(a) ((a) < 0 ? -(a) : (a))
 
+#define LADEL_FOR(index, M, col) for(index = (M)->p[(col)]; index < (((M)->nz) ? (M)->p[(col)] + (M)->nz[(col)] : (M)->p[(col)+1]); index++)
+
 void *ladel_malloc(ladel_int n, size_t size);
 
 void *ladel_calloc(ladel_int n, size_t size);

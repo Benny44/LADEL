@@ -9,12 +9,8 @@ void ladel_matvec(const ladel_sparse_matrix *M, const ladel_double *x, ladel_dou
     if (reset) for (index = 0; index < M->nrow; index++) y[index] = 0;
 
     for (col = 0; col < M->ncol; col++)
-    {
-        for (index = M->p[col]; index < M->p[col+1]; index++)
-        {
+        LADEL_FOR(index, M, col)
             y[M->i[index]] += M->x[index] * x[col];
-        }
-    }
 }
 
 void ladel_tpose_matvec(const ladel_sparse_matrix *M, const ladel_double *x, ladel_double *y, ladel_int reset)
@@ -24,10 +20,6 @@ void ladel_tpose_matvec(const ladel_sparse_matrix *M, const ladel_double *x, lad
     if (reset) for (index = 0; index < M->ncol; index++) y[index] = 0; 
     
     for (col = 0; col < M->ncol; col++)
-    {
-        for (index = M->p[col]; index < M->p[col+1]; index++)
-        {
+        LADEL_FOR(index, M, col)
             y[col] += M->x[index] * x[M->i[index]];
-        }
-    }
 }

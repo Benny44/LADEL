@@ -29,7 +29,7 @@ ladel_sparse_matrix *ladel_transpose(ladel_sparse_matrix *M, int values, ladel_w
 
     for (col = 0; col < M->ncol; col++)
     {
-        for (index = M->p[col]; index < M->p[col+1]; index++)
+        LADEL_FOR(index, M, col)
         {
             new_index = col_pointers[M->i[index]]++;
             M_transpose->i[new_index] = col;

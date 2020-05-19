@@ -25,7 +25,7 @@ ladel_int ladel_ldl_numeric_with_diag(ladel_sparse_matrix *Mpp, ladel_diag d, la
 
     for (col = 0; col < ncol; col++)
     {
-        for (index = Mpp->p[col]; index < Mpp->p[col+1]; index++) 
+        LADEL_FOR(index, Mpp, col)
             rhs[Mpp->i[index]] = Mpp->x[index];
         diag_elem = rhs[col];
         if ((LD->pinv && LD->pinv[col] < d.diag_size) || (!LD->pinv && col < d.diag_size)) diag_elem += d.diag_elem;

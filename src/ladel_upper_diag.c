@@ -11,7 +11,7 @@ void ladel_to_upper_diag(ladel_sparse_matrix *M)
     {
         Mptemp = M->p[col];
         M->p[col] = nzM;
-        for (index = Mptemp; index < M->p[col+1]; index++)
+        for (index = Mptemp; index < ((M->nz) ? Mptemp + M->nz[col] : M->p[col+1]); index++)
         {
             row = M->i[index];
             if (row <= col)

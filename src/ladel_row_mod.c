@@ -82,7 +82,7 @@ ladel_int ladel_row_add(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
     /* Insert l31 */
     d22 = Dinv[row_in_L] = 1/d22;
     L->nz[row_in_L] = l31_pattern->size_set;
-    for (index = L->p[row_in_L]; index < (L->p[row_in_L] + L->nz[row_in_L]); index++)
+    LADEL_FOR(index, L, row_in_L)
     {
         L->i[index] = row = l31_pattern->set[index-L->p[row_in_L]];
         L->x[index] = d22*l12[row];

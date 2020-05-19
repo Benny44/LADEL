@@ -37,7 +37,7 @@ void ladel_permute_sparse_vector(ladel_sparse_matrix *x, ladel_int col, ladel_in
     The sparse permutation takes O(xnz*log(xnz)) computations, because of the sort. */
     if (xnz > x->nrow / 5)
     {
-        for (index = x->p[col]; index < x->p[col+1]; index++)
+        LADEL_FOR(index, x, col)
         {
             row = p[x->i[index]];
             temp[row] = x->x[index]; 
@@ -56,14 +56,14 @@ void ladel_permute_sparse_vector(ladel_sparse_matrix *x, ladel_int col, ladel_in
     }
     else
     {
-        for (index = x->p[col]; index < x->p[col+1]; index++)
+        LADEL_FOR(index, x, col)
         {
             row = p[x->i[index]];
             x->i[index] = row;
             temp[row] = x->x[index]; 
         }
         qsort(x->i + x->p[col], xnz, sizeof(ladel_int), (int (*) (const void *, const void *)) ladel_int_compare);
-        for (index = x->p[col]; index < x->p[col+1]; index++)
+        LADEL_FOR(index, x, col)
         {
             row = x->i[index];
             x->x[index] = temp[row];
@@ -87,7 +87,7 @@ void ladel_permute_symmetric_matrix(ladel_sparse_matrix *M, ladel_int *p, ladel_
         for (col = 0; col < ncol; col++)
         {
             pcol = pinv[col];
-            for (index = M->p[col]; index < M->p[col+1]; index++)
+            LADEL_FOR(index, M, col)
             {
                 prow = pinv[M->i[index]];
                 col_counts[LADEL_MAX(pcol, prow)]++;
@@ -107,7 +107,7 @@ void ladel_permute_symmetric_matrix(ladel_sparse_matrix *M, ladel_int *p, ladel_
         for (col = 0; col < ncol; col++)
         {
             pcol = pinv[col];
-            for (index = M->p[col]; index < M->p[col+1]; index++)
+            LADEL_FOR(index, M, col)
             {
                 prow = pinv[M->i[index]];
                 if (pcol < prow)

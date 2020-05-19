@@ -7,30 +7,22 @@ void ladel_scale_columns(ladel_sparse_matrix* M, ladel_double* S)
 {
     ladel_int col, index;
     for (col = 0; col < M->ncol; col++)
-    {
-        for (index = M->p[col]; index < M->p[col+1]; index++)
-        {
+        LADEL_FOR(index, M, col)
             M->x[index] *= S[col];
-        }    
-    }
 }
 
 void ladel_scale_rows(ladel_sparse_matrix* M, ladel_double* S)
 {
     ladel_int index;
     for (index = 0; index < M->nzmax; index++) 
-    {
         M->x[index] *= S[M->i[index]];
-    }
 }
 
 void ladel_scale_scalar(ladel_sparse_matrix* M, ladel_double s)
 {
     ladel_int index;
     for (index = 0; index < M->nzmax; index++) 
-    {
         M->x[index] *= s;
-    }
 }
 
 void ladel_infinity_norm_columns(ladel_sparse_matrix *M, ladel_double *norms)
@@ -40,10 +32,8 @@ void ladel_infinity_norm_columns(ladel_sparse_matrix *M, ladel_double *norms)
     for (col = 0; col < M->ncol; col++)
     {
         norms[col] = 0;
-        for (index = M->p[col]; index < M->p[col+1]; index++)
-        {
+        LADEL_FOR(index, M, col)
             norms[col] = LADEL_MAX(norms[col], LADEL_ABS(M->x[index]));
-        }
     }
 }
 

@@ -152,13 +152,13 @@ ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_spars
     ladel_int *insertions = work->array_int_ncol2;
     ladel_double *W_col = work->array_double_all_zeros_ncol1;
     
-    for (index = W->p[col_in_W]; index < W->p[col_in_W] + size_W; index++) 
+    LADEL_FOR(index, W, col_in_W)
         W_col[W->i[index]] = factor*W->x[index];
 
     ladel_double alpha = 1, alpha_new, gamma, w, dinv;
     ladel_int child, old_parent;
 
-    for (index = W->p[col_in_W]; index < W->p[col_in_W] + size_W; index++)
+    LADEL_FOR(index, W, col_in_W)
     {
         col = W->i[index];
         changed = ladel_add_nonzero_pattern_to_col_of_L(L, col, set_L, set_W, difference_child, offset, insertions);
