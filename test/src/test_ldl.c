@@ -109,8 +109,6 @@ MU_TEST(test_simple_ldl_nz)
     ladel_double x[NCOL] = {1, 2, 3, 4, 5};
     ladel_double y[NCOL], y_ref[NCOL] = {-1.738103756708408e-01, -1.081932021466905e-01, 4.379964221824687e-01, 3.594991055456172e-01, -7.519141323792485e-01};
 
-    ladel_print_sparse_matrix_matlab(Mnz);
-
     ladel_int status = ladel_factorize(Mnz, sym, NO_ORDERING, &LD, work);
     
     mu_assert_long_eq(status, SUCCESS);
