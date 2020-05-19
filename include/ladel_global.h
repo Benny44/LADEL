@@ -29,7 +29,7 @@ ladel_sparse_matrix *ladel_sparse_free(ladel_sparse_matrix *M);
 
 ladel_sparse_matrix *ladel_sparse_alloc(ladel_int nrow, ladel_int ncol, 
                                                 ladel_int nzmax, ladel_int symmetry,
-                                                ladel_int values);
+                                                ladel_int values, ladel_int nz);
 
 ladel_int ladel_sparse_realloc(ladel_sparse_matrix* M, ladel_int nzmax);
 

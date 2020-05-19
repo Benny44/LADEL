@@ -13,7 +13,7 @@ ladel_int ladel_factorize_with_diag(ladel_sparse_matrix *M, ladel_diag d, ladel_
     ladel_int ok_symbolic, ok_numeric;
     ladel_sparse_matrix *Mpp;
     
-    if (ordering_method != NO_ORDERING) Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values);
+    if (ordering_method != NO_ORDERING) Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values, M->nz);
     else Mpp = M;
 
     if (!Mpp) return FAIL;
@@ -49,7 +49,7 @@ ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym,
     ladel_int ok_symbolic, ok_numeric;
     ladel_sparse_matrix *Mpp;
     
-    if (ordering_method != NO_ORDERING) Mpp = ladel_sparse_alloc(Mbasis->nrow, Mbasis->ncol, Mbasis->nzmax, Mbasis->symmetry, Mbasis->values);
+    if (ordering_method != NO_ORDERING) Mpp = ladel_sparse_alloc(Mbasis->nrow, Mbasis->ncol, Mbasis->nzmax, Mbasis->symmetry, Mbasis->values, M->nz);
     else Mpp = Mbasis;
 
     if (!Mpp) return FAIL;
@@ -63,7 +63,7 @@ ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym,
     if (sym->p)
     {
         ladel_sparse_free(Mpp);
-        Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values);
+        Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values, M->nz);
         ladel_permute_symmetric_matrix(M, sym->p, Mpp, work);
     } else
     {
@@ -88,7 +88,7 @@ ladel_int ladel_factorize_with_prior_basis(ladel_sparse_matrix *M, ladel_symboli
 
     if (sym->p)
     {
-        Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values);
+        Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values, M->nz);
         ladel_permute_symmetric_matrix(M, sym->p, Mpp, work);
     } else
     {

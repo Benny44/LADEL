@@ -68,7 +68,7 @@ ladel_sparse_matrix *ladel_convert_factor_to_sparse(ladel_sparse_matrix *L)
    if (!L) return NULL;
    ladel_int index_L, index_L_out = 0, col, ncol = L->ncol, nrow = L->nrow, Lnz = 0;
    for (col = 0; col < ncol; col++) Lnz += L->nz[col];
-   ladel_sparse_matrix *L_out = ladel_sparse_alloc(nrow, ncol, Lnz, L->symmetry, L->values);
+   ladel_sparse_matrix *L_out = ladel_sparse_alloc(nrow, ncol, Lnz, L->symmetry, L->values, FALSE);
    if (!L_out) return NULL;
    L_out->p[0] = 0;
    for (col = 0; col < ncol; col++)

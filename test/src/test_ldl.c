@@ -27,16 +27,16 @@ void ldl_suite_setup(void)
 {
     work = ladel_workspace_allocate(NCOL);
     work2 = ladel_workspace_allocate(NCOL2);
-    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE);
+    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE, FALSE);
     M->p[0] = 0; M->p[1] = 1; M->p[2] = 3; M->p[3] = 4; M->p[4] = 7; M->p[5] = 10;
     M->i[0] = 0; M->i[1] = 0; M->i[2] = 1; M->i[3] = 2; M->i[4] = 1; M->i[5] = 2; M->i[6] = 3; M->i[7] = 0; M->i[8] = 3; M->i[9] = 4;  
     M->x[0] = 1; M->x[1] = 10; M->x[2] = 2; M->x[3] = -3; M->x[4] = 11; M->x[5] = 12; M->x[6] = 4; M->x[7] = -3; M->x[8] = 2; M->x[9] = -5;
-    Mbasis = ladel_sparse_alloc(NROW, NCOL, 15, UPPER, FALSE); /*full matrix*/
+    Mbasis = ladel_sparse_alloc(NROW, NCOL, 15, UPPER, FALSE, FALSE); /*full matrix*/
     Mbasis->p[0] = 0; Mbasis->p[1] = 1; Mbasis->p[2] = 3; Mbasis->p[3] = 6; Mbasis->p[4] = 10; Mbasis->p[5] = 15;
     Mbasis->i[0] = 0; Mbasis->i[1] = 0; Mbasis->i[2] = 1; Mbasis->i[3] = 0; Mbasis->i[4] = 1; Mbasis->i[5] = 2; Mbasis->i[6] = 0; Mbasis->i[7] = 1; 
     Mbasis->i[8] = 2; Mbasis->i[9] = 3; Mbasis->i[10] = 0; Mbasis->i[11] = 1; Mbasis->i[12] = 2; Mbasis->i[13] = 3; Mbasis->i[14] = 4;
 
-    M2 = ladel_sparse_alloc(NCOL2, NCOL2, NZMAX2, UPPER, TRUE);
+    M2 = ladel_sparse_alloc(NCOL2, NCOL2, NZMAX2, UPPER, TRUE, FALSE);
     M2->p[0] = 0; M2->p[1] = 1; M2->p[2] = 2; M2->p[3] = 3; M2->p[4] = 5; 
     M2->i[0] = 0; M2->i[1] = 1; M2->i[2] = 2; M2->i[3] = 0; M2->i[4] = 3; 
     M2->x[0] = 2; M2->x[1] = 1; M2->x[2] = 3; M2->x[3] = 1; M2->x[4] = 2; 
@@ -97,7 +97,7 @@ MU_TEST(test_simple_ldl2)
 
 MU_TEST(test_simple_ldl_with_diag)
 {
-    ladel_sparse_matrix *Q = ladel_sparse_alloc(5, 5, 0, UPPER, TRUE);
+    ladel_sparse_matrix *Q = ladel_sparse_alloc(5, 5, 0, UPPER, TRUE, FALSE);
     Q->p[0] = 0; Q->p[1] = 0; Q->p[2] = 0; Q->p[3] = 0; Q->p[4] = 0; Q->p[5] = 0;
     ladel_diag d;
     d.diag_elem = 2;

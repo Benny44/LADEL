@@ -4,7 +4,7 @@
 
 ladel_sparse_matrix *ladel_sparse_allocate_and_copy(ladel_sparse_matrix *M)
 {
-    ladel_sparse_matrix *M_copy = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values);
+    ladel_sparse_matrix *M_copy = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values, M->nz);
     ladel_sparse_copy(M, M_copy);
     return M_copy;
 }

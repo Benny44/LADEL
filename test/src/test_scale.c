@@ -18,7 +18,7 @@ M = [1.2  0  3.4  0    0.5;
 
 void scale_test_setup(void)
 {
-    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UNSYMMETRIC, TRUE);
+    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UNSYMMETRIC, TRUE, FALSE);
     M->p[0] = 0; M->p[1] = 2; M->p[2] = 4; M->p[3] = 7; M->p[4] = 9; M->p[5] = 11;
     M->i[0] = 0; M->i[1] = 2; M->i[2] = 1; M->i[3] = 3; M->i[4] = 0; M->i[5] = 1; M->i[6] = 2; M->i[7] = 2; M->i[8] = 3; M->i[9] = 0; M->i[10] = 3;
     M->x[0] = 1.2; M->x[1] = 3.6; M->x[2] = -2; M->x[3] = -3; M->x[4] = 3.4; M->x[5] = 1.1; M->x[6] = 1.5; M->x[7] = 1.6; M->x[8] = 1.7; M->x[9] = 0.5; M->x[10] = -0.5;

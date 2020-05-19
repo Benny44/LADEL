@@ -21,7 +21,7 @@ static ladel_symbolics *sym = NULL;
 void rank1_mod_suite_setup(void)
 {
     work = ladel_workspace_allocate(NCOL);
-    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE);
+    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE, FALSE);
     M->p[0] = 0; M->p[1] = 1; M->p[2] = 2; M->p[3] = 4; M->p[4] = 7; M->p[5] = 8; M->p[6] = 10; M->p[7] = 14; M->p[8] = 16;
     M->i[0] = 0; M->i[1] = 1; M->i[2] = 0; M->i[3] = 2; M->i[4] = 1; M->i[5] = 2; M->i[6] = 3; M->i[7] = 4;  
     M->i[8] = 4; M->i[9] = 5; M->i[10] = 2; M->i[11] = 3; M->i[12] = 5; M->i[13] = 6; M->i[14] = 5; M->i[15] = 7; 
@@ -32,7 +32,7 @@ void rank1_mod_suite_setup(void)
     M->x[12] = 7.650155176644616e-02; M->x[13] = 1.151758087181832e+00; M->x[14] = 7.767464464874704e-01; 
     M->x[15] = 6.404488288848778e-01; 
 
-    W = ladel_sparse_alloc(NROW, 1, 3, UNSYMMETRIC, TRUE);
+    W = ladel_sparse_alloc(NROW, 1, 3, UNSYMMETRIC, TRUE, TRUE);
     W->p[0] = 0; W->p[1] = 3; 
     W->nz[0] = 3;
     W->i[0] = 3; W->i[1] = 5; W->i[2] = 7;
@@ -41,7 +41,7 @@ void rank1_mod_suite_setup(void)
 
     sym = ladel_symbolics_alloc(NCOL); 
 
-    Mbasis = ladel_sparse_alloc(NROW, NCOL, 36, UPPER, FALSE);
+    Mbasis = ladel_sparse_alloc(NROW, NCOL, 36, UPPER, FALSE, FALSE);
     Mbasis->p[0] = 0; Mbasis->p[1] = 1; Mbasis->p[2] = 3; Mbasis->p[3] = 6; Mbasis->p[4] = 10; 
     Mbasis->p[5] = 15; Mbasis->p[6] = 21; Mbasis->p[7] = 28; Mbasis->p[8] = 36; 
     Mbasis->i[0] = 0; Mbasis->i[1] = 0; Mbasis->i[2] = 1; Mbasis->i[3] = 0; Mbasis->i[4] = 1; 

@@ -14,7 +14,7 @@ static ladel_sparse_matrix *M;
 void transpose_suite_setup(void)
 {
     work = ladel_workspace_allocate(NROW);
-    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UNSYMMETRIC, TRUE);
+    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UNSYMMETRIC, TRUE, FALSE);
     M->p[0] = 0; M->p[1] = 2; M->p[2] = 3; M->p[3] = 5; M->p[4] = 6; M->p[5] = 7; 
     M->i[0] = 0; M->i[1] = 2; M->i[2] = 1; M->i[3] = 2; M->i[4] = 3; M->i[5] = 0; M->i[6] = 3; 
     M->x[0] = 1; M->x[1] = 3; M->x[2] = 2; M->x[3] = 5; M->x[4] = 6; M->x[5] = 4; M->x[6] = 7; 

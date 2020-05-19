@@ -16,7 +16,7 @@ void col_counts_test_setup(void)
 {
     work = ladel_workspace_allocate(NCOL);
 
-    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE);
+    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE, FALSE);
     M->p[0] = 0; M->p[1] = 3; M->p[2] = 6; M->p[3] = 10; M->p[4] = 13; M->p[5] = 16; 
     M->p[6] = 21; M->p[7] = 24; M->p[8] = 29; M->p[9] = 31; M->p[10] = 37; M->p[11] = 43;
     

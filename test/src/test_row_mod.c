@@ -21,7 +21,7 @@ void row_mod_suite_setup(void)
 {
     work = ladel_workspace_allocate(NCOL);
 
-    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE);
+    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE, FALSE);
     M->p[0] = 0; M->p[1] = 1; M->p[2] = 3; M->p[3] = 6; M->p[4] = 10; M->p[5] = 15; M->p[6] = 16; 
     M->i[0] = 0; M->i[1] = 0; M->i[2] = 1; M->i[3] = 0; M->i[4] = 1; M->i[5] = 2; M->i[6] = 0; 
     M->i[7] = 1; M->i[8] = 2; M->i[9] = 3; M->i[10] = 0; M->i[11] = 1; M->i[12] = 2; M->i[13] = 3; 
@@ -33,7 +33,7 @@ void row_mod_suite_setup(void)
     M->x[12] = 5.614789725017673e-01; M->x[13] = 4.335189702823217e-01; M->x[14] = 9.223654191512636e-01; 
     M->x[15] = 1.0;
 
-    Mbasis = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE);
+    Mbasis = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE, FALSE);
     Mbasis->p[0] = 0; Mbasis->p[1] = 1; Mbasis->p[2] = 3; Mbasis->p[3] = 6; Mbasis->p[4] = 10; Mbasis->p[5] = 15; Mbasis->p[6] = 21; 
     Mbasis->i[0] = 0; Mbasis->i[1] = 0; Mbasis->i[2] = 1; Mbasis->i[3] = 0; Mbasis->i[4] = 1; Mbasis->i[5] = 2; Mbasis->i[6] = 0; 
     Mbasis->i[7] = 1; Mbasis->i[8] = 2; Mbasis->i[9] = 3; Mbasis->i[10] = 0; Mbasis->i[11] = 1; Mbasis->i[12] = 2; Mbasis->i[13] = 3; 
@@ -45,7 +45,7 @@ void row_mod_suite_setup(void)
     Mbasis->x[12] = 5.614789725017673e-01; Mbasis->x[13] = 4.335189702823217e-01; Mbasis->x[14] = 9.223654191512636e-01; 
     Mbasis->x[15] = 1.0; Mbasis->x[16] = 1.0; Mbasis->x[17] = 1.0; Mbasis->x[18] = 1.0; Mbasis->x[19] = 1.0; Mbasis->x[20] = 1.0; 
 
-    new_row = ladel_sparse_alloc(NROW, 1, NROW, UNSYMMETRIC, TRUE);
+    new_row = ladel_sparse_alloc(NROW, 1, NROW, UNSYMMETRIC, TRUE, TRUE);
     new_row->p[0] = 0; new_row->p[1] = 5;
     new_row->nz[0] = 5;
     new_row->i[0] = 0; new_row->i[1] = 1; new_row->i[2] = 2; new_row->i[3] = 3; new_row->i[4] = 4;   

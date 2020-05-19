@@ -17,15 +17,15 @@ static ladel_sparse_matrix *M, *Mpp, *Mpp_ref;
 void permutation_suite_setup(void)
 {
     work = ladel_workspace_allocate(NCOL);
-    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE);
+    M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE, FALSE);
     M->p[0] = 0; M->p[1] = 1; M->p[2] = 2; M->p[3] = 4; M->p[4] = 5; M->p[5] = 7; M->p[6] = 10;
     M->i[0] = 0; M->i[1] = 1; M->i[2] = 0; M->i[3] = 2; M->i[4] = 3; M->i[5] = 1; M->i[6] = 4; 
     M->i[7] = 0; M->i[8] = 4; M->i[9] = 5; 
     M->x[0] = 1; M->x[1] = 2; M->x[2] = 10; M->x[3] = 3; M->x[4] = 4; M->x[5] = -5; M->x[6] = 5; 
     M->x[7] = 13; M->x[8] = 44; M->x[9] = 6; 
 
-    Mpp = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE);
-    Mpp_ref = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE);
+    Mpp = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE, FALSE);
+    Mpp_ref = ladel_sparse_alloc(NROW, NCOL, NZMAX, UPPER, TRUE, FALSE);
     Mpp_ref->p[0] = 0; Mpp_ref->p[1] = 1; Mpp_ref->p[2] = 3; Mpp_ref->p[3] = 5; Mpp_ref->p[4] = 6; Mpp_ref->p[5] = 8; Mpp_ref->p[6] = 10;
     Mpp_ref->i[0] = 0; Mpp_ref->i[1] = 0; Mpp_ref->i[2] = 1; Mpp_ref->i[3] = 1; Mpp_ref->i[4] = 2; Mpp_ref->i[5] = 3; Mpp_ref->i[6] = 2; 
     Mpp_ref->i[7] = 4; Mpp_ref->i[8] = 4; Mpp_ref->i[9] = 5; 

@@ -9,7 +9,7 @@ ladel_sparse_matrix *ladel_transpose(ladel_sparse_matrix *M, int values, ladel_w
     ladel_int *col_pointers = work->array_int_ncol1;
     for (index = 0; index < M->nrow; index++) col_pointers[index] = 0;
 
-    ladel_sparse_matrix *M_transpose = ladel_sparse_alloc(M->ncol, M->nrow, M->nzmax, -M->symmetry, values && M->values);
+    ladel_sparse_matrix *M_transpose = ladel_sparse_alloc(M->ncol, M->nrow, M->nzmax, -M->symmetry, values && M->values, M->nz);
     
     if (!M_transpose) return NULL; 
 

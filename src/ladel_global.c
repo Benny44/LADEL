@@ -75,7 +75,7 @@ ladel_sparse_matrix *ladel_sparse_free(ladel_sparse_matrix *M)
 
 ladel_sparse_matrix *ladel_sparse_alloc(ladel_int nrow, ladel_int ncol, 
                                                 ladel_int nzmax, ladel_int symmetry,
-                                                ladel_int values)
+                                                ladel_int values, ladel_int nz)
 {
     ladel_sparse_matrix *M = (ladel_sparse_matrix *) ladel_calloc(1, sizeof(ladel_sparse_matrix));
     if (!M) return NULL;
@@ -87,8 +87,8 @@ ladel_sparse_matrix *ladel_sparse_alloc(ladel_int nrow, ladel_int ncol,
     M->p = (ladel_int *) ladel_malloc(ncol+1, sizeof(ladel_int));
     M->i = (ladel_int *) ladel_malloc(nzmax, sizeof(ladel_int));
     M->x = values ? (ladel_double *) ladel_malloc(nzmax, sizeof(ladel_double)) : NULL;
-    M->nz = (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int));
-    if (!M->p || !M->i || (values && !M->x) || !M->nz) M = ladel_sparse_free(M);
+    M->nz = nz ? (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int)) : NULL;
+    if (!M->p || !M->i || (values && !M->x) || (nz && !M->nz)) M = ladel_sparse_free(M);
     return M;
 }
 
@@ -150,7 +150,7 @@ ladel_factor *ladel_factor_allocate(ladel_symbolics *sym)
     ladel_factor *LD = (ladel_factor *) ladel_calloc(1, sizeof(ladel_factor));
     if (!LD || !sym) return NULL;
     ladel_int ncol = LD->ncol = sym->ncol;
-    LD->L = ladel_sparse_alloc(ncol, ncol, sym->col_counts[ncol-1], UNSYMMETRIC, TRUE);
+    LD->L = ladel_sparse_alloc(ncol, ncol, sym->col_counts[ncol-1], UNSYMMETRIC, TRUE, TRUE);
     LD->D = ladel_malloc(ncol, sizeof(ladel_double));
     LD->Dinv = ladel_malloc(ncol, sizeof(ladel_double));
     if (!LD->L || !LD->D || !LD->Dinv)
