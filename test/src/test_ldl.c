@@ -117,6 +117,25 @@ MU_TEST(test_simple_ldl_with_diag)
     Q = ladel_sparse_free(Q);
 }
 
+MU_TEST(test_simple_ldl_with_partial_diag)
+{
+    ladel_diag d;
+    d.diag_elem = 2;
+    d.diag_size = 2;
+
+    ladel_double x[NCOL] = {1, 2, 3, 4, 5};
+    ladel_double y[NCOL], y_ref[NCOL] = {-1.570512820512821e-01,-8.208255159474673e-02,4.177611006879300e-01,3.544402751719825e-01,-7.639931207004377e-01};
+
+    ladel_int status = ladel_factorize_with_diag(M, d, sym, NO_ORDERING, &LD, work);
+    mu_assert_long_eq(status, SUCCESS);
+    ladel_dense_solve(LD, x, y, work);
+    ladel_int index;
+
+    for (index = 0; index < NCOL; index++)
+        mu_assert_double_eq(y[index], y_ref[index], TOL);
+
+}
+
 #ifdef DAMD
 MU_TEST(test_simple_ldl_with_amd)
 {
@@ -157,6 +176,7 @@ MU_TEST_SUITE(suite_ldl)
     MU_RUN_TEST(test_simple_ldl);
     MU_RUN_TEST(test_simple_ldl2);
     MU_RUN_TEST(test_simple_ldl_with_diag);
+    MU_RUN_TEST(test_simple_ldl_with_partial_diag);
     #ifdef DAMD
     MU_RUN_TEST(test_simple_ldl_with_amd);
     #endif
