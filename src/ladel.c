@@ -5,6 +5,14 @@
 #include "ladel_ldl_numeric.h"
 #include "ladel_permutation.h"
 #include "ladel_etree.h"
+#include "ladel.h"
+
+ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_work* work)
+{
+    ladel_diag d;
+    d.diag_size = 0;
+    return ladel_factorize_with_diag(M, d, sym, ordering_method, LD, work);
+}
 
 ladel_int ladel_factorize_with_diag(ladel_sparse_matrix *M, ladel_diag d, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_work* work)
 {
@@ -34,15 +42,14 @@ ladel_int ladel_factorize_with_diag(ladel_sparse_matrix *M, ladel_diag d, ladel_
     else return FAIL;
 }
 
-ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_work* work)
+ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_sparse_matrix *Mbasis, ladel_work* work)
 {
     ladel_diag d;
-    d.diag_elem = 0;
     d.diag_size = 0;
-    return ladel_factorize_with_diag(M, d, sym, ordering_method, LD, work);
+    return ladel_factorize_advanced_with_diag(M, d, sym, ordering_method, LD, Mbasis, work);
 }
 
-ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_sparse_matrix *Mbasis, ladel_work* work)
+ladel_int ladel_factorize_advanced_with_diag(ladel_sparse_matrix *M, ladel_diag d, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_sparse_matrix *Mbasis, ladel_work* work)
 {
     if (!M || !sym || !Mbasis || !work) return FAIL;
 
@@ -72,7 +79,7 @@ ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym,
     
     ladel_etree(Mpp, sym, work);
 
-    ok_numeric = ladel_ldl_numeric(Mpp, sym, *LD, work);
+    ok_numeric = ladel_ldl_numeric_with_diag(Mpp, d, sym, *LD, work);
 
     if (ordering_method != NO_ORDERING) ladel_sparse_free(Mpp);
     if (ok_symbolic && ok_numeric) return SUCCESS;
@@ -80,6 +87,13 @@ ladel_int ladel_factorize_advanced(ladel_sparse_matrix *M, ladel_symbolics *sym,
 }
 
 ladel_int ladel_factorize_with_prior_basis(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_factor *LD, ladel_work* work)
+{
+    ladel_diag d;
+    d.diag_size = 0;
+    ladel_factorize_with_prior_basis_with_diag(M, d, sym, LD, work);
+}
+
+ladel_int ladel_factorize_with_prior_basis_with_diag(ladel_sparse_matrix *M, ladel_diag d, ladel_symbolics *sym, ladel_factor *LD, ladel_work* work)
 {
     if (!M || !sym || !LD || !work) return FAIL;
 
@@ -96,7 +110,7 @@ ladel_int ladel_factorize_with_prior_basis(ladel_sparse_matrix *M, ladel_symboli
     }
 
     ladel_etree(Mpp, sym, work);
-    ok_numeric = ladel_ldl_numeric(Mpp, sym, LD, work);
+    ok_numeric = ladel_ldl_numeric_with_diag(Mpp, d, sym, LD, work);
 
     if (sym->p) ladel_sparse_free(Mpp);
     return ok_numeric;
