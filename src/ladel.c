@@ -5,6 +5,7 @@
 #include "ladel_ldl_numeric.h"
 #include "ladel_permutation.h"
 #include "ladel_etree.h"
+#include "ladel_debug_print.h"
 #include "ladel.h"
 
 ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_work* work)
@@ -56,7 +57,7 @@ ladel_int ladel_factorize_advanced_with_diag(ladel_sparse_matrix *M, ladel_diag 
     ladel_int ok_symbolic, ok_numeric;
     ladel_sparse_matrix *Mpp;
     
-    if (ordering_method != NO_ORDERING) Mpp = ladel_sparse_alloc(Mbasis->nrow, Mbasis->ncol, Mbasis->nzmax, Mbasis->symmetry, Mbasis->values, M->nz);
+    if (ordering_method != NO_ORDERING) Mpp = ladel_sparse_alloc(Mbasis->nrow, Mbasis->ncol, Mbasis->nzmax, Mbasis->symmetry, Mbasis->values, Mbasis->nz);
     else Mpp = Mbasis;
 
     if (!Mpp) return FAIL;
@@ -70,7 +71,7 @@ ladel_int ladel_factorize_advanced_with_diag(ladel_sparse_matrix *M, ladel_diag 
     if (sym->p)
     {
         ladel_sparse_free(Mpp);
-        Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values, M->nz);
+        Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values, FALSE);
         ladel_permute_symmetric_matrix(M, sym->p, Mpp, work);
     } else
     {
@@ -102,7 +103,7 @@ ladel_int ladel_factorize_with_prior_basis_with_diag(ladel_sparse_matrix *M, lad
 
     if (sym->p)
     {
-        Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values, M->nz);
+        Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values, FALSE);
         ladel_permute_symmetric_matrix(M, sym->p, Mpp, work);
     } else
     {
