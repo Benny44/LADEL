@@ -28,7 +28,7 @@ ladel_int ladel_ldl_numeric_with_diag(ladel_sparse_matrix *Mpp, ladel_diag d, la
         LADEL_FOR(index, Mpp, col)
             rhs[Mpp->i[index]] = Mpp->x[index];
         diag_elem = rhs[col];
-        if ((LD->pinv && LD->pinv[col] < d.diag_size) || (!LD->pinv && col < d.diag_size)) diag_elem += d.diag_elem;
+        if ((LD->p && LD->p[col] < d.diag_size) || (!LD->p && col < d.diag_size)) diag_elem += d.diag_elem;
         rhs[col] = 0;
 
         start = ladel_nonzero_pattern_of_row_in_L(Mpp, sym, col);
