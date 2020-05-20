@@ -22,7 +22,7 @@ ladel_int ladel_factorize_with_diag(ladel_sparse_matrix *M, ladel_diag d, ladel_
     ladel_int ok_symbolic, ok_numeric;
     ladel_sparse_matrix *Mpp;
     
-    if (ordering_method != NO_ORDERING) Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values, M->nz);
+    if (ordering_method != NO_ORDERING) Mpp = ladel_sparse_alloc(M->nrow, M->ncol, M->nzmax, M->symmetry, M->values, FALSE);
     else Mpp = M;
 
     if (!Mpp) return FAIL;
@@ -57,7 +57,7 @@ ladel_int ladel_factorize_advanced_with_diag(ladel_sparse_matrix *M, ladel_diag 
     ladel_int ok_symbolic, ok_numeric;
     ladel_sparse_matrix *Mpp;
     
-    if (ordering_method != NO_ORDERING) Mpp = ladel_sparse_alloc(Mbasis->nrow, Mbasis->ncol, Mbasis->nzmax, Mbasis->symmetry, Mbasis->values, Mbasis->nz);
+    if (ordering_method != NO_ORDERING) Mpp = ladel_sparse_alloc(Mbasis->nrow, Mbasis->ncol, Mbasis->nzmax, Mbasis->symmetry, Mbasis->values, FALSE);
     else Mpp = Mbasis;
 
     if (!Mpp) return FAIL;
