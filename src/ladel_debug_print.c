@@ -18,6 +18,21 @@ void ladel_print_sparse_matrix_matlab(ladel_sparse_matrix *M) {
     ladel_print("\n");
 }
 
+/* Print the entries of a sparse matrix column by column */
+void ladel_print_sparse_matrix_entries(ladel_sparse_matrix *M) {
+    ladel_print("Printing entries: \n");
+    ladel_int col, index;
+    ladel_double *Mx = M->x;
+    ladel_int *Mi = M->i;
+    ladel_int *Mp = M->p;
+
+    for (col = 0; col < M->ncol; col++) {
+        for(index = Mp[col]; index < Mp[col+1]; index++)
+            ladel_print("M(%d, %d) = %.16le;", Mi[index], col, Mx[index]);
+    }    
+    ladel_print("\n");
+}
+
 void ladel_print_factor_matlab(ladel_factor *LD) {
     ladel_print("L = sparse(%ld, %ld);", LD->L->nrow, LD->L->ncol);
     ladel_int col, index = 0;
