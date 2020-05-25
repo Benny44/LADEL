@@ -26,15 +26,20 @@ ladel_int ladel_row_add(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
     ladel_int *offset = work->array_int_ncol1;
     ladel_int *insertions = work->array_int_ncol2;
     
+    if (W->nz == NULL) Wnz = W->p[col_in_W+1] - W->p[col_in_W];
+    else Wnz = W->nz[col_in_W];
+
     if (LD->pinv != NULL)
     {
+        ladel_int_vector_copy(W->i + W->p[col_in_W], Wnz, work->array_int_ncol3);
+        ladel_double_vector_copy(W->x + W->p[col_in_W], Wnz, work->array_double_ncol1);
         ladel_permute_sparse_vector(W, col_in_W, LD->pinv, work);
         row_in_L = LD->pinv[row_in_L];
     }
     
     /* 1. Solve lower triangular system L11*D11*l12 = W12 */
-    if (W->nz == NULL) Wnz = W->p[col_in_W+1] - W->p[col_in_W];
-    else Wnz = W->nz[col_in_W];
+    
+    
     for (index = W->p[col_in_W]; index < W->p[col_in_W] + Wnz; index++)
     {
         row = W->i[index];
@@ -99,6 +104,14 @@ ladel_int ladel_row_add(ladel_factor *LD, ladel_symbolics *sym, ladel_int row_in
     /* 4. w = l32*sqrt(abs(d22)) */
     /* 5. Update or downdate L33*D33*L33^T = L33*D33*L33^T - sign(d22)*w*w^T */
     status = ladel_rank1_update(LD, sym, L, row_in_L, 1/sqrt(LADEL_ABS(d22)), d22 < 0, work);
+
+
+    /* Restore W if permuted*/
+    if (LD->pinv != NULL)
+    {
+        ladel_int_vector_copy(work->array_int_ncol3, Wnz, W->i + W->p[col_in_W]);
+        ladel_double_vector_copy(work->array_double_ncol1, Wnz, W->x + W->p[col_in_W]);
+    }
 
     return status;
 }
