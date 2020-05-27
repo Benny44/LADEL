@@ -83,6 +83,8 @@ typedef struct workspace
     ladel_int *array_int_ncol2;
     ladel_int *array_int_ncol3;
     ladel_int *array_int_ncol4;
+    ladel_int *array_int_ncol_flag;
+    ladel_int flag;
     ladel_double *array_double_all_zeros_ncol1;
     ladel_double *array_double_ncol1;
 } ladel_work;

@@ -218,6 +218,7 @@ ladel_work *ladel_workspace_free(ladel_work* work)
     ladel_free(work->array_int_ncol2);
     ladel_free(work->array_int_ncol3);
     ladel_free(work->array_int_ncol4);
+    ladel_free(work->array_int_ncol_flag);
     ladel_free(work->array_double_all_zeros_ncol1);
     ladel_free(work->array_double_ncol1);
     return (ladel_work *) ladel_free(work);
@@ -237,6 +238,8 @@ ladel_work *ladel_workspace_allocate(ladel_int ncol)
     work->array_int_ncol2 = ladel_malloc(ncol, sizeof(ladel_int));
     work->array_int_ncol3 = ladel_malloc(ncol, sizeof(ladel_int));
     work->array_int_ncol4 = ladel_malloc(ncol, sizeof(ladel_int));
+    work->array_int_ncol_flag = ladel_calloc(ncol, sizeof(ladel_int));
+    work->flag = 1;
     work->array_double_ncol1 = ladel_malloc(ncol, sizeof(ladel_double));
     work->array_double_all_zeros_ncol1 = ladel_calloc(ncol, sizeof(ladel_double));
 
