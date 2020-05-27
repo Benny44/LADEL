@@ -37,18 +37,16 @@ MU_TEST(test_mat_diag_mat_transpose)
     ladel_sparse_matrix *MMt = ladel_mat_diag_mat_transpose(M, M_transpose, diag, work);
     mu_assert_true(MMt != NULL);
 
-    ladel_int p_sol[NROW+1] = {0, 1, 2, 5, 8};
-    ladel_int i_sol[12] = {0, 1, 0, 2, 1, 1, 3, 0}; /* Unsorted! */
-    ladel_double x_sol[12] = {2.69, 11.63, 4.32, 19.71, 4.95, 12.0, 30.81, -1.25};
+    /* The resulting matrix is unsorted, so we check correctness through some common operations */
+    
+    /* Test the resulting mat_vec */
+    ladel_double x[NROW] = {1.5, -2, -1, 5};
+    ladel_double y[NROW], y_sol[NROW] = {-6.535, 31.79, -23.13, 128.175};
+    ladel_symmetric_matvec(MMt, x, y, TRUE);
+    
     ladel_int index;
-    for (index = 0; index < NROW+1; index++)
-        mu_assert_long_eq(MMt->p[index], p_sol[index]);
-
-    for (index = 0; index < 8; index++)
-    {
-        mu_assert_long_eq(MMt->i[index], i_sol[index]);
-        mu_assert_double_eq(MMt->x[index], x_sol[index], TOL);
-    }
+    for (index = 0; index < NROW; index++)
+        mu_assert_double_eq(y[index], y_sol[index], TOL);
 
     ladel_sparse_free(M_transpose);
     ladel_sparse_free(MMt);
