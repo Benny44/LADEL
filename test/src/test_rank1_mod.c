@@ -136,8 +136,6 @@ MU_TEST(test_rank1_mod)
     status = ladel_factorize_advanced(M, sym, NO_ORDERING, &LD, Mbasis, work);
     mu_assert_long_eq(status, SUCCESS);
 
-    // for (index = 0; index < LD->L->ncol; index++) LD->L->nz[index] = LD->L->ncol;
-
     ladel_double rhs[8] = {7.922073295595544e-01, 9.594924263929030e-01, 6.557406991565868e-01,
                             3.571167857418955e-02, 8.491293058687771e-01, 9.339932477575505e-01,
                             6.787351548577735e-01, 7.577401305783334e-01};
