@@ -44,6 +44,7 @@ SET(SRC
         src/ladel_global.c
         src/ladel_scale.c
         src/ladel_matvec.c
+        src/ladel_matmat.c
         src/ladel_upper_diag.c
         src/ladel_etree.c
         src/ladel_postorder.c

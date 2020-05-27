@@ -5,6 +5,7 @@ SET(TEST_SRC
     src/run_all_tests.c
     src/test_scale.c
     src/test_matvec.c
+    src/test_matmat.c
     src/test_upper_diag.c
     src/test_etree.c
     src/test_postorder.c

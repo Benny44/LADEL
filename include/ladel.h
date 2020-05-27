@@ -10,6 +10,7 @@
 #include "ladel_ldl_numeric.h"
 #include "ladel_ldl_symbolic.h"
 #include "ladel_matvec.h"
+#include "ladel_matmat.h"
 #include "ladel_pattern.h"
 #include "ladel_permutation.h"
 #include "ladel_postorder.h"
