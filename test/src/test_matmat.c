@@ -17,7 +17,7 @@ M = [1.2  0  0    0    0.5;
 
 void matmat_suite_setup(void)
 {
-    work = ladel_workspace_allocate(NCOL);
+    work = ladel_workspace_allocate(NROW);
     M = ladel_sparse_alloc(NROW, NCOL, NZMAX, UNSYMMETRIC, TRUE, FALSE);
     M->p[0] = 0; M->p[1] = 2; M->p[2] = 4; M->p[3] = 6; M->p[4] = 7; M->p[5] = 9;
     M->i[0] = 0; M->i[1] = 2; M->i[2] = 1; M->i[3] = 3; M->i[4] = 1; M->i[5] = 2; M->i[6] = 3; M->i[7] = 0; M->i[8] = 3;
@@ -47,6 +47,23 @@ MU_TEST(test_mat_diag_mat_transpose)
     ladel_int index;
     for (index = 0; index < NROW; index++)
         mu_assert_double_eq(y[index], y_sol[index], TOL);
+
+    /* Test the resulting solve */
+    y_sol[0] = 9.418703474431208e-01;
+    y_sol[1] = -5.483886607270303e-01;
+    y_sol[2] = -1.194498239652705e-01;
+    y_sol[3] =  4.140863960736211e-01;
+
+    ladel_symbolics *sym = ladel_symbolics_alloc(NROW);
+    ladel_factor *LD;
+    ladel_factorize(MMt, sym, NO_ORDERING, &LD, work);
+    ladel_dense_solve(LD, x, y, work);
+    
+    for (index = 0; index < NROW; index++)
+        mu_assert_double_eq(y[index], y_sol[index], TOL);
+
+    ladel_symbolics_free(sym);
+    ladel_factor_free(LD);
 
     ladel_sparse_free(M_transpose);
     ladel_sparse_free(MMt);
