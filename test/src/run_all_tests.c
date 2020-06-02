@@ -11,12 +11,14 @@
 #include "test_ldl.h"
 #include "test_rank1_mod.h"
 #include "test_row_mod.h"
+#include "test_add.h"
 
 int main(){
     MU_INITIALIZE();
     MU_RUN_SUITE(suite_scale);
     MU_RUN_SUITE(suite_matvec);
     MU_RUN_SUITE(suite_matmat);
+    MU_RUN_SUITE(suite_add);
     MU_RUN_SUITE(suite_upper_diag);
     MU_RUN_SUITE(suite_etree);
     MU_RUN_SUITE(suite_postorder);
