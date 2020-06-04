@@ -1,6 +1,7 @@
 #include "ladel_types.h"
 #include "ladel_global.h"
 #include "ladel_constants.h"
+#include "ladel_debug_print.h"
 
 ladel_int ladel_etree(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_work* work)
 {

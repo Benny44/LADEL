@@ -24,4 +24,5 @@ void ladel_to_upper_diag(ladel_sparse_matrix *M)
     }
     M->p[M->ncol] = nzM;
     ladel_sparse_realloc(M, nzM);
+    M->symmetry = UPPER;
 }

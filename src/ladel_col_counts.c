@@ -2,6 +2,7 @@
 #include "ladel_constants.h"
 #include "ladel_transpose.h"
 #include "ladel_global.h"
+#include "ladel_debug_print.h"
 
 #define FIRST_LEAF 1
 #define SUBSEQUENT_LEAF 2
