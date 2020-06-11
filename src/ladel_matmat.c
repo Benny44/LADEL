@@ -3,9 +3,14 @@
 #include "ladel_types.h"
 #include "ladel_copy.h"
 
+ladel_sparse_matrix *ladel_mat_mat_transpose(ladel_sparse_matrix *M, ladel_sparse_matrix *M_transpose, ladel_work *work)
+{
+    return ladel_mat_diag_mat_transpose(M, M_transpose, NULL, work);
+}
+
 ladel_sparse_matrix *ladel_mat_diag_mat_transpose(ladel_sparse_matrix *M, ladel_sparse_matrix *M_transpose, ladel_double *diag, ladel_work *work)
 {
-    if (!M || !M_transpose || !diag || !work) return NULL;
+    if (!M || !M_transpose || !work) return NULL;
     
     ladel_int col, row, row2, index, index2, MMt_nnz = 0;
     ladel_int *touched = work->array_int_ncol_flag;
@@ -34,7 +39,7 @@ ladel_sparse_matrix *ladel_mat_diag_mat_transpose(ladel_sparse_matrix *M, ladel_
     ladel_sparse_matrix *MMt = ladel_sparse_alloc(M->nrow, M->nrow, MMt_nnz, UPPER, M->values, FALSE);
     if (!MMt) return NULL;
 
-    /* Compute M*diag(diag)*M_transpose */
+    /* Compute M*diag*M_transpose */
     if (MMt->values) for (index = 0; index < MMt_nnz; index++) MMt->x[index] = 0;
     MMt->p[0] = 0;
     MMt_nnz = -1;
@@ -56,7 +61,8 @@ ladel_sparse_matrix *ladel_mat_diag_mat_transpose(ladel_sparse_matrix *M, ladel_
                     touched[row2] = work->flag;
                     MMt->i[MMt_nnz] = row2;
                 } 
-                if (MMt->values) MMt_col[row2] += M->x[index2]*diag[row]*M_transpose->x[index];
+                if (MMt->values) 
+                    MMt_col[row2] += (diag) ? M->x[index2]*diag[row]*M_transpose->x[index] : M->x[index2]*diag[row]*M_transpose->x[index];
             }
         }
         MMt->p[col+1] = MMt_nnz+1;
