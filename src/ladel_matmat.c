@@ -2,6 +2,7 @@
 #include "ladel_global.h"
 #include "ladel_types.h"
 #include "ladel_copy.h"
+#include "ladel_matmat.h"
 
 ladel_sparse_matrix *ladel_mat_mat_transpose(ladel_sparse_matrix *M, ladel_sparse_matrix *M_transpose, ladel_work *work)
 {
