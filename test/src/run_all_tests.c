@@ -12,6 +12,7 @@
 #include "test_rank1_mod.h"
 #include "test_row_mod.h"
 #include "test_add.h"
+#include "test_submatrix.h"
 
 int main(){
     MU_INITIALIZE();
@@ -19,6 +20,7 @@ int main(){
     MU_RUN_SUITE(suite_matvec);
     MU_RUN_SUITE(suite_matmat);
     MU_RUN_SUITE(suite_add);
+    MU_RUN_SUITE(suite_submatrix);
     MU_RUN_SUITE(suite_upper_diag);
     MU_RUN_SUITE(suite_etree);
     MU_RUN_SUITE(suite_postorder);

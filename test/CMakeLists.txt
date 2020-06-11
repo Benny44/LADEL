@@ -15,7 +15,8 @@ SET(TEST_SRC
     src/test_ldl.c
     src/test_rank1_mod.c
     src/test_row_mod.c
-    src/test_add.c)
+    src/test_add.c
+    src/test_submatrix.c)
 
 add_executable(ladel_run_all_tests
     ${TEST_SRC}

@@ -92,6 +92,25 @@ ladel_sparse_matrix *ladel_sparse_alloc(ladel_int nrow, ladel_int ncol,
     return M;
 }
 
+ladel_sparse_matrix *ladel_sparse_alloc_empty(ladel_int nrow, ladel_int ncol, 
+                                                ladel_int symmetry, ladel_int values, 
+                                                ladel_int nz)
+{
+    ladel_sparse_matrix *M = (ladel_sparse_matrix *) ladel_calloc(1, sizeof(ladel_sparse_matrix));
+    if (!M) return NULL;
+    M->nrow = nrow;
+    M->ncol = ncol;
+    M->nzmax = 0;
+    M->values = values;
+    M->symmetry = symmetry;
+    M->p = (ladel_int *) ladel_calloc(ncol+1, sizeof(ladel_int));
+    M->i = (ladel_int *) ladel_malloc(1, sizeof(ladel_int));
+    M->x = values ? (ladel_double *) ladel_malloc(1, sizeof(ladel_double)) : NULL;
+    M->nz = nz ? (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int)) : NULL;
+    if (!M->p || !M->i || (values && !M->x) || (nz && !M->nz)) M = ladel_sparse_free(M);
+    return M;
+}
+
 ladel_int ladel_sparse_realloc(ladel_sparse_matrix* M, ladel_int nzmax)
 {
     ladel_int status_i, status, status_x = SUCCESS;

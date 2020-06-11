@@ -21,6 +21,7 @@
 #include "ladel_types.h"
 #include "ladel_upper_diag.h"
 #include "ladel_add.h"
+#include "ladel_submatrix.h"
 
 ladel_int ladel_factorize(ladel_sparse_matrix *M, ladel_symbolics *sym, ladel_int ordering_method, ladel_factor **LD, ladel_work* work);
 

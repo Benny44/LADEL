@@ -59,7 +59,8 @@ SET(SRC
         src/ladel_rank1_mod.c
         src/ladel_row_mod.c
         src/ladel_debug_print.c
-        src/ladel_add.c)
+        src/ladel_add.c
+        src/ladel_submatrix.c)
 
 
 if (AMD)
