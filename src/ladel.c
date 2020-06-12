@@ -91,7 +91,7 @@ ladel_int ladel_factorize_with_prior_basis(ladel_sparse_matrix *M, ladel_symboli
 {
     ladel_diag d;
     d.diag_size = 0;
-    ladel_factorize_with_prior_basis_with_diag(M, d, sym, LD, work);
+    return ladel_factorize_with_prior_basis_with_diag(M, d, sym, LD, work);
 }
 
 ladel_int ladel_factorize_with_prior_basis_with_diag(ladel_sparse_matrix *M, ladel_diag d, ladel_symbolics *sym, ladel_factor *LD, ladel_work* work)
