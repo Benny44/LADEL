@@ -28,7 +28,7 @@ if (is64)
     flags = [flags ' -largeArrayDims'];
 end
 
-include = '-I. -I../../include -I../../amd/Include'; 
+include = '-I. -I./include -I../../include -I../../amd/Include'; 
 
 ladel_src = { ...
     'ladel_col_counts.c', ...
@@ -54,6 +54,8 @@ ladel_src_path = '../../src';
 for i = 1:length(ladel_src)
     ladel_src{i} = [ladel_src_path '/' ladel_src{i}] ;
 end
+
+ladel_mex_util_src = ['ladel_mex_util.c']; 
 
 amd_src = { ...
     'amd_1.c', ...
@@ -86,7 +88,7 @@ obj = '' ;
 
 cflags = ' CFLAGS="\$CFLAGS -std=c99 -fPIC -DMATLAB -DDAMD -DSIMPLE_COL_COUNTS -O3 -DDLONG"';
 flags = [flags cflags];
-source = [amd_src ladel_src];
+source = [amd_src ladel_src ladel_mex_util_src];
 kk = 0;
 for f = source
     ff = f {1} ;
