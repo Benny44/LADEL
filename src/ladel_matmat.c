@@ -63,7 +63,7 @@ ladel_sparse_matrix *ladel_mat_diag_mat_transpose(ladel_sparse_matrix *M, ladel_
                     MMt->i[MMt_nnz] = row2;
                 } 
                 if (MMt->values) 
-                    MMt_col[row2] += (diag) ? M->x[index2]*diag[row]*M_transpose->x[index] : M->x[index2]*diag[row]*M_transpose->x[index];
+                    MMt_col[row2] += (diag) ? M->x[index2]*diag[row]*M_transpose->x[index] : M->x[index2]*M_transpose->x[index];
             }
         }
         MMt->p[col+1] = MMt_nnz+1;
