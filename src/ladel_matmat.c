@@ -6,10 +6,20 @@
 
 ladel_sparse_matrix *ladel_mat_mat_transpose(ladel_sparse_matrix *M, ladel_sparse_matrix *M_transpose, ladel_work *work)
 {
-    return ladel_mat_diag_mat_transpose(M, M_transpose, NULL, work);
+    return ladel_mat_mat_transpose_advanced(M, M_transpose, NULL, TRUE, work);
+}
+
+ladel_sparse_matrix *ladel_mat_mat_transpose_pattern(ladel_sparse_matrix *M, ladel_sparse_matrix *M_transpose, ladel_work *work)
+{
+    return ladel_mat_mat_transpose_advanced(M, M_transpose, NULL, FALSE, work);
 }
 
 ladel_sparse_matrix *ladel_mat_diag_mat_transpose(ladel_sparse_matrix *M, ladel_sparse_matrix *M_transpose, ladel_double *diag, ladel_work *work)
+{
+    return ladel_mat_mat_transpose_advanced(M, M_transpose, diag, TRUE, work);
+}
+
+ladel_sparse_matrix *ladel_mat_mat_transpose_advanced(ladel_sparse_matrix *M, ladel_sparse_matrix *M_transpose, ladel_double *diag, int values, ladel_work *work)
 {
     if (!M || !M_transpose || !work) return NULL;
     
@@ -37,7 +47,7 @@ ladel_sparse_matrix *ladel_mat_diag_mat_transpose(ladel_sparse_matrix *M, ladel_
         }
     }
 
-    ladel_sparse_matrix *MMt = ladel_sparse_alloc(M->nrow, M->nrow, MMt_nnz, UPPER, M->values, FALSE);
+    ladel_sparse_matrix *MMt = ladel_sparse_alloc(M->nrow, M->nrow, MMt_nnz, UPPER, values && M->values, FALSE);
     if (!MMt) return NULL;
 
     /* Compute M*diag*M_transpose */

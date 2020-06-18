@@ -1,8 +1,19 @@
 #include "ladel_constants.h"
 #include "ladel_global.h"
 #include "ladel_types.h"
+#include "ladel_add.h"
 
 ladel_sparse_matrix *ladel_add_matrices(ladel_double alpha, ladel_sparse_matrix* A, ladel_double beta, ladel_sparse_matrix *B, ladel_work *work)
+{
+    return ladel_add_matrices_advanced(alpha, A, beta, B, TRUE, work);
+}
+
+ladel_sparse_matrix *ladel_add_matrices_pattern(ladel_double alpha, ladel_sparse_matrix* A, ladel_double beta, ladel_sparse_matrix *B, ladel_work *work)
+{
+    return ladel_add_matrices_advanced(alpha, A, beta, B, FALSE, work);
+}
+
+ladel_sparse_matrix *ladel_add_matrices_advanced(ladel_double alpha, ladel_sparse_matrix* A, ladel_double beta, ladel_sparse_matrix *B, ladel_int values, ladel_work *work)
 {
     /* TODO: for different symmetries this will fail. */
     if (!A || !B) return NULL;
@@ -12,7 +23,7 @@ ladel_sparse_matrix *ladel_add_matrices(ladel_double alpha, ladel_sparse_matrix*
     ladel_int C_nrow = LADEL_MAX(A->nrow, B->nrow);
     ladel_int C_ncol = LADEL_MAX(A->ncol, B->ncol);
     ladel_int C_symmetry = (A->symmetry == B->symmetry) ? A->symmetry : UNSYMMETRIC;
-    ladel_int C_values = A->values || B->values;
+    ladel_int C_values = values && (A->values || B->values);
 
     for (col = 0; col < C_ncol; col++)
     {
@@ -55,7 +66,7 @@ ladel_sparse_matrix *ladel_add_matrices(ladel_double alpha, ladel_sparse_matrix*
                 C->i[C_nnz] = row;
                 C_nnz++;
             }
-            temp[row] += A->values ? alpha*A->x[index] : 0;
+            if (C_values) temp[row] += A->values ? alpha*A->x[index] : 0;
         }
         LADEL_FOR(index, B, col)
         {
@@ -66,7 +77,7 @@ ladel_sparse_matrix *ladel_add_matrices(ladel_double alpha, ladel_sparse_matrix*
                 C->i[C_nnz] = row;
                 C_nnz++;
             } 
-            temp[row] += B->values ? beta*B->x[index] : 0;
+            if (C_values) temp[row] += B->values ? beta*B->x[index] : 0;
         }
         C->p[col+1] = C_nnz;
         LADEL_FOR(index, C, col)
