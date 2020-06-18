@@ -8,9 +8,9 @@ ladel_sparse_matrix *ladel_add_matrices(ladel_double alpha, ladel_sparse_matrix*
     return ladel_add_matrices_advanced(alpha, A, beta, B, TRUE, work);
 }
 
-ladel_sparse_matrix *ladel_add_matrices_pattern(ladel_double alpha, ladel_sparse_matrix* A, ladel_double beta, ladel_sparse_matrix *B, ladel_work *work)
+ladel_sparse_matrix *ladel_add_matrices_pattern(ladel_sparse_matrix* A, ladel_sparse_matrix *B, ladel_work *work)
 {
-    return ladel_add_matrices_advanced(alpha, A, beta, B, FALSE, work);
+    return ladel_add_matrices_advanced(0, A, 0, B, FALSE, work);
 }
 
 ladel_sparse_matrix *ladel_add_matrices_advanced(ladel_double alpha, ladel_sparse_matrix* A, ladel_double beta, ladel_sparse_matrix *B, ladel_int values, ladel_work *work)
