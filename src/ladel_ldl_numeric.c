@@ -54,7 +54,6 @@ ladel_int ladel_ldl_numeric_with_diag(ladel_sparse_matrix *Mpp, ladel_diag d, la
 
         D[col] = diag_elem;
         Dinv[col] = 1/diag_elem;
-
     }
 
     for (index = 0; index < ncol; index++) L->nz[index] = col_pointers[index] - L->p[index];
