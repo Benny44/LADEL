@@ -6,7 +6,7 @@ end
 
 n = 10;
 M = sprand(n,n, 1e-1, 1) + 2*speye(n);
-M = (M+M')/2;
+M = (M+M')/2; %make sure M is symmetric
 x = rand(n,1);
 
 %% Example 1: factorize and solve
