@@ -67,12 +67,13 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">ladel.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>LADEL main include file.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="ladel__col__counts_8h_source.html">ladel_col_counts.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ladel__constants_8h_source.html">ladel_constants.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ladel__copy_8h_source.html">ladel_copy.h</a>&quot;</code><br />
@@ -99,22 +100,43 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Main solver API</div></td></tr>
 <tr class="memitem:a6167c294e588fe34776d40e53c6ddbc9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel_8h.html#a6167c294e588fe34776d40e53c6ddbc9">ladel_factorize</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *sym, <a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> ordering_method, <a class="el" href="ladel__types_8h.html#a684c52fe0f1b3e4e44f0b99d4e410f6a">ladel_factor</a> **LD, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:a6167c294e588fe34776d40e53c6ddbc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization of <img class="formulaInl" alt="$M$" src="form_1.png"/>.  <a href="#a6167c294e588fe34776d40e53c6ddbc9">More...</a><br /></td></tr>
 <tr class="separator:a6167c294e588fe34776d40e53c6ddbc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a129ea878837012c6ac76fb6046bc9449"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel_8h.html#a129ea878837012c6ac76fb6046bc9449">ladel_factorize_with_diag</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a2ef43a657b064e9795a2ab191271e6e6">ladel_diag</a> d, <a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *sym, <a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> ordering_method, <a class="el" href="ladel__types_8h.html#a684c52fe0f1b3e4e44f0b99d4e410f6a">ladel_factor</a> **LD, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:a129ea878837012c6ac76fb6046bc9449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization of <img class="formulaInl" alt="$M + \alpha \begin{bmatrix}I_{n} &amp; \\ &amp; 0\end{bmatrix}$" src="form_8.png"/>.  <a href="#a129ea878837012c6ac76fb6046bc9449">More...</a><br /></td></tr>
 <tr class="separator:a129ea878837012c6ac76fb6046bc9449"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac217d5bb50524bf6bbc0e7fa473edcfb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel_8h.html#ac217d5bb50524bf6bbc0e7fa473edcfb">ladel_factorize_advanced</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *sym, <a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> ordering_method, <a class="el" href="ladel__types_8h.html#a684c52fe0f1b3e4e44f0b99d4e410f6a">ladel_factor</a> **LD, <a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *Mbasis, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:ac217d5bb50524bf6bbc0e7fa473edcfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization of <img class="formulaInl" alt="$M,$" src="form_15.png"/> but allocates based on <em>Mbasis</em>.  <a href="#ac217d5bb50524bf6bbc0e7fa473edcfb">More...</a><br /></td></tr>
 <tr class="separator:ac217d5bb50524bf6bbc0e7fa473edcfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff676fbf1dd6dbf8096c5349d264297f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel_8h.html#aff676fbf1dd6dbf8096c5349d264297f">ladel_factorize_advanced_with_diag</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a2ef43a657b064e9795a2ab191271e6e6">ladel_diag</a> d, <a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *sym, <a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> ordering_method, <a class="el" href="ladel__types_8h.html#a684c52fe0f1b3e4e44f0b99d4e410f6a">ladel_factor</a> **LD, <a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *Mbasis, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:aff676fbf1dd6dbf8096c5349d264297f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization of <img class="formulaInl" alt="$M+ \alpha \begin{bmatrix}I_{n} &amp; \\ &amp; 0\end{bmatrix},$" src="form_16.png"/> but allocates based on <em>Mbasis</em>.  <a href="#aff676fbf1dd6dbf8096c5349d264297f">More...</a><br /></td></tr>
 <tr class="separator:aff676fbf1dd6dbf8096c5349d264297f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90783633564102ca42816a7d23eca63b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel_8h.html#a90783633564102ca42816a7d23eca63b">ladel_factorize_with_prior_basis</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *sym, <a class="el" href="ladel__types_8h.html#a684c52fe0f1b3e4e44f0b99d4e410f6a">ladel_factor</a> *LD, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:a90783633564102ca42816a7d23eca63b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization of <img class="formulaInl" alt="$M,$" src="form_15.png"/> provided <em>LD</em> was allocated before.  <a href="#a90783633564102ca42816a7d23eca63b">More...</a><br /></td></tr>
 <tr class="separator:a90783633564102ca42816a7d23eca63b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb81f3223c3ab1794fd472276be8fba6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel_8h.html#abb81f3223c3ab1794fd472276be8fba6">ladel_factorize_with_prior_basis_with_diag</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a2ef43a657b064e9795a2ab191271e6e6">ladel_diag</a> d, <a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *sym, <a class="el" href="ladel__types_8h.html#a684c52fe0f1b3e4e44f0b99d4e410f6a">ladel_factor</a> *LD, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:abb81f3223c3ab1794fd472276be8fba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization of <img class="formulaInl" alt="$M+ \alpha \begin{bmatrix}I_{n} &amp; \\ &amp; 0\end{bmatrix},$" src="form_16.png"/> provided <em>LD</em> was allocated before.  <a href="#abb81f3223c3ab1794fd472276be8fba6">More...</a><br /></td></tr>
 <tr class="separator:abb81f3223c3ab1794fd472276be8fba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06f239075563f002f88aa3c7e0a477d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel_8h.html#a06f239075563f002f88aa3c7e0a477d0">ladel_dense_solve</a> (const <a class="el" href="ladel__types_8h.html#a684c52fe0f1b3e4e44f0b99d4e410f6a">ladel_factor</a> *LD, const <a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a> *rhs, <a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a> *y, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:a06f239075563f002f88aa3c7e0a477d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes <img class="formulaInl" alt="$y = LDL^T \backslash rhs$" src="form_14.png"/>.  <a href="#a06f239075563f002f88aa3c7e0a477d0">More...</a><br /></td></tr>
 <tr class="separator:a06f239075563f002f88aa3c7e0a477d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72047161adb30f5041b7e136eb77c023"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel_8h.html#a72047161adb30f5041b7e136eb77c023">ladel_rank1_update</a> (<a class="el" href="ladel__types_8h.html#a684c52fe0f1b3e4e44f0b99d4e410f6a">ladel_factor</a> *LD, <a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *sym, <a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *W, <a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> col_in_W, <a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a> factor, <a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> up_or_down, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:a72047161adb30f5041b7e136eb77c023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates an <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization.  <a href="#a72047161adb30f5041b7e136eb77c023">More...</a><br /></td></tr>
+<tr class="separator:a72047161adb30f5041b7e136eb77c023"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a113fd8ef702d93bd92314bd4bc118f24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel_8h.html#a113fd8ef702d93bd92314bd4bc118f24">ladel_row_add</a> (<a class="el" href="ladel__types_8h.html#a684c52fe0f1b3e4e44f0b99d4e410f6a">ladel_factor</a> *LD, <a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *sym, <a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> row_in_L, <a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *W, <a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> col_in_W, <a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a> diag, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:a113fd8ef702d93bd92314bd4bc118f24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates an <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization.  <a href="#a113fd8ef702d93bd92314bd4bc118f24">More...</a><br /></td></tr>
+<tr class="separator:a113fd8ef702d93bd92314bd4bc118f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2101ec64af1866138045cb1e35e35ca1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel_8h.html#a2101ec64af1866138045cb1e35e35ca1">ladel_row_del</a> (<a class="el" href="ladel__types_8h.html#a684c52fe0f1b3e4e44f0b99d4e410f6a">ladel_factor</a> *LD, <a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *sym, <a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> row_in_L, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:a2101ec64af1866138045cb1e35e35ca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates an <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization.  <a href="#a2101ec64af1866138045cb1e35e35ca1">More...</a><br /></td></tr>
+<tr class="separator:a2101ec64af1866138045cb1e35e35ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p class="">LADEL main include file. </p>
+<dl class="section author"><dt>Author</dt><dd>Ben Hermans</dd></dl>
+<p>The user can include this file in his projects to call any LADEL routine. This file contains the declaration of the factorization, backsolve and factorization update routines provided by LADEL. </p><dl class="section note"><dt>Note</dt><dd>The implementation of the rank1_update and row_add/del routines are respectively in ladel_rank1_mod.c and ladel_row_mod.c instead of in ladel.c. </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a06f239075563f002f88aa3c7e0a477d0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a06f239075563f002f88aa3c7e0a477d0">&#9670;&nbsp;</a></span>ladel_dense_solve()</h2>
 
@@ -152,6 +174,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Computes <img class="formulaInl" alt="$y = LDL^T \backslash rhs$" src="form_14.png"/>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LD</td><td>Factors of an <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization </td></tr>
+    <tr><td class="paramname">rhs</td><td>Dense right-hand side </td></tr>
+    <tr><td class="paramname">y</td><td>Output vector </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status </dd></dl>
 
 </div>
 </div>
@@ -198,6 +232,19 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Computes the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization of <img class="formulaInl" alt="$M$" src="form_1.png"/>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix to be factorized </td></tr>
+    <tr><td class="paramname">sym</td><td>Symbolics of the factorization </td></tr>
+    <tr><td class="paramname">ordering_method</td><td>Indicator to choose the ordering method: <em>AMD</em>, <em>NO_ORDERING</em> or <em>GIVEN_ORDERING</em> </td></tr>
+    <tr><td class="paramname">LD</td><td>Output struct containing the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factors </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status </dd></dl>
 
 </div>
 </div>
@@ -250,6 +297,21 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Computes the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization of <img class="formulaInl" alt="$M,$" src="form_15.png"/> but allocates based on <em>Mbasis</em>. </p>
+<p class="">This routine is used for subsequent update routines. LADEL assumes the user knows in advance the possible updates (at least the pattern), so that it can allocate the factor once. Dynamic reallocation during update routines is currently not supported.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix to be factorized </td></tr>
+    <tr><td class="paramname">sym</td><td>Symbolics of the factorization </td></tr>
+    <tr><td class="paramname">ordering_method</td><td>Indicator to choose the ordering method: <em>AMD</em>, <em>NO_ORDERING</em> or <em>GIVEN_ORDERING</em> </td></tr>
+    <tr><td class="paramname">LD</td><td>Output struct containing the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factors </td></tr>
+    <tr><td class="paramname">Mbasis</td><td>Matrix that is used in the symbolic part of the factorization to allocate LD </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status </dd></dl>
 
 </div>
 </div>
@@ -309,6 +371,22 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Computes the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization of <img class="formulaInl" alt="$M+ \alpha \begin{bmatrix}I_{n} &amp; \\ &amp; 0\end{bmatrix},$" src="form_16.png"/> but allocates based on <em>Mbasis</em>. </p>
+<p class="">This routine is used for subsequent update routines. LADEL assumes the user knows in advance the possible updates (at least the pattern), so that it can allocate the factor once. Dynamic reallocation during update routines is currently not supported.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix to be factorized </td></tr>
+    <tr><td class="paramname">d</td><td>Diagonal parameters <img class="formulaInl" alt="$\alpha$" src="form_3.png"/> and <img class="formulaInl" alt="$n$" src="form_4.png"/> </td></tr>
+    <tr><td class="paramname">sym</td><td>Symbolics of the factorization </td></tr>
+    <tr><td class="paramname">ordering_method</td><td>Indicator to choose the ordering method: <em>AMD</em>, <em>NO_ORDERING</em> or <em>GIVEN_ORDERING</em> </td></tr>
+    <tr><td class="paramname">LD</td><td>Output struct containing the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factors </td></tr>
+    <tr><td class="paramname">Mbasis</td><td>Matrix that is used in the symbolic part of the factorization to allocate LD </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status </dd></dl>
+
 </div>
 </div>
 <a id="a129ea878837012c6ac76fb6046bc9449"></a>
@@ -361,6 +439,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Computes the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization of <img class="formulaInl" alt="$M + \alpha \begin{bmatrix}I_{n} &amp; \\ &amp; 0\end{bmatrix}$" src="form_8.png"/>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix to be factorized </td></tr>
+    <tr><td class="paramname">d</td><td>Diagonal parameters <img class="formulaInl" alt="$\alpha$" src="form_3.png"/> and <img class="formulaInl" alt="$n$" src="form_4.png"/> </td></tr>
+    <tr><td class="paramname">sym</td><td>Symbolics of the factorization </td></tr>
+    <tr><td class="paramname">ordering_method</td><td>Indicator to choose the ordering method: <em>AMD</em>, <em>NO_ORDERING</em> or <em>GIVEN_ORDERING</em> </td></tr>
+    <tr><td class="paramname">LD</td><td>Output struct containing the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factors </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status </dd></dl>
+
 </div>
 </div>
 <a id="a90783633564102ca42816a7d23eca63b"></a>
@@ -400,6 +492,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Computes the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization of <img class="formulaInl" alt="$M,$" src="form_15.png"/> provided <em>LD</em> was allocated before. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix to be factorized </td></tr>
+    <tr><td class="paramname">sym</td><td>Symbolics of the factorization </td></tr>
+    <tr><td class="paramname">LD</td><td>Output struct containing the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factors </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status </dd></dl>
 
 </div>
 </div>
@@ -446,6 +550,220 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Computes the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization of <img class="formulaInl" alt="$M+ \alpha \begin{bmatrix}I_{n} &amp; \\ &amp; 0\end{bmatrix},$" src="form_16.png"/> provided <em>LD</em> was allocated before. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix to be factorized </td></tr>
+    <tr><td class="paramname">d</td><td>Diagonal parameters <img class="formulaInl" alt="$\alpha$" src="form_3.png"/> and <img class="formulaInl" alt="$n$" src="form_4.png"/> </td></tr>
+    <tr><td class="paramname">sym</td><td>Symbolics of the factorization </td></tr>
+    <tr><td class="paramname">LD</td><td>Output struct containing the <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factors </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status </dd></dl>
+
+</div>
+</div>
+<a id="a72047161adb30f5041b7e136eb77c023"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72047161adb30f5041b7e136eb77c023">&#9670;&nbsp;</a></span>ladel_rank1_update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> ladel_rank1_update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a684c52fe0f1b3e4e44f0b99d4e410f6a">ladel_factor</a> *&#160;</td>
+          <td class="paramname"><em>LD</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *&#160;</td>
+          <td class="paramname"><em>sym</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *&#160;</td>
+          <td class="paramname"><em>W</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td>
+          <td class="paramname"><em>col_in_W</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a>&#160;</td>
+          <td class="paramname"><em>factor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td>
+          <td class="paramname"><em>up_or_down</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *&#160;</td>
+          <td class="paramname"><em>work</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates an <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization. </p>
+<p class="">If LD contains the factors of <img class="formulaInl" alt="$M$" src="form_1.png"/> on input, LD will contain the factors of <img class="formulaInl" alt="$M + up\textunderscore or\textunderscore down*factor^2*ww^T,$" src="form_32.png"/> where <img class="formulaInl" alt="$w = W(:, col\textunderscore in\textunderscore W).$" src="form_33.png"/></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LD</td><td>Factors of an <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization </td></tr>
+    <tr><td class="paramname">sym</td><td>Associated symbolic information </td></tr>
+    <tr><td class="paramname">W</td><td>Sparse matrix containing the vector for the update </td></tr>
+    <tr><td class="paramname">col_in_W</td><td>Column of W that is used for the update </td></tr>
+    <tr><td class="paramname">factor</td><td>Scaling factor for the update vector </td></tr>
+    <tr><td class="paramname">up_or_down</td><td>Flag indicating <em>UPDATE</em> or <em>DOWNDATE</em> </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status </dd></dl>
+
+</div>
+</div>
+<a id="a113fd8ef702d93bd92314bd4bc118f24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a113fd8ef702d93bd92314bd4bc118f24">&#9670;&nbsp;</a></span>ladel_row_add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> ladel_row_add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a684c52fe0f1b3e4e44f0b99d4e410f6a">ladel_factor</a> *&#160;</td>
+          <td class="paramname"><em>LD</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *&#160;</td>
+          <td class="paramname"><em>sym</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td>
+          <td class="paramname"><em>row_in_L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *&#160;</td>
+          <td class="paramname"><em>W</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td>
+          <td class="paramname"><em>col_in_W</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a>&#160;</td>
+          <td class="paramname"><em>diag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *&#160;</td>
+          <td class="paramname"><em>work</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates an <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization. </p>
+<p class="">If LD contains the factors of <img class="formulaInl" alt="$M = \begin{bmatrix} M_{11} &amp; 0 &amp; M_{13} \\ 0 &amp; 1 &amp; 0 \\ M_{13}^T &amp; 0 &amp; M_{33} \end{bmatrix} $" src="form_28.png"/> on input, LD will contain the factors of <img class="formulaInl" alt="$\begin{bmatrix} M_{11} &amp; m_{12} &amp; M_{13} \\ m_{12}^T &amp; m_{22} &amp; m_{32}^T \\ M_{13}^T &amp; m_{32} &amp; M_{33} \end{bmatrix} $" src="form_29.png"/> on output, where <img class="formulaInl" alt="$m = W(:, col\textunderscore in\textunderscore W),$" src="form_34.png"/> and <img class="formulaInl" alt="$row\textunderscore in\textunderscore L = n + 1$" src="form_35.png"/> with <img class="formulaInl" alt="$[n,n] = size(M_{11}).$" src="form_24.png"/></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LD</td><td>Factors of an <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization </td></tr>
+    <tr><td class="paramname">sym</td><td>Associated symbolic information </td></tr>
+    <tr><td class="paramname">row_in_L</td><td>Position of the added row/column </td></tr>
+    <tr><td class="paramname">W</td><td>Sparse matrix containing the vector for the update </td></tr>
+    <tr><td class="paramname">col_in_W</td><td>Column of W that is used for the update </td></tr>
+    <tr><td class="paramname">diag</td><td>Diagonal element <img class="formulaInl" alt="$m_{22}$" src="form_25.png"/> </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status </dd></dl>
+
+</div>
+</div>
+<a id="a2101ec64af1866138045cb1e35e35ca1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2101ec64af1866138045cb1e35e35ca1">&#9670;&nbsp;</a></span>ladel_row_del()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> ladel_row_del </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a684c52fe0f1b3e4e44f0b99d4e410f6a">ladel_factor</a> *&#160;</td>
+          <td class="paramname"><em>LD</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *&#160;</td>
+          <td class="paramname"><em>sym</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td>
+          <td class="paramname"><em>row_in_L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *&#160;</td>
+          <td class="paramname"><em>work</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates an <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization. </p>
+<p class="">If LD contains the factors of <img class="formulaInl" alt="$\begin{bmatrix} M_{11} &amp; m_{12} &amp; M_{13} \\ m_{12}^T &amp; m_{22} &amp; m_{32}^T \\ M_{13}^T &amp; m_{32} &amp; M_{33} \end{bmatrix} $" src="form_29.png"/> on input, LD will contain the factors of <img class="formulaInl" alt="$M = \begin{bmatrix} M_{11} &amp; 0 &amp; M_{13} \\ 0 &amp; 1 &amp; 0 \\ M_{13}^T &amp; 0 &amp; M_{33} \end{bmatrix} $" src="form_28.png"/> on output, where <img class="formulaInl" alt="$row\textunderscore in\textunderscore L = n + 1$" src="form_35.png"/> with <img class="formulaInl" alt="$[n,n] = size(M_{11}).$" src="form_24.png"/></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">LD</td><td>Factors of an <img class="formulaInl" alt="$LDL^T$" src="form_0.png"/> factorization </td></tr>
+    <tr><td class="paramname">sym</td><td>Associated symbolic information </td></tr>
+    <tr><td class="paramname">row_in_L</td><td>Position of the deleted row/column </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status </dd></dl>
 
 </div>
 </div>

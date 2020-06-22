@@ -1,0 +1,36 @@
+\form#0:$LDL^T$
+\form#1:$M$
+\form#2:$M + \alpha I_{n\times n}$
+\form#3:$\alpha$
+\form#4:$n$
+\form#5:$M + \alpha \begin{bmatrix}I_n & \\ & \end{bmatrix}$
+\form#6:$M_{basis}$
+\form#7:$M + \alpha \begin{bmatrix}I_{n\times n} & \\ & 0\end{bmatrix}$
+\form#8:$M + \alpha \begin{bmatrix}I_{n} & \\ & 0\end{bmatrix}$
+\form#9:$M+ \alpha \begin{bmatrix}I_{n} & \\ & 0\end{bmatrix}$
+\form#10:$y = LDL^T \ rhs$
+\form#11:$M@$f on input, LD will contain the factors of $
+\form#12:$w = W(:, col_in_W)$
+\form#13:$y = LDL^T \\ rhs$
+\form#14:$y = LDL^T \backslash rhs$
+\form#15:$M,$
+\form#16:$M+ \alpha \begin{bmatrix}I_{n} & \\ & 0\end{bmatrix},$
+\form#17:$M + up_or_down*factor^2*ww^T,@$f where $
+\form#18:$ @param LD Factors of an $
+\form#19:$ factorization @param sym Associated symbolic information @param W Sparse matrix containing the vector for the update @param col_in_W Column of W that is used for the update @param factor Scaling factor for the update vector @param up_or_down Flag indicating @a UPDATE or @a DOWNDATE @param work LADEL workspace @return Status */ ladel_int ladel_rank1_update( ladel_factor *LD, ladel_symbolics *sym, ladel_sparse_matrix *W, ladel_int col_in_W, ladel_double factor, ladel_int up_or_down, ladel_work *work); /** Updates an $
+\form#20:$ factorization. If LD contains the factors of $
+\form#21:$ on input, LD will contain the factors of $
+\form#22:$m = W(:, col_in_W),$
+\form#23:$row_in_L = n + 1$
+\form#24:$[n,n] = size(M_{11}).$
+\form#25:$m_{22}$
+\form#26:$M + up_or_down*factor^2*ww^T,$
+\form#27:$w = W(:, col_in_W).$
+\form#28:$M = \begin{bmatrix} M_{11} & 0 & M_{13} \\ 0 & 1 & 0 \\ M_{13}^T & 0 & M_{33} \end{bmatrix} $
+\form#29:$\begin{bmatrix} M_{11} & m_{12} & M_{13} \\ m_{12}^T & m_{22} & m_{32}^T \\ M_{13}^T & m_{32} & M_{33} \end{bmatrix} $
+\form#30:$M + $
+\form#31:$*factor^2*ww^T,$
+\form#32:$M + up\textunderscore or\textunderscore down*factor^2*ww^T,$
+\form#33:$w = W(:, col\textunderscore in\textunderscore W).$
+\form#34:$m = W(:, col\textunderscore in\textunderscore W),$
+\form#35:$row\textunderscore in\textunderscore L = n + 1$

@@ -13,6 +13,4 @@ ladel_int ladel_add_nonzero_pattern_to_col_of_L(ladel_sparse_matrix* L, ladel_in
 
 ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set *difference, ladel_int *offset, ladel_int *insertions, ladel_int minimum_index);
 
-ladel_int ladel_rank1_update(ladel_factor *LD, ladel_symbolics *sym, ladel_sparse_matrix *W, ladel_int col_in_W, ladel_double factor, ladel_int up_or_down, ladel_work* work);
-
 #endif
