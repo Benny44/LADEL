@@ -1,0 +1,36 @@
+/*! \mainpage LADEL: Sparse LDL factorization package with rank 1 and rowadd/rowdel updates 
+ *
+ * \section intro_sec Introduction
+ *
+ * LADEL is a package providing LDL and factorization update routines for sparse matrices.
+ * 
+ * \section install_sec Installation
+ * See the instructions on the <a href=https://github.com/Benny44/LADEL>Readme</a>.
+ * 
+ * \section example Using LADEL (in matlab)
+ * 
+ * Using LADEL from Matlab is simple. Here is an example
+ * \code{.unparsed}
+ * %% Generate data
+ * n = 10;
+ * M = sprand(n,n, 1e-1, 1) + 2*speye(n);
+ * M = (M+M')/2; %make sure M is symmetric
+ * x = rand(n,1);
+ * 
+ * %% Example 1: factorize and solve
+ * solver = ladel(n);
+ * solver.factorize(M);
+ * y = solver.dense_solve(x);
+ * assert(norm(y-M\x) < 1e-12);
+ * \endcode
+ * 
+ * You can find many other examples in interfaces/mex/demos.
+ *  
+ * \section cite Citing LADEL
+ * 
+ * Will be updated soon.
+ * 
+ * \section license License
+ * 
+ * LGPL 3.0
+ */
