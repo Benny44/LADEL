@@ -1,3 +1,4 @@
+#include "ladel.h"
 #include "ladel_types.h"
 #include "ladel_global.h"
 #include "ladel_constants.h"

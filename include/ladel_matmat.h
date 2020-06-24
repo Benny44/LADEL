@@ -1,3 +1,10 @@
+/**
+ * @file ladel_matmat.h
+ * @author Ben Hermans
+ * @brief Routines to compute matrix matrix products. For now only @f$AA^T@f$ and @f$A\Sigma A^T@f$, 
+ * with @f$\Sigma@f$ a diagonal matrix, are supported.
+ */
+
 #ifndef LADEL_MATMAT_H
 #define LADEL_MATMAT_H
 

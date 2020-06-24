@@ -203,17 +203,17 @@ ladel_set *ladel_set_free(ladel_set *set)
     return (ladel_set *) ladel_free(set);
 }
 
-ladel_set *ladel_set_allocate(ladel_int ncol)
+ladel_set *ladel_set_allocate(ladel_int max_size)
 {
     ladel_set* set = ladel_malloc(1, sizeof(ladel_set));
     if (!set) return NULL;
-    set->set = ladel_malloc(ncol, sizeof(ladel_int));
+    set->set = ladel_malloc(max_size, sizeof(ladel_int));
     if (!set->set) 
     {
         ladel_set_free(set);
         return NULL;
     }
-    set->max_size_set = ncol;
+    set->max_size_set = max_size;
     return set;
 }
 
