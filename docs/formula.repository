@@ -35,3 +35,6 @@
 \form#34:$m = W(:, col\textunderscore in\textunderscore W),$
 \form#35:$row\textunderscore in\textunderscore L = n + 1$
 \form#36:$C = \alpha A + \beta B$
+\form#37:$AA^T$
+\form#38:$A\Sigma A^T$
+\form#39:$\Sigma$

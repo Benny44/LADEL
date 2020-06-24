@@ -67,20 +67,19 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">ladel_constants.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Constants (and a few simple macros) used in LADEL.  
+<p>Constants and macros used in LADEL.  
 <a href="#details">More...</a></p>
 
 <p><a href="ladel__constants_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Constants</div></td></tr>
 <tr class="memitem:aa8cecfc5c5c054d2875c03e77b7be15d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>&#160;&#160;&#160;1</td></tr>
 <tr class="memdesc:aa8cecfc5c5c054d2875c03e77b7be15d"><td class="mdescLeft">&#160;</td><td class="mdescRight">For booleans.  <a href="#aa8cecfc5c5c054d2875c03e77b7be15d">More...</a><br /></td></tr>
 <tr class="separator:aa8cecfc5c5c054d2875c03e77b7be15d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,19 +113,12 @@ Macros</h2></td></tr>
 <tr class="memitem:a814e443e7756f8309e19868a6903ac91"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#a814e443e7756f8309e19868a6903ac91">GIVEN_ORDERING</a>&#160;&#160;&#160;2</td></tr>
 <tr class="memdesc:a814e443e7756f8309e19868a6903ac91"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ordering was computed previously and is already stored in sym-&gt;p.  <a href="#a814e443e7756f8309e19868a6903ac91">More...</a><br /></td></tr>
 <tr class="separator:a814e443e7756f8309e19868a6903ac91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28e039e20b937656d944785e2f115c26"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#a28e039e20b937656d944785e2f115c26">IS_ROOT</a>(col,  etree)&#160;&#160;&#160;((etree)[(col)] == <a class="el" href="ladel__constants_8h.html#a655c84af1b0034986ff56e12e84f983d">NONE</a>)</td></tr>
-<tr class="memdesc:a28e039e20b937656d944785e2f115c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether a node is a root (i.e.  <a href="#a28e039e20b937656d944785e2f115c26">More...</a><br /></td></tr>
-<tr class="separator:a28e039e20b937656d944785e2f115c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad58a3054e3e7a834554117cf9b10b0f4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#ad58a3054e3e7a834554117cf9b10b0f4">MARKED</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ad58a3054e3e7a834554117cf9b10b0f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether a node is marked.  <a href="#ad58a3054e3e7a834554117cf9b10b0f4">More...</a><br /></td></tr>
 <tr class="separator:ad58a3054e3e7a834554117cf9b10b0f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa24991bf5a19de575eb94e529b0bb3cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#aa24991bf5a19de575eb94e529b0bb3cf">UNMARKED</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:aa24991bf5a19de575eb94e529b0bb3cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicate whether a node is not marked.  <a href="#aa24991bf5a19de575eb94e529b0bb3cf">More...</a><br /></td></tr>
 <tr class="separator:aa24991bf5a19de575eb94e529b0bb3cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab00b169bdb30b691598a3a382e21f0da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#ab00b169bdb30b691598a3a382e21f0da">MARK</a>(nodes,  k)&#160;&#160;&#160;(nodes[(k)] = <a class="el" href="ladel__constants_8h.html#ad58a3054e3e7a834554117cf9b10b0f4">MARKED</a>)</td></tr>
-<tr class="separator:ab00b169bdb30b691598a3a382e21f0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a290834d98791db542a4f9f331e86764c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#a290834d98791db542a4f9f331e86764c">UNMARK</a>(nodes,  k)&#160;&#160;&#160;(nodes[(k)] = <a class="el" href="ladel__constants_8h.html#aa24991bf5a19de575eb94e529b0bb3cf">UNMARKED</a>)</td></tr>
-<tr class="separator:a290834d98791db542a4f9f331e86764c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accbc490e018af6a7288a802d0e8916f4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#accbc490e018af6a7288a802d0e8916f4">IS_MARKED</a>(nodes,  k)&#160;&#160;&#160;(nodes[(k)] == <a class="el" href="ladel__constants_8h.html#ad58a3054e3e7a834554117cf9b10b0f4">MARKED</a>)</td></tr>
-<tr class="separator:accbc490e018af6a7288a802d0e8916f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa6752e9fb4d846abe29fe98f57ab37c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#afa6752e9fb4d846abe29fe98f57ab37c">SET_HAS_CHANGED</a>&#160;&#160;&#160;<a class="el" href="ladel__constants_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a></td></tr>
 <tr class="memdesc:afa6752e9fb4d846abe29fe98f57ab37c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible return value of ladel_set_union indicating the set has changed.  <a href="#afa6752e9fb4d846abe29fe98f57ab37c">More...</a><br /></td></tr>
 <tr class="separator:afa6752e9fb4d846abe29fe98f57ab37c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,9 +134,34 @@ Macros</h2></td></tr>
 <tr class="memitem:af736cdd9940d75782adbdac51fb5d9a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#af736cdd9940d75782adbdac51fb5d9a5">DOWNDATE</a>&#160;&#160;&#160;<a class="el" href="ladel__constants_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a></td></tr>
 <tr class="memdesc:af736cdd9940d75782adbdac51fb5d9a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag in rank1_update to perform a downdate.  <a href="#af736cdd9940d75782adbdac51fb5d9a5">More...</a><br /></td></tr>
 <tr class="separator:af736cdd9940d75782adbdac51fb5d9a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Macros</div></td></tr>
+<tr class="memitem:a35bab7688c40bb1809b9e3a39aaacf0f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#a35bab7688c40bb1809b9e3a39aaacf0f">LADEL_MAX</a>(a,  b)&#160;&#160;&#160;((a) &gt; (b) ? (a) : (b))</td></tr>
+<tr class="memdesc:a35bab7688c40bb1809b9e3a39aaacf0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the maximum of two numbers.  <a href="#a35bab7688c40bb1809b9e3a39aaacf0f">More...</a><br /></td></tr>
+<tr class="separator:a35bab7688c40bb1809b9e3a39aaacf0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeecd08f2e8c44a14ba11b35174585ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#aaeecd08f2e8c44a14ba11b35174585ea">LADEL_MIN</a>(a,  b)&#160;&#160;&#160;((a) &gt; (b) ? (b) : (a))</td></tr>
+<tr class="memdesc:aaeecd08f2e8c44a14ba11b35174585ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the minimum of two numbers.  <a href="#aaeecd08f2e8c44a14ba11b35174585ea">More...</a><br /></td></tr>
+<tr class="separator:aaeecd08f2e8c44a14ba11b35174585ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9efc8bdaee1cf7f3746cd31d619376e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#ac9efc8bdaee1cf7f3746cd31d619376e">LADEL_ABS</a>(a)&#160;&#160;&#160;((a) &lt; 0 ? -(a) : (a))</td></tr>
+<tr class="memdesc:ac9efc8bdaee1cf7f3746cd31d619376e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the absolute value a number.  <a href="#ac9efc8bdaee1cf7f3746cd31d619376e">More...</a><br /></td></tr>
+<tr class="separator:ac9efc8bdaee1cf7f3746cd31d619376e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c2c233cfd029e141204421cada50c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#a24c2c233cfd029e141204421cada50c1">LADEL_FOR</a>(index,  M,  col)&#160;&#160;&#160;for(index = (M)-&gt;p[(col)]; index &lt; (((M)-&gt;nz) ? (M)-&gt;p[(col)] + (M)-&gt;nz[(col)] : (M)-&gt;p[(col)+1]); index++)</td></tr>
+<tr class="memdesc:a24c2c233cfd029e141204421cada50c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loop through a column of a sparse matrix.  <a href="#a24c2c233cfd029e141204421cada50c1">More...</a><br /></td></tr>
+<tr class="separator:a24c2c233cfd029e141204421cada50c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28e039e20b937656d944785e2f115c26"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#a28e039e20b937656d944785e2f115c26">IS_ROOT</a>(col,  etree)&#160;&#160;&#160;((etree)[(col)] == <a class="el" href="ladel__constants_8h.html#a655c84af1b0034986ff56e12e84f983d">NONE</a>)</td></tr>
+<tr class="memdesc:a28e039e20b937656d944785e2f115c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether a node is a root (i.e.  <a href="#a28e039e20b937656d944785e2f115c26">More...</a><br /></td></tr>
+<tr class="separator:a28e039e20b937656d944785e2f115c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab00b169bdb30b691598a3a382e21f0da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#ab00b169bdb30b691598a3a382e21f0da">MARK</a>(nodes,  k)&#160;&#160;&#160;(nodes[(k)] = <a class="el" href="ladel__constants_8h.html#ad58a3054e3e7a834554117cf9b10b0f4">MARKED</a>)</td></tr>
+<tr class="memdesc:ab00b169bdb30b691598a3a382e21f0da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the k-th node.  <a href="#ab00b169bdb30b691598a3a382e21f0da">More...</a><br /></td></tr>
+<tr class="separator:ab00b169bdb30b691598a3a382e21f0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a290834d98791db542a4f9f331e86764c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#a290834d98791db542a4f9f331e86764c">UNMARK</a>(nodes,  k)&#160;&#160;&#160;(nodes[(k)] = <a class="el" href="ladel__constants_8h.html#aa24991bf5a19de575eb94e529b0bb3cf">UNMARKED</a>)</td></tr>
+<tr class="memdesc:a290834d98791db542a4f9f331e86764c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmark the k-th node.  <a href="#a290834d98791db542a4f9f331e86764c">More...</a><br /></td></tr>
+<tr class="separator:a290834d98791db542a4f9f331e86764c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accbc490e018af6a7288a802d0e8916f4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__constants_8h.html#accbc490e018af6a7288a802d0e8916f4">IS_MARKED</a>(nodes,  k)&#160;&#160;&#160;(nodes[(k)] == <a class="el" href="ladel__constants_8h.html#ad58a3054e3e7a834554117cf9b10b0f4">MARKED</a>)</td></tr>
+<tr class="memdesc:accbc490e018af6a7288a802d0e8916f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the k-th node is marked.  <a href="#accbc490e018af6a7288a802d0e8916f4">More...</a><br /></td></tr>
+<tr class="separator:accbc490e018af6a7288a802d0e8916f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p class="">Constants (and a few simple macros) used in LADEL. </p>
+<div class="textblock"><p class="">Constants and macros used in LADEL. </p>
 <dl class="section author"><dt>Author</dt><dd>Ben Hermans </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a21602b9180568f09d2fd8e731032c890"></a>
@@ -253,6 +270,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Check whether the k-th node is marked. </p>
+
 </div>
 </div>
 <a id="a28e039e20b937656d944785e2f115c26"></a>
@@ -283,6 +302,122 @@ Macros</h2></td></tr>
 
 <p>Check whether a node is a root (i.e. </p>
 <p class="">has no parent) </p>
+
+</div>
+</div>
+<a id="ac9efc8bdaee1cf7f3746cd31d619376e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9efc8bdaee1cf7f3746cd31d619376e">&#9670;&nbsp;</a></span>LADEL_ABS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LADEL_ABS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">a</td><td>)</td>
+          <td>&#160;&#160;&#160;((a) &lt; 0 ? -(a) : (a))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the absolute value a number. </p>
+
+</div>
+</div>
+<a id="a24c2c233cfd029e141204421cada50c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24c2c233cfd029e141204421cada50c1">&#9670;&nbsp;</a></span>LADEL_FOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LADEL_FOR</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">index, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">M, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">col&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;for(index = (M)-&gt;p[(col)]; index &lt; (((M)-&gt;nz) ? (M)-&gt;p[(col)] + (M)-&gt;nz[(col)] : (M)-&gt;p[(col)+1]); index++)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loop through a column of a sparse matrix. </p>
+
+</div>
+</div>
+<a id="a35bab7688c40bb1809b9e3a39aaacf0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35bab7688c40bb1809b9e3a39aaacf0f">&#9670;&nbsp;</a></span>LADEL_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LADEL_MAX</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">a, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">b&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;((a) &gt; (b) ? (a) : (b))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the maximum of two numbers. </p>
+
+</div>
+</div>
+<a id="aaeecd08f2e8c44a14ba11b35174585ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeecd08f2e8c44a14ba11b35174585ea">&#9670;&nbsp;</a></span>LADEL_MIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LADEL_MIN</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">a, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">b&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;((a) &gt; (b) ? (b) : (a))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the minimum of two numbers. </p>
 
 </div>
 </div>
@@ -328,6 +463,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Mark the k-th node. </p>
+
 </div>
 </div>
 <a id="ad58a3054e3e7a834554117cf9b10b0f4"></a>
@@ -341,6 +478,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Indicate whether a node is marked. </p>
 
 </div>
 </div>
@@ -482,6 +621,8 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Unmark the k-th node. </p>
+
 </div>
 </div>
 <a id="aa24991bf5a19de575eb94e529b0bb3cf"></a>
@@ -495,6 +636,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Indicate whether a node is not marked. </p>
 
 </div>
 </div>
