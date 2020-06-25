@@ -39,13 +39,13 @@ ladel_int ladel_nonzero_pattern_of_row_in_L(ladel_sparse_matrix *M,
 
 ladel_int ladel_etree_dfs(ladel_sparse_matrix *W, 
                             ladel_symbolics *sym,
-                            ladel_int row,
+                            ladel_int col_in_W,
                             ladel_int maximum_row)
 {
     ladel_int start = sym->ncol, index, next_node, nb_marked_nodes;
     ladel_int *etree = sym->etree, *pattern = sym->pattern, *nodes = sym->nodes;
 
-    LADEL_FOR(index, W, row)
+    LADEL_FOR(index, W, col_in_W)
     {
         next_node = W->i[index];
         if (next_node >= maximum_row) break;
@@ -68,7 +68,7 @@ ladel_int ladel_etree_dfs(ladel_sparse_matrix *W,
     }
     /* unmark all the nodes to prepare for finding the pattern of the next row */
     for (index = start; index < sym->ncol; index++) UNMARK(nodes, pattern[index]);
-    UNMARK(nodes, row);
+    UNMARK(nodes, col_in_W);
 
     return start;
 }
