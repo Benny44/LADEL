@@ -38,3 +38,12 @@
 \form#37:$AA^T$
 \form#38:$A\Sigma A^T$
 \form#39:$\Sigma$
+\form#40:$MM^T$
+\form#41:$M\Sigma M^T$
+\form#42:$\Sigma = I$
+\form#43:$y = Mx$
+\form#44:$y += Mx$
+\form#45:$Mx$
+\form#46:$y = M^Tx$
+\form#47:$y += M^Tx$
+\form#48:$M^Tx$

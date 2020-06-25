@@ -74,7 +74,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Routines to compute matrix matrix products. For now only <img class="formulaInl" alt="$AA^T$" src="form_37.png"/> and <img class="formulaInl" alt="$A\Sigma A^T$" src="form_38.png"/>, with <img class="formulaInl" alt="$\Sigma$" src="form_39.png"/> a diagonal matrix, are supported.  
+<p>Routines to compute matrix matrix products. For now only <img class="formulaInl" alt="$MM^T$" src="form_40.png"/> and <img class="formulaInl" alt="$M\Sigma M^T$" src="form_41.png"/>, with <img class="formulaInl" alt="$\Sigma$" src="form_39.png"/> a diagonal matrix, are supported.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="ladel__types_8h_source.html">ladel_types.h</a>&quot;</code><br />
 </div>
@@ -83,16 +83,20 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aeb73727b903ce6660193382df31600de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__matmat_8h.html#aeb73727b903ce6660193382df31600de">ladel_mat_mat_transpose</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M_transpose, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:aeb73727b903ce6660193382df31600de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes <img class="formulaInl" alt="$MM^T$" src="form_40.png"/>.  <a href="#aeb73727b903ce6660193382df31600de">More...</a><br /></td></tr>
 <tr class="separator:aeb73727b903ce6660193382df31600de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41acf2f2307f692b657832f4a436f3cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__matmat_8h.html#a41acf2f2307f692b657832f4a436f3cc">ladel_mat_mat_transpose_pattern</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M_transpose, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:a41acf2f2307f692b657832f4a436f3cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the pattern of <img class="formulaInl" alt="$MM^T$" src="form_40.png"/>.  <a href="#a41acf2f2307f692b657832f4a436f3cc">More...</a><br /></td></tr>
 <tr class="separator:a41acf2f2307f692b657832f4a436f3cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac913d1a6b985f2c5864f2f5f1a1df4fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__matmat_8h.html#ac913d1a6b985f2c5864f2f5f1a1df4fe">ladel_mat_diag_mat_transpose</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M_transpose, <a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a> *diag, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:ac913d1a6b985f2c5864f2f5f1a1df4fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes <img class="formulaInl" alt="$M\Sigma M^T$" src="form_41.png"/>.  <a href="#ac913d1a6b985f2c5864f2f5f1a1df4fe">More...</a><br /></td></tr>
 <tr class="separator:ac913d1a6b985f2c5864f2f5f1a1df4fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50de93269922c8ad8450f73b8966ac13"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__matmat_8h.html#a50de93269922c8ad8450f73b8966ac13">ladel_mat_mat_transpose_advanced</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M_transpose, <a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a> *diag, int values, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
-<tr class="separator:a50de93269922c8ad8450f73b8966ac13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a157b62331bc1ff4df10a95cb312669"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__matmat_8h.html#a5a157b62331bc1ff4df10a95cb312669">ladel_mat_mat_transpose_advanced</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M_transpose, <a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a> *diag, <a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> values, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:a5a157b62331bc1ff4df10a95cb312669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core mat_mat_transpose function with all options (diag and value/pattern).  <a href="#a5a157b62331bc1ff4df10a95cb312669">More...</a><br /></td></tr>
+<tr class="separator:a5a157b62331bc1ff4df10a95cb312669"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p class="">Routines to compute matrix matrix products. For now only <img class="formulaInl" alt="$AA^T$" src="form_37.png"/> and <img class="formulaInl" alt="$A\Sigma A^T$" src="form_38.png"/>, with <img class="formulaInl" alt="$\Sigma$" src="form_39.png"/> a diagonal matrix, are supported. </p>
+<div class="textblock"><p class="">Routines to compute matrix matrix products. For now only <img class="formulaInl" alt="$MM^T$" src="form_40.png"/> and <img class="formulaInl" alt="$M\Sigma M^T$" src="form_41.png"/>, with <img class="formulaInl" alt="$\Sigma$" src="form_39.png"/> a diagonal matrix, are supported. </p>
 <dl class="section author"><dt>Author</dt><dd>Ben Hermans </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="ac913d1a6b985f2c5864f2f5f1a1df4fe"></a>
@@ -133,6 +137,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Computes <img class="formulaInl" alt="$M\Sigma M^T$" src="form_41.png"/>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix </td></tr>
+    <tr><td class="paramname">M_transpose</td><td>The transpose of <em>M</em> </td></tr>
+    <tr><td class="paramname">diag</td><td>Array containing the diagonal of <img class="formulaInl" alt="$\Sigma$" src="form_39.png"/> </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="aeb73727b903ce6660193382df31600de"></a>
@@ -167,10 +182,21 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Computes <img class="formulaInl" alt="$MM^T$" src="form_40.png"/>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix </td></tr>
+    <tr><td class="paramname">M_transpose</td><td>The transpose of <em>M</em> </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><img class="formulaInl" alt="$MM^T$" src="form_40.png"/> </dd></dl>
+
 </div>
 </div>
-<a id="a50de93269922c8ad8450f73b8966ac13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50de93269922c8ad8450f73b8966ac13">&#9670;&nbsp;</a></span>ladel_mat_mat_transpose_advanced()</h2>
+<a id="a5a157b62331bc1ff4df10a95cb312669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a157b62331bc1ff4df10a95cb312669">&#9670;&nbsp;</a></span>ladel_mat_mat_transpose_advanced()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,7 +222,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td>
           <td class="paramname"><em>values</em>, </td>
         </tr>
         <tr>
@@ -212,6 +238,19 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Core mat_mat_transpose function with all options (diag and value/pattern). </p>
+<dl class="section note"><dt>Note</dt><dd>If <em>values==FALSE</em>, only the pattern of <img class="formulaInl" alt="$MM^T$" src="form_40.png"/>. Setting <em>diag=NULL</em>, then <img class="formulaInl" alt="$\Sigma = I$" src="form_42.png"/> is assumed.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix</td></tr>
+    <tr><td class="paramname">M_transpose</td><td>Transpose of M </td></tr>
+    <tr><td class="paramname">diag</td><td>Array containing the diagonal of <img class="formulaInl" alt="$\Sigma$" src="form_39.png"/>. If NULL, <img class="formulaInl" alt="$\Sigma = I$" src="form_42.png"/>. </td></tr>
+    <tr><td class="paramname">values</td><td>Values or pattern computation </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -246,6 +285,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Computes the pattern of <img class="formulaInl" alt="$MM^T$" src="form_40.png"/>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix </td></tr>
+    <tr><td class="paramname">M_transpose</td><td>The transpose of <em>M</em> </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The patter of <img class="formulaInl" alt="$MM^T$" src="form_40.png"/> </dd></dl>
 
 </div>
 </div>
