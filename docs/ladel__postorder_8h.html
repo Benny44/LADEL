@@ -73,16 +73,23 @@ $(function() {
 <div class="title">ladel_postorder.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Routine to compute the postordering of the elimination tree.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="ladel__types_8h_source.html">ladel_types.h</a>&quot;</code><br />
 </div>
 <p><a href="ladel__postorder_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab60514b7b1353408852e59f09677016d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__postorder_8h.html#ab60514b7b1353408852e59f09677016d">ladel_postorder</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *sym, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memitem:ab60514b7b1353408852e59f09677016d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a05486496308d021b6b4f64e8def1f451">ladel_int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__postorder_8h.html#ab60514b7b1353408852e59f09677016d">ladel_postorder</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a3d5c70070f210ea7893b32f9ec39a504">ladel_symbolics</a> *sym, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:ab60514b7b1353408852e59f09677016d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the postordering of the elimination tree.  <a href="#ab60514b7b1353408852e59f09677016d">More...</a><br /></td></tr>
 <tr class="separator:ab60514b7b1353408852e59f09677016d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p class="">Routine to compute the postordering of the elimination tree. </p>
+<dl class="section author"><dt>Author</dt><dd>Ben Hermans </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="ab60514b7b1353408852e59f09677016d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab60514b7b1353408852e59f09677016d">&#9670;&nbsp;</a></span>ladel_postorder()</h2>
 
@@ -90,7 +97,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ladel__types_8h.html#a3d32cb07c3dc394a7b6ae479dd02068e">ladel_int</a> ladel_postorder </td>
+          <td class="memname"><a class="el" href="ladel__types_8h.html#a05486496308d021b6b4f64e8def1f451">ladel_int</a> ladel_postorder </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *&#160;</td>
           <td class="paramname"><em>M</em>, </td>
@@ -114,6 +121,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Compute the postordering of the elimination tree. </p>
+<dl class="section note"><dt>Note</dt><dd>The result is in sym-&gt;post.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Sparse matrix to be analyzed </td></tr>
+    <tr><td class="paramname">sym</td><td>Symbolics of the factorization (sym-&gt;post contains the output) </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status </dd></dl>
 
 </div>
 </div>

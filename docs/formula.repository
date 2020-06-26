@@ -47,3 +47,18 @@
 \form#46:$y = M^Tx$
 \form#47:$y += M^Tx$
 \form#48:$M^Tx$
+\form#49:$y[i] = x[p[i]]$
+\form#50:$y[pinv[i]] = x[i]$
+\form#51:$pinv[p[i]] = i$
+\form#52:$Mpp = M(p,p)$
+\form#53:$x(:,col) = x(p,col)$
+\form#54:$M(:,i) = S(i)*M(:,i)$
+\form#55:$M(i,:) = S(i)*M(i,:)$
+\form#56:$M = sM$
+\form#57:$norms(i) = norm(M(:,i), inf)$
+\form#58:$norms(i) = norm(M(i,:), inf)$
+\form#59:$out = M(:,cols)$
+\form#60:$M(:,cols)$
+\form#61:$out = M^T$
+\form#62:$M^T$
+\form#63:$triu(M)$

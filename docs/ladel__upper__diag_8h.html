@@ -73,6 +73,9 @@ $(function() {
 <div class="title">ladel_upper_diag.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Routine to keep only the upper diagonal elements of a (symmetric) matrix.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="ladel__types_8h_source.html">ladel_types.h</a>&quot;</code><br />
 </div>
 <p><a href="ladel__upper__diag_8h_source.html">Go to the source code of this file.</a></p>
@@ -80,9 +83,13 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a7a4946c49cace1648ec43ab05e35b8e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__upper__diag_8h.html#a7a4946c49cace1648ec43ab05e35b8e6">ladel_to_upper_diag</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M)</td></tr>
+<tr class="memdesc:a7a4946c49cace1648ec43ab05e35b8e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return <img class="formulaInl" alt="$triu(M)$" src="form_63.png"/>, that is the upper diagonal elements of <em>M</em>.  <a href="#a7a4946c49cace1648ec43ab05e35b8e6">More...</a><br /></td></tr>
 <tr class="separator:a7a4946c49cace1648ec43ab05e35b8e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p class="">Routine to keep only the upper diagonal elements of a (symmetric) matrix. </p>
+<dl class="section author"><dt>Author</dt><dd>Ben Hermans </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a7a4946c49cace1648ec43ab05e35b8e6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7a4946c49cace1648ec43ab05e35b8e6">&#9670;&nbsp;</a></span>ladel_to_upper_diag()</h2>
 
@@ -98,6 +105,14 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Return <img class="formulaInl" alt="$triu(M)$" src="form_63.png"/>, that is the upper diagonal elements of <em>M</em>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Input matrix, contains only upper diagonal elements on output. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

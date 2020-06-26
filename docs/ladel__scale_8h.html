@@ -73,6 +73,9 @@ $(function() {
 <div class="title">ladel_scale.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Routines to scale the columns and rows of a matrix, or the whole matrix itself.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="ladel__types_8h_source.html">ladel_types.h</a>&quot;</code><br />
 </div>
 <p><a href="ladel__scale_8h_source.html">Go to the source code of this file.</a></p>
@@ -80,17 +83,26 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad41db07fe357231ad3d7ecaaedee118e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__scale_8h.html#ad41db07fe357231ad3d7ecaaedee118e">ladel_scale_columns</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a> *S)</td></tr>
+<tr class="memdesc:ad41db07fe357231ad3d7ecaaedee118e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scales the columns of <em>M</em> with the scalars in <em>S</em>, that is <img class="formulaInl" alt="$M(:,i) = S(i)*M(:,i)$" src="form_54.png"/>.  <a href="#ad41db07fe357231ad3d7ecaaedee118e">More...</a><br /></td></tr>
 <tr class="separator:ad41db07fe357231ad3d7ecaaedee118e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a109d911f90d05fa3bc433ced9657c515"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__scale_8h.html#a109d911f90d05fa3bc433ced9657c515">ladel_scale_rows</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a> *S)</td></tr>
+<tr class="memdesc:a109d911f90d05fa3bc433ced9657c515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scales the rows of <em>M</em> with the scalars in <em>S</em>, that is <img class="formulaInl" alt="$M(i,:) = S(i)*M(i,:)$" src="form_55.png"/>.  <a href="#a109d911f90d05fa3bc433ced9657c515">More...</a><br /></td></tr>
 <tr class="separator:a109d911f90d05fa3bc433ced9657c515"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04049b43395e8509c1d68b16743fd11a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__scale_8h.html#a04049b43395e8509c1d68b16743fd11a">ladel_scale_scalar</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a> s)</td></tr>
+<tr class="memdesc:a04049b43395e8509c1d68b16743fd11a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scales the elements of <em>M</em> with <em>s</em>, that is <img class="formulaInl" alt="$M = sM$" src="form_56.png"/>.  <a href="#a04049b43395e8509c1d68b16743fd11a">More...</a><br /></td></tr>
 <tr class="separator:a04049b43395e8509c1d68b16743fd11a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a730537b3d0d8212495bc8386d149920e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__scale_8h.html#a730537b3d0d8212495bc8386d149920e">ladel_infinity_norm_columns</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a> *norms)</td></tr>
+<tr class="memdesc:a730537b3d0d8212495bc8386d149920e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the column-wise infinity norms, that is <img class="formulaInl" alt="$norms(i) = norm(M(:,i), inf)$" src="form_57.png"/>.  <a href="#a730537b3d0d8212495bc8386d149920e">More...</a><br /></td></tr>
 <tr class="separator:a730537b3d0d8212495bc8386d149920e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c1df053f09ff0061f3fbd25ce465042"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__scale_8h.html#a1c1df053f09ff0061f3fbd25ce465042">ladel_infinity_norm_rows</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#ac9052e1e18b442b104c3ee5dcd86557b">ladel_double</a> *norms)</td></tr>
+<tr class="memdesc:a1c1df053f09ff0061f3fbd25ce465042"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the row-wise infinity norms, that is <img class="formulaInl" alt="$norms(i) = norm(M(i,:), inf)$" src="form_58.png"/>.  <a href="#a1c1df053f09ff0061f3fbd25ce465042">More...</a><br /></td></tr>
 <tr class="separator:a1c1df053f09ff0061f3fbd25ce465042"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p class="">Routines to scale the columns and rows of a matrix, or the whole matrix itself. </p>
+<dl class="section author"><dt>Author</dt><dd>Ben Hermans</dd></dl>
+<p>This also includes routines to compute the row-wise and column-wise infinity norms. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a730537b3d0d8212495bc8386d149920e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a730537b3d0d8212495bc8386d149920e">&#9670;&nbsp;</a></span>ladel_infinity_norm_columns()</h2>
 
@@ -116,6 +128,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Computes the column-wise infinity norms, that is <img class="formulaInl" alt="$norms(i) = norm(M(:,i), inf)$" src="form_57.png"/>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix </td></tr>
+    <tr><td class="paramname">norms</td><td>Output vector of infinity norms </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -145,6 +166,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Computes the row-wise infinity norms, that is <img class="formulaInl" alt="$norms(i) = norm(M(i,:), inf)$" src="form_58.png"/>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix </td></tr>
+    <tr><td class="paramname">norms</td><td>Output vector of infinity norms </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="ad41db07fe357231ad3d7ecaaedee118e"></a>
@@ -172,6 +202,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Scales the columns of <em>M</em> with the scalars in <em>S</em>, that is <img class="formulaInl" alt="$M(:,i) = S(i)*M(:,i)$" src="form_54.png"/>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix </td></tr>
+    <tr><td class="paramname">S</td><td>Array with scale factors for the columns </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -201,6 +240,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Scales the rows of <em>M</em> with the scalars in <em>S</em>, that is <img class="formulaInl" alt="$M(i,:) = S(i)*M(i,:)$" src="form_55.png"/>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix </td></tr>
+    <tr><td class="paramname">S</td><td>Array with scale factors for the rows </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a04049b43395e8509c1d68b16743fd11a"></a>
@@ -228,6 +276,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Scales the elements of <em>M</em> with <em>s</em>, that is <img class="formulaInl" alt="$M = sM$" src="form_56.png"/>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Matrix </td></tr>
+    <tr><td class="paramname">s</td><td>Scaling factor </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

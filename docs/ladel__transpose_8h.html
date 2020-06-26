@@ -73,18 +73,25 @@ $(function() {
 <div class="title">ladel_transpose.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Routine to compute the transpose of a matrix.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="ladel__types_8h_source.html">ladel_types.h</a>&quot;</code><br />
 </div>
 <p><a href="ladel__transpose_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a845563136fc60b07a43605f256455a12"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__transpose_8h.html#a845563136fc60b07a43605f256455a12">ladel_transpose</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, int values, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
-<tr class="separator:a845563136fc60b07a43605f256455a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c04dd6175f366b751057b2f2fcb41d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ladel__transpose_8h.html#a6c04dd6175f366b751057b2f2fcb41d2">ladel_transpose</a> (<a class="el" href="ladel__types_8h.html#a1581a514e7a6bc6f8ba19e265c006dc4">ladel_sparse_matrix</a> *M, <a class="el" href="ladel__types_8h.html#a05486496308d021b6b4f64e8def1f451">ladel_int</a> values, <a class="el" href="ladel__types_8h.html#ac79a56bab66aa14c54fe8de8754e8ab4">ladel_work</a> *work)</td></tr>
+<tr class="memdesc:a6c04dd6175f366b751057b2f2fcb41d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the transpose of a matrix, that is <img class="formulaInl" alt="$out = M^T$" src="form_61.png"/>.  <a href="#a6c04dd6175f366b751057b2f2fcb41d2">More...</a><br /></td></tr>
+<tr class="separator:a6c04dd6175f366b751057b2f2fcb41d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a845563136fc60b07a43605f256455a12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a845563136fc60b07a43605f256455a12">&#9670;&nbsp;</a></span>ladel_transpose()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p class="">Routine to compute the transpose of a matrix. </p>
+<dl class="section author"><dt>Author</dt><dd>Ben Hermans </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a6c04dd6175f366b751057b2f2fcb41d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c04dd6175f366b751057b2f2fcb41d2">&#9670;&nbsp;</a></span>ladel_transpose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -98,7 +105,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="ladel__types_8h.html#a05486496308d021b6b4f64e8def1f451">ladel_int</a>&#160;</td>
           <td class="paramname"><em>values</em>, </td>
         </tr>
         <tr>
@@ -114,6 +121,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Returns the transpose of a matrix, that is <img class="formulaInl" alt="$out = M^T$" src="form_61.png"/>. </p>
+<p class="">If <em>M</em> is a pattern matrix, or if <em>values==FALSE</em>, a pattern matrix is returned with the pattern of <img class="formulaInl" alt="$M^T$" src="form_62.png"/>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">M</td><td>Input matrix </td></tr>
+    <tr><td class="paramname">values</td><td>Flag to indicate value or pattern computation </td></tr>
+    <tr><td class="paramname">work</td><td>LADEL workspace </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><img class="formulaInl" alt="$M^T$" src="form_62.png"/> (or its pattern) </dd></dl>
 
 </div>
 </div>
