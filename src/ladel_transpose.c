@@ -2,7 +2,7 @@
 #include "ladel_global.h"
 #include "ladel_constants.h"
 
-ladel_sparse_matrix *ladel_transpose(ladel_sparse_matrix *M, int values, ladel_work* work)
+ladel_sparse_matrix *ladel_transpose(ladel_sparse_matrix *M, ladel_int values, ladel_work* work)
 {
     if (!M || !work) return NULL;
     ladel_int index;

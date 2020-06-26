@@ -31,7 +31,7 @@ ladel_int ladel_add_nonzero_pattern_to_col_of_L(ladel_sparse_matrix *L, ladel_in
 }
 
 ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set *difference, 
-                            ladel_int *offset, ladel_int *insertions, ladel_int minimum_index)
+                            ladel_int *offset, ladel_int *insertions, ladel_int threshold)
 {
     ladel_int *set1 = first_set->set; 
     ladel_int size_set1 = first_set->size_set; 
@@ -53,7 +53,7 @@ ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set
         for (index2 = 0; index2 < size_set2; index2++)
         {
             row2 = set2[index2];
-            if (row2 <= minimum_index) continue;
+            if (row2 <= threshold) continue;
             insertions[index1] = index1;
             set1[index1] = dif[index1] = row2; 
             index1++;
@@ -68,7 +68,7 @@ ladel_int ladel_set_union(ladel_set *first_set, ladel_set *second_set, ladel_set
     for (index2 = 0; index2 < size_set2; index2++)
     {
         row2 = set2[index2];
-        if (row2 <= minimum_index) continue;
+        if (row2 <= threshold) continue;
 
         for (; index1 < first_set->size_set && row1 < row2; index1++) 
         {
