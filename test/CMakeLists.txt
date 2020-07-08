@@ -24,6 +24,7 @@ add_executable(ladel_run_all_tests
 
 target_include_directories(ladel_run_all_tests
     PRIVATE include
+    include/Minunit
 )
 
 target_link_libraries(ladel_run_all_tests ladel)
