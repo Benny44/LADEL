@@ -2,11 +2,12 @@
 #include "ladel_global.h"
 #include "ladel_upper_diag.h"
 #include "ladel_transpose.h"
-
+#include "ladel_debug_print.h"
 
 void ladel_to_upper_diag(ladel_sparse_matrix *M)
 {
     ladel_int index, row, col, Mptemp, nzM = 0;
+    ladel_sparse_matrix *Mt;
 
     switch (M->symmetry)
     {
@@ -15,7 +16,9 @@ void ladel_to_upper_diag(ladel_sparse_matrix *M)
         __attribute__ ((fallthrough));
     case LOWER:
         /* first transpose the matrix */
-        ladel_transpose(M, TRUE, NULL);
+        Mt = ladel_transpose(M, TRUE, NULL);
+        ladel_sparse_copy(Mt, M);
+        ladel_sparse_free(Mt);
         __attribute__ ((fallthrough));
     default:
         for (col = 0; col < M->ncol; col++)
