@@ -1,28 +1,41 @@
 #include "ladel_types.h"
 #include "ladel_global.h"
 #include "ladel_upper_diag.h"
+#include "ladel_transpose.h"
 
 
 void ladel_to_upper_diag(ladel_sparse_matrix *M)
 {
     ladel_int index, row, col, Mptemp, nzM = 0;
 
-    for (col = 0; col < M->ncol; col++)
+    switch (M->symmetry)
     {
-        Mptemp = M->p[col];
-        M->p[col] = nzM;
-        for (index = Mptemp; index < ((M->nz) ? Mptemp + M->nz[col] : M->p[col+1]); index++)
+    case UPPER:
+        /* do nothing */
+        __attribute__ ((fallthrough));
+    case LOWER:
+        /* first transpose the matrix */
+        ladel_transpose(M, TRUE, NULL);
+        __attribute__ ((fallthrough));
+    default:
+        for (col = 0; col < M->ncol; col++)
         {
-            row = M->i[index];
-            if (row <= col)
+            Mptemp = M->p[col];
+            M->p[col] = nzM;
+            for (index = Mptemp; index < ((M->nz) ? Mptemp + M->nz[col] : M->p[col+1]); index++)
             {
-                M->i[nzM] = row;
-                if (M->values) M->x[nzM] = M->x[index];
-                nzM++;
+                row = M->i[index];
+                if (row <= col)
+                {
+                    M->i[nzM] = row;
+                    if (M->values) M->x[nzM] = M->x[index];
+                    nzM++;
+                }
             }
         }
-    }
-    M->p[M->ncol] = nzM;
-    ladel_sparse_realloc(M, nzM);
-    M->symmetry = UPPER;
+        M->p[M->ncol] = nzM;
+        ladel_sparse_realloc(M, nzM);
+        M->symmetry = UPPER;
+        break;
+    }   
 }
