@@ -37,6 +37,9 @@ option (AMD "Use approximate minimum degree ordering" ON)
 if (AMD)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DDAMD")
 endif (AMD)
+
+option (PYTHON "Compile for python" OFF)
+
 ############################################################
 #################### Build the library #####################
 ############################################################
@@ -93,6 +96,14 @@ else ()
         PUBLIC  ${CMAKE_CURRENT_LIST_DIR}/include)
 
 endif (AMD)
+
+if (PYTHON)
+    find_package(PythonInterp REQUIRED)
+    # We don't really need the libs, but the headers.
+    find_package(PythonLibs 3 REQUIRED)
+    target_include_directories(ladel PUBLIC ${PYTHON_INCLUDE_DIRS})
+    target_link_libraries(ladel ${PYTHON_LIBRARIES})
+endif()
 ############################################################
 #################### Build executables #####################
 ############################################################

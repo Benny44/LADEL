@@ -36,6 +36,35 @@ void *ladel_free(void* p)
     return NULL;
 }
 
+#elif defined PYTHON
+#include <Python.h>
+void *ladel_malloc(ladel_int n, size_t size) 
+{
+    void *m = PyMem_Malloc(LADEL_MAX(n, 1) * size);
+    return m;
+} 
+void *ladel_free(void* p) 
+{
+    if (p) PyMem_Free(p);
+    return NULL;
+}
+void* ladel_realloc(void *p, ladel_int n, size_t size, ladel_int *status) 
+{
+    void *p_new = PyMem_Realloc(p, LADEL_MAX(n, 1) * size);
+    *status = (p_new != NULL);
+    return ((*status) ? p_new : p);
+}
+void* ladel_calloc(ladel_int n, size_t size)
+{
+    #if PY_MAJOR_VERSION >= 3
+    void *m = PyMem_Calloc(LADEL_MAX(n, 1), size);
+    #else
+    void *m = PyMem_Malloc(num * size);
+    memset(m, 0, num * size);
+    #endif
+    return m;
+}
+
 #else
 void *ladel_malloc(ladel_int n, size_t size) 
 {
