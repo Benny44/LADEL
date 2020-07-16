@@ -4,10 +4,15 @@ project(LADEL VERSION 0.1.0)
 ############################################################
 ################## Configure directories ###################
 ############################################################
-SET(LIB_DIR ${CMAKE_CURRENT_BINARY_DIR}/../lib)
+get_directory_property(hasParent PARENT_DIRECTORY)
+if(hasParent)
+  # Assume the relevant directories have been set
+else()
+    SET(LIB_DIR ${CMAKE_CURRENT_BINARY_DIR}/../lib)
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${LIB_DIR})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${LIB_DIR})
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+endif()
 
 ############################################################
 ################### Compilation options ####################
