@@ -50,7 +50,11 @@ ladel_int ladel_ldl_numeric_with_diag(ladel_sparse_matrix *Mpp, ladel_diag d, la
             L->x[index] = L_elem;
         }
         /*Return FAIL if eigenvalue (close to) zero*/
-        if (LADEL_ABS(diag_elem) < 1e-14) return FAIL; 
+        if (LADEL_ABS(diag_elem) < 1e-15) 
+        {
+            ladel_print("LADEL ERROR: MATRIX (POSSIBLY) NOT FULL RANK (diagonal element of %le)\n", diag_elem);
+            return FAIL; 
+        }
 
         D[col] = diag_elem;
         Dinv[col] = 1/diag_elem;

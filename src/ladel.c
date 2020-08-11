@@ -129,7 +129,7 @@ ladel_int ladel_dense_solve(const ladel_factor *LD, const ladel_double *rhs, lad
 
     for (row = 0; row < ncol; row++)
     {
-        for (index = L->p[row]; index <  L->p[row]+L->nz[row]; index++)
+        for (index = L->p[row]; index < L->p[row]+L->nz[row]; index++)
         {
             y[L->i[index]] -= L->x[index]*y[row];
         }
