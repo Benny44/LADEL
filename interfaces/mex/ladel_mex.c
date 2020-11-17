@@ -6,7 +6,7 @@
 
 /* Modes of operation */
 #define MODE_INIT "init"
-#define MODE_FACTORIZE "factorize"
+#define MODE_FACTORIZE_REGULAR "factorize"
 #define MODE_FACTORIZE_ADVANCED "factorize_advanced"
 #define MODE_FACTORIZE_WITH_PRIOR_BASIS "factorize_with_prior_basis"
 #define MODE_ROW_MOD "rowmod"
@@ -59,6 +59,8 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
     if (nrhs < 1 || mxGetString(prhs[0], cmd, sizeof(cmd)))
 		mexErrMsgTxt("First input should be a command string less than 64 characters long.");
 
+    mexPrintf("Command is: %s\n", cmd);
+
     if (strcmp(cmd, MODE_INIT) == 0) 
     {
         /* Warn if other commands were ignored */
@@ -88,7 +90,7 @@ void mexFunction(int nlhs, mxArray * plhs [], int nrhs, const mxArray * prhs [])
         return;
 
     } 
-    else if (strcmp(cmd, MODE_FACTORIZE) == 0)
+    else if (strcmp(cmd, MODE_FACTORIZE_REGULAR) == 0)
     {
         if (nlhs != 0 || (nrhs != 2 && nrhs != 3))
             mexErrMsgTxt("Wrong number of input or output arguments for mode factorize.");
