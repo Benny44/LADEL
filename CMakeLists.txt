@@ -92,6 +92,12 @@ endif (AMD)
 
 add_library(ladel ${SRC})
 
+install(TARGETS ladel
+EXPORT  ${PROJECT_NAME}
+LIBRARY       DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+ARCHIVE       DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}")
+
 if (AMD)
     target_include_directories(ladel
         PUBLIC  ${CMAKE_CURRENT_LIST_DIR}/include 
