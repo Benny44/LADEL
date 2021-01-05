@@ -6,18 +6,15 @@ ladel_sparse_matrix *ladel_transpose(ladel_sparse_matrix *M, ladel_int values, l
 {
     if (!M) return NULL;
     ladel_int *col_pointers, index;
-    if (work) col_pointers = work->array_int_ncol1;
-    else col_pointers = ladel_malloc(M->nrow, sizeof(ladel_int));
-    
-    for (index = 0; index < M->nrow; index++) col_pointers[index] = 0;
 
     ladel_sparse_matrix *M_transpose = ladel_sparse_alloc(M->ncol, M->nrow, M->nzmax, -M->symmetry, values && M->values, FALSE);
-    
-    if (!M_transpose) 
-    {
-        if (!work) ladel_free(col_pointers);
-        return NULL; 
-    }
+
+    if (!M_transpose) return NULL; 
+    if (M->nzmax == 0) return M_transpose; //Empty matrix, so no work left
+
+    if (work) col_pointers = work->array_int_ncol1;
+    else col_pointers = ladel_malloc(M->nrow, sizeof(ladel_int));
+    for (index = 0; index < M->nrow; index++) col_pointers[index] = 0;
 
     ladel_int col, new_index, prev_col_count;
     for (col = 0; col < M->ncol; col++)

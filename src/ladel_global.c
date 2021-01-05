@@ -113,7 +113,8 @@ ladel_sparse_matrix *ladel_sparse_alloc(ladel_int nrow, ladel_int ncol,
     M->nzmax = nzmax;
     M->values = values;
     M->symmetry = symmetry;
-    M->p = (ladel_int *) ladel_malloc(ncol+1, sizeof(ladel_int));
+    if (M->nzmax) M->p = (ladel_int *) ladel_malloc(ncol+1, sizeof(ladel_int));
+    else M->p = (ladel_int *) ladel_calloc(ncol+1, sizeof(ladel_int)); //Initialize col counts to zero for empty matrix
     M->i = (ladel_int *) ladel_malloc(nzmax, sizeof(ladel_int));
     M->x = values ? (ladel_double *) ladel_malloc(nzmax, sizeof(ladel_double)) : NULL;
     M->nz = nz ? (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int)) : NULL;
