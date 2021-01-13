@@ -92,6 +92,10 @@ endif (AMD)
 
 add_library(ladel ${SRC})
 
+if ("${CMAKE_INSTALL_LIBDIR}" STREQUAL "")
+SET(CMAKE_INSTALL_LIBDIR  ${LIB_DIR})
+endif()
+
 install(TARGETS ladel
 EXPORT  ${PROJECT_NAME}
 LIBRARY       DESTINATION "${CMAKE_INSTALL_LIBDIR}"
