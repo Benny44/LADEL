@@ -44,26 +44,17 @@ extern "C" {
 
 #include <limits.h>
 #include <stdlib.h>
-
+#include "ladel_types.h"
 /* ========================================================================== */
 /* === SuiteSparse_long ===================================================== */
 /* ========================================================================== */
 
 #ifndef SuiteSparse_long
 
-#ifdef _WIN64
-
-#define SuiteSparse_long __int64
-#define SuiteSparse_long_max _I64_MAX
-#define SuiteSparse_long_idd "I64d"
-
-#else
-
-#define SuiteSparse_long long
+#define SuiteSparse_long long long
 #define SuiteSparse_long_max LONG_MAX
-#define SuiteSparse_long_idd "ld"
+#define SuiteSparse_long_idd "lld"
 
-#endif
 #define SuiteSparse_long_id "%" SuiteSparse_long_idd
 #endif
 
@@ -128,28 +119,28 @@ void *SuiteSparse_free      /* always returns NULL */
 
 void SuiteSparse_tic    /* start the timer */
 (
-    double tic [2]      /* output, contents undefined on input */
+    ladel_double tic [2]      /* output, contents undefined on input */
 ) ;
 
-double SuiteSparse_toc  /* return time in seconds since last tic */
+ladel_double SuiteSparse_toc  /* return time in seconds since last tic */
 (
-    double tic [2]      /* input: from last call to SuiteSparse_tic */
+    ladel_double tic [2]      /* input: from last call to SuiteSparse_tic */
 ) ;
 
-double SuiteSparse_time  /* returns current wall clock time in seconds */
+ladel_double SuiteSparse_time  /* returns current wall clock time in seconds */
 (
     void
 ) ;
 
 /* returns sqrt (x^2 + y^2), computed reliably */
-double SuiteSparse_hypot (double x, double y) ;
+ladel_double SuiteSparse_hypot (ladel_double x, ladel_double y) ;
 
 /* complex division of c = a/b */
 int SuiteSparse_divcomplex
 (
-    double ar, double ai,	/* real and imaginary parts of a */
-    double br, double bi,	/* real and imaginary parts of b */
-    double *cr, double *ci	/* real and imaginary parts of c */
+	ladel_double ar, ladel_double ai,	/* real and imaginary parts of a */
+	ladel_double br, ladel_double bi,	/* real and imaginary parts of b */
+	ladel_double *cr, ladel_double *ci	/* real and imaginary parts of c */
 ) ;
 
 /* determine which timer to use, if any */

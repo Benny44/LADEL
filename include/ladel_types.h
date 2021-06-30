@@ -14,9 +14,9 @@
 #endif
 
 #ifdef DLONG
-    typedef long ladel_int; /**< Type for integer numbers (default: long) */
+    typedef long long ladel_int; /**< Type for integer numbers (default: long long) */
 #else
-    typedef int ladel_int; /**< Type for integer numbers (default: long) */
+    typedef int ladel_int; /**< Type for integer numbers (default: long long) */
 #endif
 
 /**

@@ -64,6 +64,7 @@ void *ladel_realloc(void        *p,
 #include "mex.h"
 #define ladel_print mexPrintf
 #else
+#include <stdio.h>
 #define ladel_print printf /**< Print function (for mex or for regular C) */
 #endif
 
