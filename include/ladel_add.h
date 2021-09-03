@@ -9,6 +9,10 @@
 #ifndef LADEL_ADD_H
 #define LADEL_ADD_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 
 /**
@@ -57,5 +61,9 @@ ladel_sparse_matrix *ladel_add_matrices_advanced(   ladel_double        alpha,
                                                     ladel_sparse_matrix *B, 
                                                     ladel_int           values, 
                                                     ladel_work          *work);
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /* LADEL_ADD_H */

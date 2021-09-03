@@ -7,6 +7,14 @@
 #ifndef LADEL_ROW_MOD_H
 #define LADEL_ROW_MOD_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LADEL_ROW_MOD_H*/

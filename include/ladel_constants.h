@@ -7,6 +7,10 @@
 #ifndef LADEL_CONSTANTS_H
 #define LADEL_CONSTANTS_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 /**
  * @name Constants
  * @{
@@ -63,5 +67,9 @@
 /**
  * @}
  */
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LADEL_CONSTANTS_H*/

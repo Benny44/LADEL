@@ -9,6 +9,10 @@
 #ifndef LADEL_PATTERN_H
 #define LADEL_PATTERN_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 
 /**
@@ -44,5 +48,9 @@ ladel_int ladel_etree_dfs(  ladel_sparse_matrix *W,
                             ladel_symbolics     *sym,
                             ladel_int           col_in_W,
                             ladel_int           maximum_row);
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LADEL_PATTERN_H*/

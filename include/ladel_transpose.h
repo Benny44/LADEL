@@ -7,6 +7,10 @@
 #ifndef LADEL_TRANSPOSE_H
 #define LADEL_TRANSPOSE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 
 /**
@@ -23,5 +27,9 @@
 ladel_sparse_matrix *ladel_transpose(   ladel_sparse_matrix *M, 
                                         ladel_int           values, 
                                         ladel_work          *work);
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LADEL_TRANSPOSE_H*/

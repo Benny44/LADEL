@@ -12,6 +12,10 @@
 #ifndef LADEL_H
 #define LADEL_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_col_counts.h"
 #include "ladel_constants.h"
 #include "ladel_copy.h"
@@ -250,5 +254,9 @@ ladel_int ladel_row_del(ladel_factor    *LD,
 /**
  * @}
  */
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LADEL_H*/

@@ -7,6 +7,10 @@
 #ifndef LADEL_PERMUTATION_H
 #define LADEL_PERMUTATION_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 
 /**
@@ -71,5 +75,9 @@ void ladel_permute_sparse_vector(   ladel_sparse_matrix *x,
                                     ladel_int           col, 
                                     ladel_int           *p, 
                                     ladel_work          *work);
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LADEL_PERMUTATION_H*/

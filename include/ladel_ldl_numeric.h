@@ -7,6 +7,10 @@
 #ifndef LDL_NUMERIC_H
 #define LDL_NUMERIC_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 
 /**
@@ -38,5 +42,9 @@ ladel_int ladel_ldl_numeric(ladel_sparse_matrix *Mpp,
                             ladel_symbolics     *sym, 
                             ladel_factor        *LD, 
                             ladel_work          *work);
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LDL_NUMERIC_H*/

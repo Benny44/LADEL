@@ -8,6 +8,10 @@
 #ifndef LADEL_POSTORDER_H
 #define LADEL_POSTORDER_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 
 /**
@@ -23,5 +27,9 @@
 ladel_int ladel_postorder(  ladel_sparse_matrix *M, 
                             ladel_symbolics     *sym, 
                             ladel_work          *work);
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LADEL_POSTORDER_H*/

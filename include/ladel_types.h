@@ -7,6 +7,10 @@
 #ifndef LADEL_TYPES_H
 #define LADEL_TYPES_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #ifdef DFLOAT
     typedef float ladel_double; /**< Type for floating point numbers (default: double) */
 #else
@@ -113,5 +117,9 @@ typedef struct workspace
     ladel_double *array_double_all_zeros_ncol1; /**< An array of @a ncol doubles, on input and output this should be all zeros */
     ladel_double *array_double_ncol1;           /**< An array of @a ncol doubles */
 } ladel_work;
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LADEL_TYPES_H*/

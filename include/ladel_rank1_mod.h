@@ -9,6 +9,10 @@
 #ifndef LADEL_RANK1_MOD_H
 #define LADEL_RANK1_MOD_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 
 /**
@@ -53,5 +57,9 @@ ladel_int ladel_set_union(  ladel_set *first_set,
                             ladel_int *offset, 
                             ladel_int *insertions, 
                             ladel_int threshold);
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif

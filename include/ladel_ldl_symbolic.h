@@ -7,6 +7,10 @@
 #ifndef LADEL_LDL_SYMBOLIC_H
 #define LADEL_LDL_SYMBOLIC_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 
 /**
@@ -24,5 +28,9 @@ ladel_int ladel_ldl_symbolic(   ladel_sparse_matrix *M,
                                 ladel_int           ordering_method, 
                                 ladel_sparse_matrix *Mpp, 
                                 ladel_work          *work);
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LADEL_LDL_SYMBOLIC_H*/

@@ -7,6 +7,10 @@
 #ifndef LADEL_GLOBAL_H
 #define LADEL_GLOBAL_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 #include "ladel_constants.h"
 #include "ladel_copy.h"
@@ -198,5 +202,9 @@ ladel_work *ladel_workspace_free(ladel_work* work);
  */
 ladel_work *ladel_workspace_allocate(ladel_int ncol);
 
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LADEL_GLOBAL_H*/

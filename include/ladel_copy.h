@@ -7,6 +7,10 @@
 #ifndef LADEL_COPY_H
 #define LADEL_COPY_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 
 /**
@@ -50,5 +54,9 @@ void ladel_int_vector_copy( ladel_int *x,
 void ladel_double_vector_copy(  ladel_double    *x, 
                                 ladel_int       size, 
                                 ladel_double    *y);
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LADEL_COPY_H*/

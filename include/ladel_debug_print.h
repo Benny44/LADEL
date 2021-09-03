@@ -8,6 +8,10 @@
 #ifndef LADEL_DEBUG_PRINT_H
 #define LADEL_DEBUG_PRINT_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_global.h"
 #include "ladel_types.h"
 
@@ -61,5 +65,9 @@ void ladel_print_factor_matlab(ladel_factor *LD);
  * @param set   Set to be printed
  */
 void ladel_print_set(ladel_set *set);
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif

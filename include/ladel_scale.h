@@ -8,6 +8,10 @@
 #ifndef LADEL_SCALE_H
 #define LADEL_SCALE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 
 /**
@@ -55,5 +59,9 @@ void ladel_infinity_norm_columns(   ladel_sparse_matrix *M,
 void ladel_infinity_norm_rows(  ladel_sparse_matrix *M, 
                                 ladel_double        *norms);
 
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LADEL_SCALE_H*/

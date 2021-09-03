@@ -8,6 +8,10 @@
 #ifndef LADEL_MATMAT_H
 #define LADEL_MATMAT_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 
 /**
@@ -64,5 +68,9 @@ ladel_sparse_matrix *ladel_mat_mat_transpose_advanced(  ladel_sparse_matrix *M,
                                                         ladel_double        *diag, 
                                                         ladel_int           values, 
                                                         ladel_work          *work);
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /* LADEL_MATMAT_H */

@@ -10,6 +10,10 @@
 #ifndef LADEL_ETREE_H
 #define LADEL_ETREE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 /**
  * Computes the elimination tree of a matrix.
@@ -42,5 +46,9 @@ ladel_int ladel_etree_and_col_counts(   ladel_sparse_matrix *M,
                                         ladel_symbolics     *sym, 
                                         ladel_work          *work);
 #endif
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /*LADEL_ETREE_H*/

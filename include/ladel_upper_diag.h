@@ -7,6 +7,10 @@
 #ifndef LADEL_UPPER_DIAG
 #define LADEL_UPPER_DIAG
 
+#ifdef __cplusplus
+extern "C" {
+#endif 
+
 #include "ladel_types.h"
 
 /**
@@ -15,5 +19,9 @@
  * @param M Input matrix, contains only upper diagonal elements on output.
  */
 void ladel_to_upper_diag(ladel_sparse_matrix *M);
+
+#ifdef __cplusplus
+}
+#endif 
 
 #endif /* LADEL_UPPER_DIAG */
