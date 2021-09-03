@@ -111,13 +111,14 @@ ladel_sparse_matrix *ladel_sparse_alloc(ladel_int nrow, ladel_int ncol,
     M->nrow = nrow;
     M->ncol = ncol;
     M->nzmax = nzmax;
+    nzmax = LADEL_MAX(nzmax, 1);
     M->values = values;
     M->symmetry = symmetry;
     if (M->nzmax) M->p = (ladel_int *) ladel_malloc(ncol+1, sizeof(ladel_int));
     else M->p = (ladel_int *) ladel_calloc(ncol+1, sizeof(ladel_int)); //Initialize col counts to zero for empty matrix
     M->i = (ladel_int *) ladel_malloc(nzmax, sizeof(ladel_int));
     M->x = values ? (ladel_double *) ladel_malloc(nzmax, sizeof(ladel_double)) : NULL;
-    M->nz = nz ? (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int)) : NULL;
+    M->nz = (nz && ncol) ? (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int)) : NULL;
     if (!M->p || !M->i || (values && !M->x) || (nz && !M->nz)) M = ladel_sparse_free(M);
     return M;
 }
@@ -136,7 +137,7 @@ ladel_sparse_matrix *ladel_sparse_alloc_empty(ladel_int nrow, ladel_int ncol,
     M->p = (ladel_int *) ladel_calloc(ncol+1, sizeof(ladel_int));
     M->i = (ladel_int *) ladel_malloc(1, sizeof(ladel_int));
     M->x = values ? (ladel_double *) ladel_malloc(1, sizeof(ladel_double)) : NULL;
-    M->nz = nz ? (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int)) : NULL;
+    M->nz = (nz && ncol) ? (ladel_int *) ladel_malloc(ncol, sizeof(ladel_int)) : NULL;
     if (!M->p || !M->i || (values && !M->x) || (nz && !M->nz)) M = ladel_sparse_free(M);
     return M;
 }
