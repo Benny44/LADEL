@@ -1,5 +1,13 @@
 # LADEL
-Quasidefinite sparse LDL factorization package with rank 1 updates and (symmetric) row/column adds and deletes. 
+Quasidefinite sparse LDL factorization package with rank 1 updates and (symmetric) row/column additions and deletes. 
+
+| **LADEL is now maintained at [kul-optec/LADEL](https://github.com/kul-optec/LADEL)** |
+|:---:|
+
+---
+
+<details>
+<summary>View the original README</summary>
 
 ## Documentation
 
@@ -15,3 +23,5 @@ LADEL contains an implementation of several sparse matrix routines outlined in (
 ## References
 * Amestoy, Patrick R., Timothy A. Davis, and Iain S. Duff. "Algorithm 837: AMD, an approximate minimum degree ordering algorithm." ACM Transactions on Mathematical Software (TOMS) 30.3 (2004): 381-388.
 * Davis, Timothy A. Direct Methods for Sparse Linear Systems. Philadelphia: SIAM, 2006. Print. Fundamentals and Algorithms.
+  
+  </details>
